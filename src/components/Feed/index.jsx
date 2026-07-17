@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProductsThunk } from "../../thunkActionsCreator/productsThunks";
 import { fetchCategoriesThunk } from "../../thunkActionsCreator/categoriesThunks";
 import { addProductToCart } from "../../thunkActionsCreator/cartThunks";
+import { deleteProductFromCart } from "../../thunkActionsCreator/cartThunks";
 
 export default function Feed() {
   const dispatch = useDispatch();
@@ -63,7 +64,13 @@ export default function Feed() {
       }),
     );
   };
-
+  const deleteProduct = (itemKey) => {
+    dispatch(
+      deleteProductFromCart({
+        itemKey,
+      }),
+    );
+  };
   return (
     <div className="feed-container">
       <span ref={feedContainerRef}></span>

@@ -64,3 +64,44 @@ export const addProductToCart = createAsyncThunk(
     }
   },
 );
+
+export const deleteProductFromCart = createAsyncThunk(
+  "cart/deleteProduct",
+  async ({ itemKey }, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const currentNonce = state.cart.nonce;
+
+      if (!currentNonce) {
+        throw new Error("Jeton de session manquant.");
+      }
+      console.log(itemKey);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/wp-json/wc/store/v1/cart/remove-item`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Nonce: currentNonce,
+          },
+          body: JSON.stringify({ key: itemKey }),
+        },
+      );
+
+      if (!response.ok)
+        throw new Error("Impossible de supprimer l'article du panier.");
+
+      // Si WooCommerce renouvelle le jeton dans la réponse, on met à jour le store et le localStorage
+      const nextNonce = response.headers.get("Nonce");
+      if (nextNonce && nextNonce !== currentNonce) {
+        thunkAPI.dispatch(setNonce(nextNonce));
+      }
+
+      const cartData = await response.json();
+      thunkAPI.dispatch(setCart(cartData));
+      return cartData;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  },
+);
