@@ -117,34 +117,35 @@ export const substractProductFromCart = createAsyncThunk(
         throw new Error("Jeton de session manquant.");
       }
 
+      let url = "";
+      let body = {};
+
       if (quantity > 1) {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/wp-json/wc/store/v1/cart/update-item`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Nonce: currentNonce,
-            },
-            body: JSON.stringify({
-              key: itemKey,
-              quantity: quantity - 1,
-            }),
+        url = `${import.meta.env.VITE_API_URL}/wp-json/wc/store/v1/cart/update-item`;
+        body = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Nonce: currentNonce,
           },
-        );
+          body: JSON.stringify({
+            key: itemKey,
+            quantity: quantity - 1,
+          }),
+        };
       } else {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/wp-json/wc/store/v1/cart/remove-item`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Nonce: currentNonce,
-            },
-            body: JSON.stringify({ key: itemKey }),
+        url = `${import.meta.env.VITE_API_URL}/wp-json/wc/store/v1/cart/remove-item`;
+        body = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Nonce: currentNonce,
           },
-        );
+          body: JSON.stringify({ key: itemKey }),
+        };
       }
+
+      const response = await fetch(url, body);
 
       if (!response.ok) throw new Error("Impossible de modifier l'article.");
 
