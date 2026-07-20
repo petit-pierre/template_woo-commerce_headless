@@ -63,20 +63,19 @@ export default function Feed() {
       }),
     );
   };
-
   return (
     <div className="feed-container">
       <span ref={feedContainerRef}></span>
       {items.map((product) => (
         <div key={product.id}>
-          <p>{product.name}</p>
+          <p dangerouslySetInnerHTML={{ __html: product.name }}></p>
           <img src={product.images[0]?.src} alt={product.name} />
           <button onClick={() => addProduct(product.id, 1, [])}>+</button>
         </div>
       ))}
       {hasMore && !loading && (
         <div className="load-more">
-          <span ref={loadMoreRef}>Voir plus (ou déclencher au scroll)</span>
+          <span ref={loadMoreRef}></span>
         </div>
       )}
       {loading && <p>Chargement...</p>}
