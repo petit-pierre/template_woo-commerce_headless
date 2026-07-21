@@ -10,20 +10,28 @@ import { cartSlice } from "./slices/cartSlice";
 import { productsSlice } from "./slices/productSlice";
 import { categoriesSlice } from "./slices/categoriesSlice";
 import { filtersSlice } from "./slices/filtersSlice";
+import { userSlice } from "./slices/userSlice";
+import { pagesSlice } from "./slices/pagesSlice";
 
 import { initializeCartThunk } from "./thunkActionsCreator/cartThunks";
 
 import Store from "./pages/Store";
 import Header from "./components/Header";
 import Error404 from "./pages/Error404";
+import MentionsLegales from "./pages/MentionsLegales";
+import CGU from "./pages/CGU";
+import CGV from "./pages/CGV";
+import User from "./pages/User";
+import Cart from "./pages/Cart";
 
 const store = configureStore({
   reducer: {
-    //user: userReducer,
+    user: userSlice.reducer,
     cart: cartSlice.reducer,
     categories: categoriesSlice.reducer,
     products: productsSlice.reducer,
     filters: filtersSlice.reducer,
+    pages: pagesSlice.reducer,
   },
 });
 
@@ -37,10 +45,16 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         v7_startTransition: true,
         v7_relativeSplatPath: true,
       }}
+      //basename="/ecom"
     >
       <Header />
       <Routes>
         <Route path="/" element={<Store />} />
+        <Route path="/mentions-legales" element={<MentionsLegales />} />
+        <Route path="/cgu" element={<CGU />} />
+        <Route path="/cgv" element={<CGV />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/user" element={<User />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
     </Router>
