@@ -2,6 +2,8 @@ import "./index.css";
 
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+// Importation ajoutée pour la navigation sans recharger la page
+import { Link } from "react-router-dom";
 
 import { fetchProductsThunk } from "../../thunkActionsCreator/productsThunks";
 import { fetchCategoriesThunk } from "../../thunkActionsCreator/categoriesThunks";
@@ -69,8 +71,18 @@ export default function Feed() {
       {items.map((product) => (
         <div key={product.id}>
           <p dangerouslySetInnerHTML={{ __html: product.name }}></p>
-          <img src={product.images[0]?.src} alt={product.name} />
+          
+          {/* Lien ajouté sur l'image pour naviguer vers les détails du produit */}
+          <Link to={`/product/${product.id}`}>
+            <img src={product.images[0]?.src} alt={product.name} />
+          </Link>
+          
           <button onClick={() => addProduct(product.id, 1, [])}>+</button>
+          
+          {/* Bouton ajouté pour voir les détails du produit */}
+          <Link to={`/product/${product.id}`} className="view-details-btn">
+            Voir les détails
+          </Link>
         </div>
       ))}
       {hasMore && !loading && (
