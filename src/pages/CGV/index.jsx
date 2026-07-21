@@ -1,3 +1,3 @@
-export function CGV() {
-    return ("CGV");
+export default function CGV() {
+  return ("CGV");
 }

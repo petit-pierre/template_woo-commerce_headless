@@ -1,3 +1,3 @@
-export function MentionsLegales() {
-    return ("Mentions Légales");
+export default function MentionsLegales() {
+  return ("Mentions Légales");
 }
