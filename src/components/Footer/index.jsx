@@ -7,7 +7,6 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer_grid">
-
         <div className="footer_col">
           <h6 className="footer_col-title">À propos</h6>
           <ul className="footer_links">
@@ -32,7 +31,7 @@ export default function Footer() {
       </div>
 
       <div className="footer_bottom">
-        <p>© {new Date().getFullYear()} Méo. Tous droits réservés.</p>
+        <p>© {new Date().getFullYear()} La Forge. Tous droits réservés.</p>
       </div>
     </footer>
   );

@@ -1,14 +1,15 @@
 import "./index.css";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilters } from "../../slices/filtersSlice";
-import Filters from "../Filters";
+import { useNavigate } from "react-router-dom";
 import { fetchProductsThunk } from "../../thunkActionsCreator/productsThunks";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { list, loading, error } = useSelector((state) => state.products);
   //const search = useSelector((state) => state.filters.search);
@@ -20,6 +21,10 @@ export default function Header() {
 
   const handleSearchChange = (e) => {
     dispatch(setFilters({ search: e.target.value }));
+  };
+
+  const handleSearchRedirect = (e) => {
+    if (e.key === "Enter") navigate("/catalogue");
   };
 
   const closeMenu = () => setMenuOpen(false);
@@ -79,8 +84,13 @@ export default function Header() {
             placeholder="Rechercher..."
             value={filters.search}
             onChange={handleSearchChange}
+            onKeyDown={handleSearchRedirect}
             aria-label="Rechercher"
           />
+
+          <Link to="/catalogue" className="header-icon" aria-label="Recherche">
+            🔍
+          </Link>
 
           <Link to="/profil" className="header-icon" aria-label="Profil">
             👤

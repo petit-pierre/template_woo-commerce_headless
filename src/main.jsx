@@ -14,8 +14,11 @@ import { userSlice } from "./slices/userSlice";
 import { pagesSlice } from "./slices/pagesSlice";
 
 import { initializeCartThunk } from "./thunkActionsCreator/cartThunks";
+import { fetchCurrentUserThunk } from "./thunkActionsCreator/userThunks";
 
 import Store from "./pages/Store";
+import Login from "./pages/login";
+import Register from "./pages/register";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Error404 from "./pages/Error404";
@@ -38,6 +41,10 @@ const store = configureStore({
 
 store.dispatch(initializeCartThunk());
 
+if (store.getState().user.token) {
+  store.dispatch(fetchCurrentUserThunk());
+}
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
   <Provider store={store}>
@@ -50,12 +57,15 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     >
       <Header />
       <Routes>
+        {/* <Route path="/" element={<Store />} /> */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         {/* <Route path="/" element={<Home />} /> */}
         <Route path="/catalogue" element={<Store />} />
         <Route path="/mentions-legales" element={<MentionsLegales />} />
         <Route path="/cgu" element={<CGU />} />
         <Route path="/cgv" element={<CGV />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/panier" element={<Cart />} />
         <Route path="/user" element={<User />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
