@@ -1,3 +1,5 @@
+import PageContent from "../../components/PageContent";
+
 export default function CGU() {
-  return <></>;
+  return <PageContent slug="conditions-generales-dutilisation-cgu" />;
 }

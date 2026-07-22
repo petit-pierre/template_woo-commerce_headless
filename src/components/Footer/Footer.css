@@ -1,5 +1,7 @@
-.footer {
-  text-align: center;
+.footer_grid {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
 }
 
 .footer_links {

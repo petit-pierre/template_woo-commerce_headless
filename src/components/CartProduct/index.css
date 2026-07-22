@@ -1,0 +1,8 @@
+.cart-product-list {
+  display: flex;
+  gap: 10px;
+}
+.cart-product-thumbnail {
+  width: 100px;
+  height: 100px;
+}/*# sourceMappingURL=index.css.map */
