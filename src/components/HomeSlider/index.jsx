@@ -56,7 +56,7 @@ export default function HomeSlider() {
   }, []);
 
   useEffect(() => {
-    // Sur mobile, le défilement horizontal automatique est un dark pattern
+
     // (contenu qui bouge sans action de l'utilisateur) : uniquement les
     // boutons y font avancer le slider.
     if (total === 0 || isDragging || isMobile) return;
