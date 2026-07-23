@@ -8,6 +8,7 @@ import { addProductToCart } from "../../thunkActionsCreator/cartThunks";
 
 const CARD_WIDTH = 160;
 const GAP = 16;
+const STEP = CARD_WIDTH + GAP;
 const VIEWPORT_WIDTH = CARD_WIDTH * 3 + GAP * 2;
 
 export default function HomeSlider() {
@@ -31,19 +32,19 @@ export default function HomeSlider() {
   }, [dispatch]);
 
   const products = list?.data || [];
+  const total = products.length;
 
-  const goNext = () => {
-    setCurrentIndex((i) => (i + 1) % products.length);
+  const moveBy = (steps) => {
+    setCurrentIndex((i) => (((i + steps) % total) + total) % total);
   };
-  const goPrev = () => {
-    setCurrentIndex((i) => (i - 1 + products.length) % products.length);
-  };
+  const goNext = () => moveBy(1);
+  const goPrev = () => moveBy(-1);
 
   useEffect(() => {
-    if (products.length === 0 || isDragging) return;
+    if (total === 0 || isDragging) return;
     const interval = setInterval(goNext, 4000);
     return () => clearInterval(interval);
-  }, [products.length, isDragging]);
+  }, [total, isDragging]);
 
   const addProduct = (productId) => {
     dispatch(addProductToCart({ productId, quantity: 1, variation: [] }));
@@ -62,25 +63,26 @@ export default function HomeSlider() {
 
   const endDrag = () => {
     if (!isDragging) return;
-    const threshold = CARD_WIDTH / 3;
-    if (dragOffset > threshold) goPrev();
-    else if (dragOffset < -threshold) goNext();
+    const steps = Math.round(-dragOffset / STEP);
+    if (steps !== 0) moveBy(steps);
     setDragOffset(0);
     setIsDragging(false);
   };
 
   if (loading) return <p>Chargement...</p>;
-  if (products.length === 0) return null;
+  if (total === 0) return null;
 
-  // Le passage du dernier produit au premier (et inversement) ne doit pas
-  // animer tout le long du track : on coupe la transition juste sur ce saut.
-  const wrapped =
-    (prevIndexRef.current === products.length - 1 && currentIndex === 0) ||
-    (prevIndexRef.current === 0 && currentIndex === products.length - 1);
+  // Un saut qui traverse la limite du tableau (dernier -> premier ou
+  // inversement) ne doit pas s'animer sur toute la largeur du track.
+  const wrapped = Math.abs(currentIndex - prevIndexRef.current) > total / 2;
   prevIndexRef.current = currentIndex;
 
-  const baseOffset =
-    VIEWPORT_WIDTH / 2 - CARD_WIDTH / 2 - currentIndex * (CARD_WIDTH + GAP);
+  // On ajoute le dernier produit avant le premier et le premier après le
+  // dernier, pour que l'aperçu soit correct même aux deux extrémités.
+  const extended = [products[total - 1], ...products, products[0]];
+  const slotIndex = currentIndex + 1;
+
+  const baseOffset = VIEWPORT_WIDTH / 2 - CARD_WIDTH / 2 - slotIndex * STEP;
 
   return (
     <div className="home-slider">
@@ -98,16 +100,14 @@ export default function HomeSlider() {
           className="home-slider-track"
           style={{
             transform: `translateX(${baseOffset + dragOffset}px)`,
-            transition:
-              isDragging || wrapped ? "none" : "transform 0.4s ease",
+            transition: isDragging || wrapped ? "none" : "transform 0.4s ease",
           }}
         >
-          {products.map((product, index) => (
+          {extended.map((product, index) => (
             <div
-              key={product.id}
+              key={`slot-${index}`}
               className={
-                "home-slider-product" +
-                (index === currentIndex ? " active" : "")
+                "home-slider-product" + (index === slotIndex ? " active" : "")
               }
               style={{ width: CARD_WIDTH }}
             >
@@ -120,7 +120,7 @@ export default function HomeSlider() {
                 <p dangerouslySetInnerHTML={{ __html: product.name }}></p>
                 <p dangerouslySetInnerHTML={{ __html: product.price_html }}></p>
               </Link>
-              {index === currentIndex && (
+              {index === slotIndex && (
                 <button onClick={() => addProduct(product.id)}>
                   Ajouter au panier
                 </button>
