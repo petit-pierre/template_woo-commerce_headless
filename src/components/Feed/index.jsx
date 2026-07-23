@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { fetchProductsThunk } from "../../thunkActionsCreator/productsThunks";
 import { fetchCategoriesThunk } from "../../thunkActionsCreator/categoriesThunks";
+import { addProductToCart } from "../../thunkActionsCreator/cartThunks";
 
 export default function Feed() {
   const dispatch = useDispatch();
@@ -53,18 +54,28 @@ export default function Feed() {
     }
   };
 
+  const addProduct = (productId, quantity, variation) => {
+    dispatch(
+      addProductToCart({
+        productId,
+        quantity,
+        variation,
+      }),
+    );
+  };
   return (
     <div className="feed-container">
       <span ref={feedContainerRef}></span>
       {items.map((product) => (
         <div key={product.id}>
-          <p>{product.name}</p>
+          <p dangerouslySetInnerHTML={{ __html: product.name }}></p>
           <img src={product.images[0]?.src} alt={product.name} />
+          <button onClick={() => addProduct(product.id, 1, [])}>+</button>
         </div>
       ))}
       {hasMore && !loading && (
         <div className="load-more">
-          <span ref={loadMoreRef}>Voir plus (ou déclencher au scroll)</span>
+          <span ref={loadMoreRef}></span>
         </div>
       )}
       {loading && <p>Chargement...</p>}
