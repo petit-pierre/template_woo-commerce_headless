@@ -17,7 +17,10 @@ export default function HomeSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [transitionDuration, setTransitionDuration] = useState(0.4);
   const dragStartX = useRef(0);
+  const lastMove = useRef({ x: 0, t: 0 });
+  const velocity = useRef(0);
   const prevIndexRef = useRef(0);
 
   useEffect(() => {
@@ -34,8 +37,9 @@ export default function HomeSlider() {
   const products = list?.data || [];
   const total = products.length;
 
-  const moveBy = (steps) => {
+  const moveBy = (steps, duration = 0.4) => {
     setCurrentIndex((i) => (((i + steps) % total) + total) % total);
+    setTransitionDuration(duration);
   };
   const goNext = () => moveBy(1);
   const goPrev = () => moveBy(-1);
@@ -54,17 +58,33 @@ export default function HomeSlider() {
     if (e.pointerType !== "mouse") return;
     setIsDragging(true);
     dragStartX.current = e.clientX;
+    lastMove.current = { x: e.clientX, t: performance.now() };
+    velocity.current = 0;
   };
 
   const handlePointerMove = (e) => {
     if (!isDragging || e.pointerType !== "mouse") return;
+    const now = performance.now();
+    const dt = now - lastMove.current.t;
+    if (dt > 0) {
+      velocity.current = (e.clientX - lastMove.current.x) / dt;
+    }
+    lastMove.current = { x: e.clientX, t: now };
     setDragOffset(e.clientX - dragStartX.current);
   };
 
   const endDrag = () => {
     if (!isDragging) return;
-    const steps = Math.round(-dragOffset / STEP);
-    if (steps !== 0) moveBy(steps);
+    // On projette la position sur la vitesse relevée juste avant le
+    // relâchement : un flick rapide continue sur son élan (plus de
+    // produits, animation plus longue) même si la distance glissée est
+    // courte ; un glissement lent s'arrête net au produit le plus proche.
+    const MOMENTUM_MS = 200;
+    const projectedOffset = dragOffset + velocity.current * MOMENTUM_MS;
+    const steps = Math.round(-projectedOffset / STEP);
+    const duration = Math.min(0.3 + Math.abs(steps) * 0.1, 1.2);
+    if (steps !== 0) moveBy(steps, duration);
+    else setTransitionDuration(0.3);
     setDragOffset(0);
     setIsDragging(false);
   };
@@ -100,7 +120,10 @@ export default function HomeSlider() {
           className="home-slider-track"
           style={{
             transform: `translateX(${baseOffset + dragOffset}px)`,
-            transition: isDragging || wrapped ? "none" : "transform 0.4s ease",
+            transition:
+              isDragging || wrapped
+                ? "none"
+                : `transform ${transitionDuration}s ease-out`,
           }}
         >
           {extended.map((product, index) => (
