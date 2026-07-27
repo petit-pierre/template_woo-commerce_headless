@@ -11,10 +11,15 @@ function stripHtml(value = "") {
 export const fetchBlogDataThunk = createAsyncThunk(
   "blog/fetchData",
   async (params = {}, thunkAPI) => {
-    try {
-      const page = Number(params.page || 1);
-      const perPage = Number(params.perPage || 6);
+    const state = thunkAPI.getState().blog;
+    const page = Number(params.page || 1);
+    const perPage = Number(params.perPage || 6);
 
+    if (page > 1 && (state.loading || state.loadingMore || !state.hasMore)) {
+      return thunkAPI.rejectWithValue(null);
+    }
+
+    try {
       const [postsResponse, categoriesResponse] = await Promise.all([
         fetch(
           `${import.meta.env.VITE_API_URL}/wp-json/wp/v2/posts?page=${page}&per_page=${perPage}&_fields=id,date,title,excerpt,link,categories,slug`,
@@ -63,5 +68,25 @@ export const fetchBlogDataThunk = createAsyncThunk(
         error.message || "Une erreur est survenue lors du chargement du blog.",
       );
     }
+  },
+);
+
+export const loadMoreBlogPostsThunk = createAsyncThunk(
+  "blog/loadMore",
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState().blog;
+
+    if (state.loading || state.loadingMore || !state.hasMore) {
+      return null;
+    }
+
+    await thunkAPI.dispatch(
+      fetchBlogDataThunk({
+        page: state.page + 1,
+        perPage: 6,
+      }),
+    );
+
+    return null;
   },
 );
