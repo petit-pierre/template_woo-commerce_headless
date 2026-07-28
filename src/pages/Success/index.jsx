@@ -1,29 +1,18 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { showToast } from "../../slices/toastSlice";
-import { fetchCurrentUserOrdersThunk } from "../../thunkActionsCreator/userThunks";
+import { useOrder } from "../../components/SuccessMessage";
 import OrderDetails from "../../components/OrderDetails";
 
 export default function Success() {
   const { orderId } = useParams();
   const dispatch = useDispatch();
-  const { token, orders, loading, error } = useSelector((state) => state.user);
-
-  const order = orders.find(
-    (item) => String(item.id) === String(orderId) || String(item.number) === String(orderId),
-  );
-  const isPaid = ["processing", "completed"].includes(order?.status);
+  const { order, isPaid } = useOrder(orderId);
 
   useEffect(() => {
     dispatch(showToast(`Commande n°${orderId} confirmée`));
   }, [orderId, dispatch]);
-
-  useEffect(() => {
-    if (token && !order && !loading) {
-      dispatch(fetchCurrentUserOrdersThunk());
-    }
-  }, [dispatch, token, order, loading]);
 
   return (
     <div className="success-page">
