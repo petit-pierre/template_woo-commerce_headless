@@ -1,46 +1,40 @@
 import StatusBadge from "../StatusBadge";
 
-export default function OrderDetails({ order, variant = "detailed" }) {
-  if (!order) return null;
-
-  const { number, id, items = [], shippingAddress, status } = order;
-  const total = Number(order.total || 0).toFixed(2);
-
-  if (variant === "compact") {
-    return (
-      <div className="order-row">
-        <span>Commande n°{number ?? id}</span>
-        <span>{items.length} article{items.length > 1 ? "s" : ""}</span>
-        <span>{total} €</span>
-        <StatusBadge status={status} />
-      </div>
-    );
+export default function OrderDetails({ order }) {
+  if (!order) {
+    return null;
   }
-
-  const showStatus = variant === "detailed";
-  const showPricing = variant === "detailed" || variant === "confirmation";
 
   return (
     <div className="order-details">
-      <p>Commande Numéro : {number ?? id}</p>
-      {showStatus && status && <p>Statut : <StatusBadge status={status} /></p>}
+      <p>Commande Numéro : {order.number ?? order.id}</p>
 
-      {shippingAddress && (
+      {order.status && (
+        <p>
+          Statut : <StatusBadge status={order.status} />
+        </p>
+      )}
+
+      {order.shippingAddress && (
         <div className="shipping-address">
           <h3>Adresse de livraison</h3>
-          <p>{shippingAddress.fullName}</p>
+          <p>{order.shippingAddress.fullName}</p>
           <p>
-            {shippingAddress.address}
-            {shippingAddress.addressComplement ? `, ${shippingAddress.addressComplement}` : ""}
+            {order.shippingAddress.address}
+            {order.shippingAddress.addressComplement
+              ? `, ${order.shippingAddress.addressComplement}`
+              : ""}
           </p>
-          <p>{shippingAddress.postalCode} {shippingAddress.city}</p>
-          <p>{shippingAddress.country}</p>
+          <p>
+            {order.shippingAddress.postalCode} {order.shippingAddress.city}
+          </p>
+          <p>{order.shippingAddress.country}</p>
         </div>
       )}
 
       <ul className="order-items">
-        {items.map((item) => (
-          <li key={item.id ?? item.name} className="order-item">
+        {order.items.map((item) => (
+          <li key={item.name} className="order-item">
             {item.image && (
               <img
                 src={item.image}
@@ -53,12 +47,15 @@ export default function OrderDetails({ order, variant = "detailed" }) {
             <div>
               <p>{item.name}</p>
               <p>Quantité : {item.quantity}</p>
+              <p>Prix : {Number(item.total).toFixed(2)} €</p>
             </div>
           </li>
         ))}
       </ul>
 
-      <p><strong>Total : {total} €</strong></p>
+      <p>
+        <strong>Total : {Number(order.total).toFixed(2)} €</strong>
+      </p>
     </div>
   );
 }
