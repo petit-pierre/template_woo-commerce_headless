@@ -1,14 +1,4 @@
-function StatusBadge({ status }) {
-  const labels = {
-    pending: "En attente de paiement",
-    paid: "Payée",
-    processing: "En préparation",
-    shipped: "Expédiée",
-    delivered: "Livrée",
-    cancelled: "Annulée",
-  };
-  return <span className={`badge badge-${status}`}>{labels[status] ?? status}</span>;
-}
+import StatusBadge from "../StatusBadge";
 
 export default function OrderDetails({ order, variant = "detailed" }) {
   if (!order) return null;
