@@ -32,7 +32,7 @@ export default function ProductDetails() {
     if (id && !productFromList) {
       dispatch(fetchProductByIdThunk(id));
     }
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (productToDisplay) {
@@ -45,52 +45,65 @@ export default function ProductDetails() {
     const fetchSimilarProducts = async () => {
       setLoadingSimilar(true);
       try {
-        // 1. Récupération de la catégorie principale
+        const baseUrl = `${import.meta.env.VITE_API_URL}/wp-json/wc/store/v1/products`;
         const categoryId = productToDisplay.categories?.[0]?.id;
-        let sameCategoryProducts = [];
+        let recommendations = [];
 
-        // 2. Fetch des produits de la même catégorie via l'API
+        // --- NIVEAU 1 : Produits de la même catégorie ---
         if (categoryId) {
-          const baseUrl = `${import.meta.env.VITE_API_URL}/wp-json/wc/store/v1/products`;
-          const url = `${baseUrl}?category=${categoryId}`;
-
-          const response = await fetch(url, {
+          const response = await fetch(`${baseUrl}?category=${categoryId}`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
           });
 
           if (response.ok) {
             const data = await response.json();
-            const productsArray = Array.isArray(data) ? data : [];
-
-            // Filtrer pour exclure le produit actuel
-            sameCategoryProducts = productsArray.filter(
+            recommendations = (Array.isArray(data) ? data : []).filter(
               (p) => p.id.toString() !== productToDisplay.id.toString(),
             );
           }
         }
 
-        let finalRecommendations = [...sameCategoryProducts];
-
-        // 3. Si on a moins de 3 produits, on complète avec le store Redux (list.data)
-        if (finalRecommendations.length < 3) {
-          const reduxProducts = list?.data || [];
-
-          // On exclut le produit actuel ET les produits déjà retenus
-          const extraProducts = reduxProducts.filter(
+        // --- NIVEAU 2 : Complément via le store Redux (si disponible) ---
+        if (recommendations.length < 3 && list?.data?.length > 0) {
+          const reduxExtras = list.data.filter(
             (p) =>
               p.id.toString() !== productToDisplay.id.toString() &&
-              !finalRecommendations.some(
+              !recommendations.some(
                 (rec) => rec.id.toString() === p.id.toString(),
               ),
           );
 
-          // On fusionne les deux listes
-          finalRecommendations = [...finalRecommendations, ...extraProducts];
+          recommendations = [...recommendations, ...reduxExtras];
         }
 
-        // 4. On conserve exactement les 3 premiers articles
-        setSimilarProducts(finalRecommendations.slice(0, 3));
+        // --- NIVEAU 3 : Secours API global (Si Redux est vide ou insuffisant) ---
+        if (recommendations.length < 3) {
+          // On demande 10 produits généraux à l'API pour être sûr d'avoir du choix
+          const fallbackResponse = await fetch(`${baseUrl}?per_page=10`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          });
+
+          if (fallbackResponse.ok) {
+            const fallbackData = await fallbackResponse.json();
+            const apiExtras = (
+              Array.isArray(fallbackData) ? fallbackData : []
+            ).filter(
+              (p) =>
+                p.id.toString() !== productToDisplay.id.toString() &&
+                !recommendations.some(
+                  (rec) => rec.id.toString() === p.id.toString(),
+                ),
+            );
+
+            recommendations = [...recommendations, ...apiExtras];
+          }
+        }
+
+        // 4. Mélange aléatoirement le tableau avant de prendre les 3 premiers
+        const randomized = recommendations.sort(() => 0.5 - Math.random());
+        setSimilarProducts(randomized.slice(0, 3));
       } catch (error) {
         console.error(
           "Erreur lors de la récupération des recommandations :",
@@ -294,11 +307,7 @@ export default function ProductDetails() {
         ) : similarProducts.length > 0 ? (
           <div className="similar-products-grid">
             {similarProducts.map((simProduct) => (
-              <Link
-                key={simProduct.id}
-                to={`/product/${simProduct.id}`}
-                className="similar-product-card"
-              >
+              <Link key={simProduct.id} to={"/product/" + simProduct.slug}>
                 <div className="similar-product-image">
                   <img
                     src={simProduct.images?.[0]?.src || "/placeholder.jpg"}
