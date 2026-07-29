@@ -35,11 +35,7 @@ export default function OrderDetails() {
       {order ? (
         <SuccessMessage order={order} />
       ) : (
-        <p>
-          {token
-            ? "Chargement des détails de la commande..."
-            : "Connectez-vous pour voir les détails de votre commande."}
-        </p>
+        <p>Commande non trouvée.</p>
       )}
     </div>
   );
