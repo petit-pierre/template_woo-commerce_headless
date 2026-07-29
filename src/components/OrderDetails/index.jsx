@@ -1,61 +1,46 @@
-import StatusBadge from "../StatusBadge";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCurrentUserOrdersThunk } from "../../thunkActionsCreator/userThunks";
+import { showToast } from "../../slices/toastSlice";
+import SuccessMessage from "../SuccessMessage";
 
-export default function OrderDetails({ order }) {
-  if (!order) {
-    return null;
-  }
+export default function OrderDetails() {
+  const { orderId } = useParams();
+  const dispatch = useDispatch();
+  const { token, orders, loading } = useSelector((state) => state.user);
+
+  const order = orders.find(
+    (item) => String(item.id) === orderId || String(item.number) === orderId,
+  );
+  const isPaid = ["processing", "completed"].includes(order?.status);
+
+  useEffect(() => {
+    dispatch(showToast(`Commande n°${orderId} confirmée`));
+  }, [orderId, dispatch]);
 
   return (
-    <div className="order-details">
-      <p>Commande Numéro : {order.number ?? order.id}</p>
+    <div className="success-page">
+      <h1>Commande confirmée</h1>
+      <p className="thank-you">Merci pour votre commande.</p>
 
-      {order.status && (
-        <p>
-          Statut : <StatusBadge status={order.status} />
+      {order && (
+        <p className={isPaid ? "payment-ok" : "payment-pending"}>
+          {isPaid
+            ? `Paiement confirmé pour la commande n°${orderId}`
+            : `Paiement en attente de confirmation pour la commande n°${orderId}`}
         </p>
       )}
 
-      {order.shippingAddress && (
-        <div className="shipping-address">
-          <h3>Adresse de livraison</h3>
-          <p>{order.shippingAddress.fullName}</p>
-          <p>
-            {order.shippingAddress.address}
-            {order.shippingAddress.addressComplement
-              ? `, ${order.shippingAddress.addressComplement}`
-              : ""}
-          </p>
-          <p>
-            {order.shippingAddress.postalCode} {order.shippingAddress.city}
-          </p>
-          <p>{order.shippingAddress.country}</p>
-        </div>
+      {order ? (
+        <SuccessMessage order={order} />
+      ) : (
+        <p>
+          {token
+            ? "Chargement des détails de la commande..."
+            : "Connectez-vous pour voir les détails de votre commande."}
+        </p>
       )}
-
-      <ul className="order-items">
-        {order.items.map((item) => (
-          <li key={item.name} className="order-item">
-            {item.image && (
-              <img
-                src={item.image}
-                alt={item.name}
-                width={64}
-                height={64}
-                className="order-item-thumbnail"
-              />
-            )}
-            <div>
-              <p>{item.name}</p>
-              <p>Quantité : {item.quantity}</p>
-              <p>Prix : {Number(item.total).toFixed(2)} €</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      <p>
-        <strong>Total : {Number(order.total).toFixed(2)} €</strong>
-      </p>
     </div>
   );
 }
