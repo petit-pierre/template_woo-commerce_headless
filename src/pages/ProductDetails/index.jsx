@@ -45,60 +45,55 @@ export default function ProductDetails() {
     const fetchSimilarProducts = async () => {
       setLoadingSimilar(true);
       try {
-        // 1. Trouver la première VRAIE catégorie (en ignorant "Non classé" / "Uncategorized")
-        const validCategory =
-          productToDisplay.categories?.find(
-            (cat) =>
-              cat.slug !== "uncategorized" &&
-              cat.slug !== "non-classe" &&
-              cat.name?.toLowerCase() !== "non classé",
-          ) || productToDisplay.categories?.[0];
+        // 1. Récupération de la catégorie principale
+        const categoryId = productToDisplay.categories?.[0]?.id;
+        let sameCategoryProducts = [];
 
-        const categoryId = validCategory?.id;
+        // 2. Fetch des produits de la même catégorie via l'API
+        if (categoryId) {
+          const baseUrl = `${import.meta.env.VITE_API_URL}/wp-json/wc/store/v1/products`;
+          const url = `${baseUrl}?category=${categoryId}`;
 
-        // Si le produit n'a aucune catégorie valide, on arrête là
-        if (!categoryId) {
-          setSimilarProducts([]);
-          setLoadingSimilar(false);
-          return;
+          const response = await fetch(url, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            const productsArray = Array.isArray(data) ? data : [];
+
+            // Filtrer pour exclure le produit actuel
+            sameCategoryProducts = productsArray.filter(
+              (p) => p.id.toString() !== productToDisplay.id.toString(),
+            );
+          }
         }
 
-        // 2. Requête ciblée uniquement sur cette catégorie
-        const baseUrl = `${import.meta.env.VITE_API_URL}/wp-json/wc/store/v1/products`;
-        const url = `${baseUrl}?category=${categoryId}`;
+        let finalRecommendations = [...sameCategoryProducts];
 
-        const response = await fetch(url, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        });
+        // 3. Si on a moins de 3 produits, on complète avec le store Redux (list.data)
+        if (finalRecommendations.length < 3) {
+          const reduxProducts = list?.data || [];
 
-        if (!response.ok) {
-          const errorData = await response.json().catch(() => ({}));
-          throw new Error(
-            errorData.message || "Erreur lors de la récupération.",
+          // On exclut le produit actuel ET les produits déjà retenus
+          const extraProducts = reduxProducts.filter(
+            (p) =>
+              p.id.toString() !== productToDisplay.id.toString() &&
+              !finalRecommendations.some(
+                (rec) => rec.id.toString() === p.id.toString(),
+              ),
           );
+
+          // On fusionne les deux listes
+          finalRecommendations = [...finalRecommendations, ...extraProducts];
         }
 
-        const data = await response.json();
-        const productsArray = Array.isArray(data) ? data : [];
-
-        // 3. DOUBLE SÉCURITÉ CÔTÉ REACT :
-        // - Exclure le produit actuel
-        // - S'assurer que le produit possède VRAIMENT la même catégorie dans son tableau `categories`
-        const filtered = productsArray.filter((p) => {
-          const isNotCurrentProduct =
-            p.id.toString() !== productToDisplay.id.toString();
-          const hasSameCategory = p.categories?.some(
-            (c) => c.id === categoryId,
-          );
-
-          return isNotCurrentProduct && hasSameCategory;
-        });
-
-        setSimilarProducts(filtered);
+        // 4. On conserve exactement les 3 premiers articles
+        setSimilarProducts(finalRecommendations.slice(0, 3));
       } catch (error) {
         console.error(
-          "Erreur lors de la récupération des produits similaires :",
+          "Erreur lors de la récupération des recommandations :",
           error.message,
         );
       } finally {
@@ -107,7 +102,7 @@ export default function ProductDetails() {
     };
 
     fetchSimilarProducts();
-  }, [productToDisplay?.id]);
+  }, [productToDisplay?.id, list?.data]);
   const handleAddToCart = async () => {
     if (productToDisplay && productToDisplay.id) {
       const result = await dispatch(
