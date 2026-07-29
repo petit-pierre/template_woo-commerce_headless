@@ -15,6 +15,9 @@ export default function ProductDetails() {
   const [itemVariation, setItemVariation] = useState({});
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  // États locaux pour les produits similaires (sans Redux)
+  const [similarProducts, setSimilarProducts] = useState([]);
+  const [loadingSimilar, setLoadingSimilar] = useState(false);
 
   const { list, singleProduct, loadingSingle, errorSingle } = useSelector(
     (state) => state.products,
@@ -36,7 +39,75 @@ export default function ProductDetails() {
       setActiveImageIndex(0);
     }
   }, [productToDisplay?.id]);
+  useEffect(() => {
+    if (!productToDisplay?.id) return;
 
+    const fetchSimilarProducts = async () => {
+      setLoadingSimilar(true);
+      try {
+        // 1. Trouver la première VRAIE catégorie (en ignorant "Non classé" / "Uncategorized")
+        const validCategory =
+          productToDisplay.categories?.find(
+            (cat) =>
+              cat.slug !== "uncategorized" &&
+              cat.slug !== "non-classe" &&
+              cat.name?.toLowerCase() !== "non classé",
+          ) || productToDisplay.categories?.[0];
+
+        const categoryId = validCategory?.id;
+
+        // Si le produit n'a aucune catégorie valide, on arrête là
+        if (!categoryId) {
+          setSimilarProducts([]);
+          setLoadingSimilar(false);
+          return;
+        }
+
+        // 2. Requête ciblée uniquement sur cette catégorie
+        const baseUrl = `${import.meta.env.VITE_API_URL}/wp-json/wc/store/v1/products`;
+        const url = `${baseUrl}?category=${categoryId}`;
+
+        const response = await fetch(url, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(
+            errorData.message || "Erreur lors de la récupération.",
+          );
+        }
+
+        const data = await response.json();
+        const productsArray = Array.isArray(data) ? data : [];
+
+        // 3. DOUBLE SÉCURITÉ CÔTÉ REACT :
+        // - Exclure le produit actuel
+        // - S'assurer que le produit possède VRAIMENT la même catégorie dans son tableau `categories`
+        const filtered = productsArray.filter((p) => {
+          const isNotCurrentProduct =
+            p.id.toString() !== productToDisplay.id.toString();
+          const hasSameCategory = p.categories?.some(
+            (c) => c.id === categoryId,
+          );
+
+          return isNotCurrentProduct && hasSameCategory;
+        });
+
+        setSimilarProducts(filtered);
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des produits similaires :",
+          error.message,
+        );
+      } finally {
+        setLoadingSimilar(false);
+      }
+    };
+
+    fetchSimilarProducts();
+  }, [productToDisplay?.id]);
   const handleAddToCart = async () => {
     if (productToDisplay && productToDisplay.id) {
       const result = await dispatch(
@@ -131,24 +202,6 @@ export default function ProductDetails() {
         </nav>
       </div>
 
-      {/*  <div
-        className="short-description-box"
-        dangerouslySetInnerHTML={{
-          __html:
-            productToDisplay.description ||
-            productToDisplay.short_description ||
-            "<p>Aucune introduction disponible.</p>",
-        }}
-      /> */}
-
-      {/* Options variations */}
-
-      {/* Le bouton d'ajout au panier est maintenant connecté via onClick */}
-      {/* <button className="add-to-cart-btn" onClick={handleAddToCart}>
-        <i className="fas fa-shopping-cart cart-btn-icon"></i>
-        Ajouter au panier
-      </button> */}
-
       <div className="product-main-card">
         <div className="product-content-grid">
           <div className="gallery-wrapper">
@@ -235,20 +288,43 @@ export default function ProductDetails() {
             </div>
           </div>
         </div>
-
-        {/* <div className="product-bottom-block">
-        <div className="details-content-row">
-          <div
-            className="description-content"
-            dangerouslySetInnerHTML={{
-              __html:
-                productToDisplay.description ||
-                "<p>Aucune description disponible.</p>",
-            }}
-          />
-        </div>
-      </div> */}
       </div>
+
+      {/* Section des articles similaires */}
+      <section className="similar-products-section">
+        <h2>Produits similaires</h2>
+
+        {loadingSimilar ? (
+          <p className="loading-text">Chargement des recommandations...</p>
+        ) : similarProducts.length > 0 ? (
+          <div className="similar-products-grid">
+            {similarProducts.map((simProduct) => (
+              <Link
+                key={simProduct.id}
+                to={`/product/${simProduct.id}`}
+                className="similar-product-card"
+              >
+                <div className="similar-product-image">
+                  <img
+                    src={simProduct.images?.[0]?.src || "/placeholder.jpg"}
+                    alt={simProduct.name}
+                  />
+                </div>
+                <div className="similar-product-info">
+                  <h4>{simProduct.name}</h4>
+                  <p className="price">
+                    {simProduct.prices?.price
+                      ? `${(parseFloat(simProduct.prices.price) / 100).toFixed(2)} ${simProduct.prices.currency_code || "EUR"}`
+                      : "Prix N/A"}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <p className="no-similar-text">Aucun produit similaire trouvé.</p>
+        )}
+      </section>
     </div>
   );
 }
