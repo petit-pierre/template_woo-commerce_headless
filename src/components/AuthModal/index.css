@@ -78,6 +78,34 @@
   gap: 1rem;
 }
 
+.auth-form__step {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+}
+
+.auth-form__back {
+  background: none;
+  border: none;
+  color: #64748b;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.auth-form__back:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.auth-form__back:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .auth-form__field {
   display: flex;
   flex-direction: column;
@@ -118,6 +146,12 @@
   font-size: 0.78rem;
   color: var(--danger-color);
   margin-top: 0.1rem;
+}
+
+.auth-form__hint {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  margin-top: -0.5rem;
 }
 
 .auth-form__forgot {

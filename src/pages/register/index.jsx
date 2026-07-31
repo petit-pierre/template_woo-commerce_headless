@@ -17,12 +17,13 @@ export default function Register() {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState({});
+  const [step, setStep] = useState(1);
 
   useEffect(() => {
     if (token) navigate("/");
   }, [navigate, token]);
 
-  const validate = () => {
+  const validateStep1 = () => {
     const newErrors = {};
     if (!form.username.trim())
       newErrors.username = "Le nom d'utilisateur est requis.";
@@ -36,6 +37,11 @@ export default function Register() {
     } else if (form.password.length < 6) {
       newErrors.password = "Au moins 6 caractères.";
     }
+    return newErrors;
+  };
+
+  const validateStep2 = () => {
+    const newErrors = {};
     if (!form.confirmPassword) {
       newErrors.confirmPassword = "Veuillez confirmer votre mot de passe.";
     } else if (form.confirmPassword !== form.password) {
@@ -50,9 +56,25 @@ export default function Register() {
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
+  const handleNext = (e) => {
+    e.preventDefault();
+    const validation = validateStep1();
+    if (Object.keys(validation).length > 0) {
+      setErrors(validation);
+      return;
+    }
+    setErrors({});
+    setStep(2);
+  };
+
+  const handleBack = () => {
+    setErrors({});
+    setStep(1);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const validation = validate();
+    const validation = validateStep2();
     if (Object.keys(validation).length > 0) {
       setErrors(validation);
       return;
@@ -63,83 +85,104 @@ export default function Register() {
 
   return (
     <AuthModal>
-      <h1>Create account</h1>
-      <p className="auth-modal__subtitle">Join us today, it's free</p>
+      <h1>Créer un compte</h1>
+      <p className="auth-modal__subtitle">Inscrivez-vous pour bénéficier des avantages du site </p>
 
-      <form className="auth-form" onSubmit={handleSubmit} noValidate>
-        <div className="auth-form__field">
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            name="username"
-            type="text"
-            value={form.username}
-            onChange={handleChange}
-            className={errors.username ? "input--error" : ""}
-            autoComplete="username"
-          />
-          {errors.username && (
-            <span className="auth-form__error">{errors.username}</span>
-          )}
-        </div>
+      <p className="auth-form__step">Étape {step} sur 2</p>
 
-        <div className="auth-form__field">
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={form.email}
-            onChange={handleChange}
-            className={errors.email ? "input--error" : ""}
-            autoComplete="email"
-          />
-          {errors.email && (
-            <span className="auth-form__error">{errors.email}</span>
-          )}
-        </div>
+      {step === 1 && (
+        <form className="auth-form" onSubmit={handleNext} noValidate>
+          <div className="auth-form__field">
+            <label htmlFor="username">Nom d'utilisateur</label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              value={form.username}
+              onChange={handleChange}
+              className={errors.username ? "input--error" : ""}
+              autoComplete="username"
+            />
+            {errors.username && (
+              <span className="auth-form__error">{errors.username}</span>
+            )}
+          </div>
 
-        <div className="auth-form__field">
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            value={form.password}
-            onChange={handleChange}
-            className={errors.password ? "input--error" : ""}
-            autoComplete="new-password"
-          />
-          {errors.password && (
-            <span className="auth-form__error">{errors.password}</span>
-          )}
-        </div>
+          <div className="auth-form__field">
+            <label htmlFor="email">E-mail</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={form.email}
+              onChange={handleChange}
+              className={errors.email ? "input--error" : ""}
+              autoComplete="email"
+            />
+            {errors.email && (
+              <span className="auth-form__error">{errors.email}</span>
+            )}
+          </div>
 
-        <div className="auth-form__field">
-          <label htmlFor="confirmPassword">Confirm password</label>
-          <input
-            id="confirmPassword"
-            name="confirmPassword"
-            type="password"
-            value={form.confirmPassword}
-            onChange={handleChange}
-            className={errors.confirmPassword ? "input--error" : ""}
-            autoComplete="new-password"
-          />
-          {errors.confirmPassword && (
-            <span className="auth-form__error">{errors.confirmPassword}</span>
-          )}
-        </div>
+          <div className="auth-form__field">
+            <label htmlFor="password">Mot de passe</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              value={form.password}
+              onChange={handleChange}
+              className={errors.password ? "input--error" : ""}
+              autoComplete="new-password"
+            />
+            {errors.password && (
+              <span className="auth-form__error">{errors.password}</span>
+            )}
+          </div>
 
-        {error && <p className="auth-form__server-error">{error}</p>}
+          <button className="auth-form__submit" type="submit">
+            Suivant
+          </button>
+        </form>
+      )}
 
-        <button className="auth-form__submit" type="submit" disabled={loading}>
-          {loading ? "Creating account…" : "Create account"}
-        </button>
-      </form>
+      {step === 2 && (
+        <form className="auth-form" onSubmit={handleSubmit} noValidate>
+          <div className="auth-form__field">
+            <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              value={form.confirmPassword}
+              onChange={handleChange}
+              className={errors.confirmPassword ? "input--error" : ""}
+              autoComplete="new-password"
+              autoFocus
+            />
+            {errors.confirmPassword && (
+              <span className="auth-form__error">{errors.confirmPassword}</span>
+            )}
+          </div>
+
+          {error && <p className="auth-form__server-error">{error}</p>}
+
+          <button className="auth-form__submit" type="submit" disabled={loading}>
+            {loading ? "Création du compte…" : "Créer un compte"}
+          </button>
+          <button
+            className="auth-form__back"
+            type="button"
+            onClick={handleBack}
+            disabled={loading}
+          >
+            Précédent
+          </button>
+        </form>
+      )}
 
       <p className="auth-modal__footer">
-        Already have an account? <Link to="/login">Sign in</Link>
+        Vous avez déjà un compte ? <Link to="/login">Se connecter</Link>
       </p>
     </AuthModal>
   );
