@@ -5,7 +5,6 @@ import "./index.css";
 export default function PriceRangeSlider() {
   const dispatch = useDispatch();
   const filters = useSelector((state) => state.filters);
-
   const minLimit = 0;
   const maxLimit = 10000;
   const priceGap = 500;
