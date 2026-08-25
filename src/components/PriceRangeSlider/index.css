@@ -1,0 +1,148 @@
+@charset "UTF-8";
+.main {
+  background-color: #fff;
+  border-radius: 1.5vw;
+  box-shadow: 0 0 2vw rgba(0, 0, 0, 0.2);
+  padding: 2.5lvh 2vw;
+  transition: transform 0.2s;
+  width: 50%;
+  max-width: 80vw;
+  margin-top: 10lvh;
+}
+.main:hover {
+  transform: scale(1.02);
+}
+@media screen and (max-width: 48vw) {
+  .main {
+    width: 95%;
+    max-width: 95vw;
+  }
+}
+
+.gfg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5vw;
+  font-weight: 600;
+  color: #01940b;
+}
+
+.custom-wrapper {
+  margin: 0 auto;
+  width: 85%;
+  padding: 0 0 4lvh;
+  position: relative;
+}
+@media screen and (max-width: 48vw) {
+  .custom-wrapper {
+    width: 100%;
+    padding: 0;
+  }
+}
+
+.header h2 {
+  font-size: 2vw;
+  color: #01940b;
+  display: flex;
+  justify-content: center;
+  padding: 2lvh;
+}
+@media screen and (max-width: 48vw) {
+  .header h2 {
+    font-size: 5vw;
+  }
+}
+
+.price-input-container {
+  width: 100%;
+}
+
+.price-input {
+  width: 100%;
+  font-size: 2vw;
+  color: #555;
+}
+@media screen and (max-width: 48vw) {
+  .price-input {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.price-input .price-field {
+  display: flex;
+  margin-bottom: 2.5lvh;
+}
+@media screen and (max-width: 48vw) {
+  .price-input .price-field {
+    width: 100%;
+    margin-bottom: 1.5lvh;
+  }
+}
+.price-input .price-field span {
+  margin-right: 1vw;
+  margin-top: 0.5lvh;
+  font-size: 1.8vw;
+}
+@media screen and (max-width: 48vw) {
+  .price-input .price-field span {
+    font-size: 3.5vw;
+  }
+}
+.price-input .price-field input {
+  flex: 1;
+  height: 4.5lvh;
+  font-size: 1.6vw;
+  font-family: "DM Sans", sans-serif;
+  border-radius: 1vw;
+  text-align: center;
+  border: 0;
+  background: #e4e4e4;
+}
+@media screen and (max-width: 48vw) {
+  .price-input .price-field input {
+    font-size: 3.5vw;
+  }
+}
+
+.slider {
+  width: 100%;
+  height: 0.8lvh;
+  position: relative;
+  background: #e4e4e4;
+  border-radius: 0.5vw;
+}
+.slider .price-slider {
+  height: 100%;
+  position: absolute;
+  border-radius: 0.5vw;
+  background: #01940b;
+}
+
+.range-input {
+  position: relative;
+}
+.range-input input {
+  position: absolute;
+  width: 100%;
+  height: 0.8lvh;
+  background: none;
+  top: -0.8lvh;
+  pointer-events: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+/* Gestion des pseudos-éléments d'input */
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=range]::-webkit-slider-thumb {
+  height: 2.2lvh;
+  width: 2.2lvh;
+  border-radius: 70%;
+  background: #555;
+  pointer-events: auto;
+  -webkit-appearance: none;
+}/*# sourceMappingURL=index.css.map */
