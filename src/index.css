@@ -263,32 +263,31 @@ button {
   background: var(--primary-color);
   color: var(--bg-color);
   font-family: var(--font-heading);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
-  padding: 3vw 6vw;
-  font-size: 3vw;
-  width: -moz-fit-content;
-  width: fit-content;
-  border-radius: 2vw;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  width: auto;
+  border-radius: 8px;
 }
-@media screen and (aspect-ratio > 1/1) {
+@media screen and (min-width: 768px) {
   button {
-    padding: 1vw 2vw;
-    font-size: 1vw;
-    border-radius: 0.5vw;
+    padding: 0.45rem 0.9rem;
+    font-size: 0.95rem;
+    border-radius: 8px;
   }
 }
-@media screen and (aspect-ratio > 2.6/1) {
+@media screen and (min-width: 1400px) {
   button {
-    padding: 1.5lvh 3lvh;
-    font-size: 3lvh;
-    border-radius: 1lvh;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 10px;
   }
 }
 button:hover {
-  transform: scale(1.1);
+  transform: scale(1.03);
 }
 button:disabled {
   opacity: 0.6;

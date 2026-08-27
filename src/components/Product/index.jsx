@@ -207,9 +207,10 @@ export default function ProductDetails() {
 
               <div className="actions-row">
                 {productToDisplay.attributes?.map((attribute) => (
-                  <div key={attribute.name}>
+                  <div key={attribute.name} className="label-control">
                     <label htmlFor={attribute.name}>{attribute.name}</label>
                     <select
+                      id={attribute.name}
                       name={attribute.name}
                       onChange={(e) =>
                         changeVariation(attribute.name, e.target.value)
