@@ -5,6 +5,7 @@ import DeleteAccountButton from "../../components/DeleteAccountButton";
 import { UserDisplay } from "../../components/UserDisplay";
 import { OrderAll } from "../../components/OrderAll";
 import { useEffect } from "react";
+import "./index.css";
 
 export default function Profile() {
   const isAuthentificated = useSelector((state) => state.user?.token);

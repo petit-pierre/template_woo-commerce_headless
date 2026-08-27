@@ -44,43 +44,46 @@ export function UserDisplay() {
   return (
     <div>
       <form onSubmit={handleUpdateProfile}>
-        <p>Nom d'utilisateur : {profile.username}</p>
-        <p>
-          Email :{" "}
-          <input
-            type="email"
-            placeholder="nouvel email"
-            value={newEmail}
-            onChange={(e) => setNewEmail(e.target.value)}
-          />
-        </p>
-        <p>
-          Prénom :{" "}
-          <input
-            type="text"
-            placeholder="prenom"
-            value={newFirstName}
-            onChange={(e) => setNewFirstName(e.target.value)}
-          />
-        </p>
-        <p>
-          Nom :{" "}
-          <input
-            type="text"
-            placeholder="nom"
-            value={newLastName}
-            onChange={(e) => setNewLastName(e.target.value)}
-          />
-        </p>
-        <p>
-          Mot de passe :{" "}
-          <input
-            type="password"
-            placeholder="nouveau mot de passe"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-          />
-        </p>
+        <h3>Profil</h3>
+        <div className="input-container">
+          <p>Nom d'utilisateur : {profile.username}</p>
+          <p>
+            Email :{" "}
+            <input
+              type="email"
+              placeholder="nouvel email"
+              value={newEmail}
+              onChange={(e) => setNewEmail(e.target.value)}
+            />
+          </p>
+          <p>
+            Prénom :{" "}
+            <input
+              type="text"
+              placeholder="prenom"
+              value={newFirstName}
+              onChange={(e) => setNewFirstName(e.target.value)}
+            />
+          </p>
+          <p>
+            Nom :{" "}
+            <input
+              type="text"
+              placeholder="nom"
+              value={newLastName}
+              onChange={(e) => setNewLastName(e.target.value)}
+            />
+          </p>
+          <p>
+            Mot de passe :{" "}
+            <input
+              type="password"
+              placeholder="nouveau mot de passe"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+          </p>
+        </div>
         <button type="submit" disabled={user.loading}>
           {user.loading ? "Mise a jour..." : "Mettre a jour le profil"}
         </button>
