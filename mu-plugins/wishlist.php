@@ -1,11 +1,5 @@
 <?php
 
-/*=======================================
- *  Wishlist : liste de produits favoris par utilisateur, stockee en user meta
- *  (pas d'equivalent natif dans le Store API, contrairement au panier qui
- *  repose sur une session invite). Necessite donc un compte connecte (JWT).
- *  =============================================*/
-
 const HEADLESS_WISHLIST_META_KEY = '_headless_wishlist';
 
 add_action('rest_api_init', function () {
@@ -45,9 +39,6 @@ function headless_set_wishlist_ids($user_id, $ids)
     update_user_meta($user_id, HEADLESS_WISHLIST_META_KEY, array_values(array_unique(array_map('intval', $ids))));
 }
 
-// Reutilise la route /custom/v1/products/{id} (deja enrichie avec le stock des
-// variations) pour renvoyer aux favoris le meme format d'objet produit que le
-// reste du front (catalogue, panier).
 function headless_get_wishlist($request)
 {
     if (!function_exists('wc_get_product')) {

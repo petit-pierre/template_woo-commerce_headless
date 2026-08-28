@@ -57,6 +57,11 @@ export default function PriceRangeSlider() {
     }
   };
 
+  const handlePriceChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(setFilters({ [name]: value }));
+  };
+
   // Calcul du remplissage
   const leftPercent = (draftMinPrice / maxLimit) * 100;
   const rightPercent = 100 - (draftMaxPrice / maxLimit) * 100;
@@ -66,6 +71,20 @@ export default function PriceRangeSlider() {
       <div className="custom-wrapper">
         <div className="price-input-container">
           <div className="slider">
+            <div className="slider-values" aria-hidden="true">
+              <span
+                className="slider-value min-value"
+                style={{ left: `${leftPercent}%` }}
+              >
+                {draftMinPrice} &euro;
+              </span>
+              <span
+                className="slider-value max-value"
+                style={{ left: `${100 - rightPercent}%` }}
+              >
+                {draftMaxPrice} &euro;
+              </span>
+            </div>
             <div
               className="price-slider"
               style={{
@@ -112,6 +131,23 @@ export default function PriceRangeSlider() {
             tabIndex="-1"
           />
         </div>
+      </div>
+      <div className="price-group">
+        <input
+          type="number"
+          name="min_price"
+          value={filters.min_price}
+          onChange={handlePriceChange}
+          placeholder="Prix min (€)"
+        />
+        <span className="price-separator">–</span>
+        <input
+          type="number"
+          name="max_price"
+          value={filters.max_price}
+          onChange={handlePriceChange}
+          placeholder="Prix max (€)"
+        />
       </div>
     </div>
   );

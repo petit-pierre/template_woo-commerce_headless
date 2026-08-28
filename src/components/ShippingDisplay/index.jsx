@@ -21,7 +21,7 @@ export default function ShippingDisplay() {
 
   return (
     <div>
-      <form onSubmit={handleSubmitShipping}>
+      <form onSubmit={handleSubmitShipping} className="update-form">
         <h2>Informations de livraison</h2>
         <div className="input-container">
           {customer &&

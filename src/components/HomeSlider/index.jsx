@@ -53,7 +53,6 @@ export default function HomeSlider() {
     setCooldown(true);
     setSelected((prev) => (prev - 1 + length) % length);
     setTimeout(() => setCooldown(false), 1000);
-    next = false;
   };
 
   const nextPicture = () => {

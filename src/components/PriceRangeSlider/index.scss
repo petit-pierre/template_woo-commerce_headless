@@ -1,12 +1,14 @@
 .price-range-slider {
-  width: 18lvw;
-  min-width: 12lvw;
-  margin-inline: 2lvw;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  gap: 1lvw;
   border: none;
 
   .custom-wrapper {
     position: relative;
-    width: 100%;
+    width: 18lvw;
+    flex: 0 0 18lvw;
     height: 4lvh;
     display: flex;
     align-items: center;
@@ -25,6 +27,21 @@
         width: calc(100% - 2lvh);
         margin-inline: 1lvh;
 
+        .slider-values {
+          position: absolute;
+          inset-inline: 0;
+          bottom: calc(100% + 2lvh);
+          height: 2lvh;
+          color: var(--dark-color);
+          font-size: 1.4lvh;
+          white-space: nowrap;
+
+          .slider-value {
+            position: absolute;
+            transform: translateX(-50%);
+          }
+        }
+
         .price-slider {
           height: 100%;
           position: absolute;
@@ -35,8 +52,8 @@
         .range-thumb {
           position: absolute;
           top: 50%;
-          width: 2lvh;
-          height: 2lvh;
+          width: 2.5lvh;
+          height: 2.5lvh;
           transform: translate(-50%, -50%);
           border-radius: 50%;
           background: var(--primary-color);
@@ -83,8 +100,8 @@
 
         &::-webkit-slider-thumb {
           -webkit-appearance: none;
-          width: 2lvh;
-          height: 2lvh;
+          width: 2.5lvh;
+          height: 2.5lvh;
           background: transparent;
           border: none;
           pointer-events: auto;
@@ -92,13 +109,40 @@
         }
 
         &::-moz-range-thumb {
-          width: 2lvh;
-          height: 2lvh;
+          width: 2.5lvh;
+          height: 2.5lvh;
           background: transparent;
           border: none;
           pointer-events: auto;
           cursor: pointer;
         }
+      }
+    }
+  }
+
+  .price-group {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 1.5vw;
+
+    @media screen and (aspect-ratio > 1/1) {
+      gap: 0.5vw;
+    }
+    @media screen and (aspect-ratio > 2.6/1) {
+      gap: 1lvh;
+    }
+
+    .price-separator {
+      flex-shrink: 0;
+      color: color-mix(in srgb, var(--dark-color) 35%, transparent);
+      font-size: 3.5vw;
+
+      @media screen and (aspect-ratio > 1/1) {
+        font-size: 1vw;
+      }
+      @media screen and (aspect-ratio > 2.6/1) {
+        font-size: 2.6lvh;
       }
     }
   }

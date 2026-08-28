@@ -1,9 +1,5 @@
 <?php
 
-/*=======================================
- *  Ce code a été ajouté par Amad pour tester l'inscription
- *  =============================================*/
-
 add_action('rest_api_init', function () {
     register_rest_route('custom/v1', '/register', [
         'methods'             => 'POST',

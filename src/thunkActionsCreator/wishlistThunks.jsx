@@ -19,7 +19,7 @@ export const fetchWishlistThunk = createAsyncThunk(
       if (!response.ok) {
         throw new Error(data.message || "Impossible de récupérer les favoris.");
       }
-      return data;
+      return { items: data };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -28,7 +28,7 @@ export const fetchWishlistThunk = createAsyncThunk(
 
 export const addToWishlistThunk = createAsyncThunk(
   "wishlist/add",
-  async (productId, thunkAPI) => {
+  async (product, thunkAPI) => {
     try {
       const token = thunkAPI.getState().user.token;
       const response = await fetch(
@@ -39,14 +39,14 @@ export const addToWishlistThunk = createAsyncThunk(
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ productId }),
+          body: JSON.stringify({ productId: product.id }),
         },
       );
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message || "Impossible d'ajouter aux favoris.");
       }
-      return data;
+      return { items: data };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -92,7 +92,7 @@ export const mergeGuestWishlistThunk = createAsyncThunk(
       }
 
       clearGuestWishlistStorage();
-      return data;
+      return { items: data };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -119,7 +119,7 @@ export const removeFromWishlistThunk = createAsyncThunk(
       if (!response.ok) {
         throw new Error(data.message || "Impossible de retirer des favoris.");
       }
-      return data;
+      return { items: data };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

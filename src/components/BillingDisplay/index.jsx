@@ -21,7 +21,7 @@ export default function BillingDisplay() {
 
   return (
     <div>
-      <form onSubmit={handleSubmitBilling}>
+      <form onSubmit={handleSubmitBilling} className="update-form">
         <h2>Informations de facturation</h2>
         <div className="input-container">
           {customer &&

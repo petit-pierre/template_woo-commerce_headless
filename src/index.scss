@@ -42,6 +42,9 @@ body {
   flex-direction: column;
   max-width: 260lvh;
   margin: 0 auto;
+  main {
+    min-height: 90lvh;
+  }
 }
 
 ::selection {

@@ -28,11 +28,29 @@ export default function Header() {
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
+    let ticking = false;
+    const threshold = 10;
+    const updateScroll = () => {
+      const y = window.scrollY;
+      if (y <= 0) {
+        setIsHidden(false);
+        lastScrollY = 0;
+        ticking = false;
+        return;
+      }
+      const delta = y - lastScrollY;
+      if (Math.abs(delta) > threshold) {
+        setIsHidden(delta > 0);
+        lastScrollY = y;
+      }
+      ticking = false;
+    };
 
     const handleScroll = () => {
-      const y = window.scrollY;
-      setIsHidden(y > 0 && y > lastScrollY);
-      lastScrollY = y;
+      if (!ticking) {
+        window.requestAnimationFrame(updateScroll);
+        ticking = true;
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -51,6 +69,10 @@ export default function Header() {
         <div className="menu">
           <Link to="/" className="header-logo" aria-label="Ecommerce">
             <img src={logoUrl || "./logo.webp"} alt="Logo" />
+            <span className="header-logo-text">
+              <strong>LUMÉA</strong>
+              <small>BEAUTÉ & BIEN-ÊTRE</small>
+            </span>
           </Link>
           <nav
             className={`header-nav ${menuOpen ? "open" : ""}`}

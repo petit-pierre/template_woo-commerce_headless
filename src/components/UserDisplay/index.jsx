@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Loader";
 import ShippingDisplay from "../ShippingDisplay";
 import BillingDisplay from "../BillingDisplay";
-import { fetchCurrentUserThunk } from "../../thunkActionsCreator/userThunks";
+import {
+  fetchCurrentUserThunk,
+  updateCurrentUserThunk,
+} from "../../thunkActionsCreator/userThunks";
+import "./index.css";
 
 export function UserDisplay() {
   const dispatch = useDispatch();
@@ -42,8 +46,8 @@ export function UserDisplay() {
   if (!profile) return <p>Aucun profil.</p>;
 
   return (
-    <div>
-      <form onSubmit={handleUpdateProfile}>
+    <div className="form-container">
+      <form onSubmit={handleUpdateProfile} className="update-form">
         <h3>Profil</h3>
         <div className="input-container">
           <p>Nom d'utilisateur : {profile.username}</p>

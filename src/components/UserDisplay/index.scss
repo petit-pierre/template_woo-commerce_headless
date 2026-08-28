@@ -1,0 +1,18 @@
+.form-container{
+    display: flex;
+    flex-direction: column;
+    row-gap: 2vw;
+
+    form {
+    border: solid 1px black;
+    padding: 2vw;
+
+    .input-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+  }
+}
+

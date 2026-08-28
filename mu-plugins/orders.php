@@ -1,14 +1,5 @@
 <?php
 
-/*=======================================
- *  wp-json/wc/v3/orders exige les cles API WooCommerce (consumer_key /
- *  consumer_secret), reservees aux admins/gestionnaires de boutique.
- *  Un client connecte via JWT n'a pas la capacite requise (edit_others_shop_orders)
- *  et se prend un 401 sur cette route.
- *  On expose donc une route custom, utilisable avec le JWT du user, qui ne
- *  renvoie QUE les commandes du user actuellement connecte.
- *  =============================================*/
-
 add_action('rest_api_init', function () {
     register_rest_route('custom/v1', '/orders', [
         'methods'             => 'GET',

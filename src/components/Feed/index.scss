@@ -7,6 +7,10 @@
   /* cacher la barre de scroll pour Internet Explorer et Edge */
   -ms-overflow-style: none;
   /* cacher la barre de scroll pour Chrome, Safari et Opera */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-height: 50lvh;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -17,7 +21,4 @@
       bottom: 200lvh;
     }
   }
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
 }

@@ -4,7 +4,7 @@ export const fetchCategoriesThunk = createAsyncThunk(
   "categories/fetchAll",
   async (_, thunkAPI) => {
     try {
-      const url = `${import.meta.env.VITE_API_URL}/wp-json/wc/store/v1/products/categories?_fields=id,name,slug`;
+      const url = `${import.meta.env.VITE_API_URL}/wp-json/wc/store/v1/products/categories?_fields=id,name,slug,image`;
       const response = await fetch(url, {
         method: "GET",
         headers: { "Content-Type": "application/json" },

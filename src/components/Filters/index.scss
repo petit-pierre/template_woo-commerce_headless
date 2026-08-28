@@ -148,33 +148,6 @@
       }
     }
 
-    .price-group {
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-      gap: 1.5vw;
-
-      @media screen and (aspect-ratio > 1/1) {
-        gap: 0.5vw;
-      }
-      @media screen and (aspect-ratio > 2.6/1) {
-        gap: 1lvh;
-      }
-
-      .price-separator {
-        flex-shrink: 0;
-        color: color-mix(in srgb, var(--dark-color) 35%, transparent);
-        font-size: 3.5vw;
-
-        @media screen and (aspect-ratio > 1/1) {
-          font-size: 1vw;
-        }
-        @media screen and (aspect-ratio > 2.6/1) {
-          font-size: 2.6lvh;
-        }
-      }
-    }
-
     select,
     input {
       flex-shrink: 0;

@@ -17,9 +17,11 @@ export default function Profile() {
   if (isAuthentificated) {
     return (
       <main>
-        <UserDisplay />
-        <OrderAll />
-        <DeleteAccountButton />
+        <div className="test">
+          <UserDisplay />
+          <DeleteAccountButton />
+          <OrderAll />
+        </div>
       </main>
     );
   }

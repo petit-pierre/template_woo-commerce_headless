@@ -86,23 +86,6 @@ export default function Filters() {
             </select>
             <PriceRangeSlider />
 
-            <div className="price-group">
-              <input
-                type="number"
-                name="min_price"
-                value={filters.min_price}
-                onChange={handlePriceChange}
-                placeholder="Prix min (€)"
-              />
-              <span className="price-separator">–</span>
-              <input
-                type="number"
-                name="max_price"
-                value={filters.max_price}
-                onChange={handlePriceChange}
-                placeholder="Prix max (€)"
-              />
-            </div>
             <select
               value={`${filters.orderby}-${filters.order}`}
               onChange={handleSortChange}

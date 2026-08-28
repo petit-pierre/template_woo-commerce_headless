@@ -1,12 +1,5 @@
 <?php
 
-/*=======================================
- *  Meme probleme que pour /orders : wp-json/wc/v3/customers exige les cles
- *  API WooCommerce reservees aux admins. On expose une route custom,
- *  utilisable avec le JWT du user, qui renvoie les donnees WooCommerce
- *  (facturation/livraison) du client actuellement connecte uniquement.
- *  =============================================*/
-
 add_action('rest_api_init', function () {
     register_rest_route('custom/v1', '/customer', [
         'methods'             => 'GET',
@@ -16,7 +9,7 @@ add_action('rest_api_init', function () {
         },
     ]);
 });
-//route PUT
+
 add_action('rest_api_init', function () {
     register_rest_route('custom/v1', '/customer', [
         'methods'             => 'PUT',
@@ -65,8 +58,6 @@ function headless_get_current_customer($request)
     ]);
 }
 
-
-// Longueur max alignee sur les colonnes VARCHAR(191) utilisees par WooCommerce/WP pour ces meta
 const HEADLESS_CUSTOMER_FIELD_MAX_LENGTH = 191;
 
 function headless_validate_address_fields($fields)
@@ -111,7 +102,6 @@ function headless_update_current_customer($request)
     $billing  = (isset($params['billing']) && is_array($params['billing'])) ? $params['billing'] : null;
     $shipping = (isset($params['shipping']) && is_array($params['shipping'])) ? $params['shipping'] : null;
 
-    // Validation avant toute ecriture, pour ne pas persister un etat partiellement invalide
     if ($billing !== null) {
         $errors = headless_validate_address_fields($billing);
         if (!empty($errors)) {
@@ -125,7 +115,6 @@ function headless_update_current_customer($request)
         }
     }
 
-    // 1. Mise à jour des champs Billing (si envoyés)
     if ($billing !== null) {
         $b = $billing;
 
@@ -141,7 +130,6 @@ function headless_update_current_customer($request)
         if (array_key_exists('phone', $b))     $customer->set_billing_phone(sanitize_text_field($b['phone']));
     }
 
-    // 2. Mise à jour des champs Shipping (si envoyés)
     if ($shipping !== null) {
         $s = $shipping;
 
@@ -157,9 +145,6 @@ function headless_update_current_customer($request)
         if (array_key_exists('phone', $s))     $customer->set_shipping_phone(sanitize_text_field($s['phone']));
     }
 
-    // Persistance des modifications en BDD
     $customer->save();
-
-    // On réutilise la fonction GET pour retourner le profil immédiatement mis à jour
     return headless_get_current_customer($request);
 }

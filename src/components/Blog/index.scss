@@ -16,17 +16,22 @@
     margin-bottom: 6vw;
   }
 
-  .blog-filter-label {
-    font-weight: 600;
-    color: var(--dark-color);
-  }
+  // .blog-filter-label {
+  //   font-weight: 600;
+  //   color: var(--dark-color);
+  // }
 
   .blog-filter-select {
     border: 1px solid var(--primary-color);
+    background-color: var(--bg-color);
     border-radius: 2vw;
     padding: 2vw 3vw;
     min-width: 220px;
-
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='none' stroke='%230f172a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 3vw center;
     &:focus {
       outline: 2px solid var(--primary-color);
       outline-offset: 2px;

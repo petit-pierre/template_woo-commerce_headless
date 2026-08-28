@@ -1,8 +1,4 @@
 <?php
-/*
-Plugin Name: Custom Stripe Public Key Endpoint
-Description: Expose la clé publique Stripe de WooCommerce pour le frontend Headless
-*/
 
 add_action('rest_api_init', function () {
     register_rest_route('custom/v1', '/stripe', [

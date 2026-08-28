@@ -41,6 +41,9 @@ body {
   max-width: 260lvh;
   margin: 0 auto;
 }
+body main {
+  min-height: 90lvh;
+}
 
 ::-moz-selection {
   background-color: var(--primary-color);

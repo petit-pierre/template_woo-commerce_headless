@@ -86,7 +86,9 @@ export default function ProductCard({ product }) {
 
       <div className="description">
         <span>
-          {product.is_in_stock ? (
+          {product.low_stock_remaining ? (
+            <p className="low-stock"> {product.low_stock_remaining} restants</p>
+          ) : product.is_in_stock ? (
             <p className="stock-status-available">En stock</p>
           ) : (
             <p className="stock-status-unavailable">Rupture de stock</p>

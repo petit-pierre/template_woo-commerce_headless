@@ -1,13 +1,5 @@
 <?php
 
-/*=======================================
- *  Suppression de compte :
- *  - Exige le mot de passe actuel en confirmation (une requete DELETE seule,
- *    avec juste un token JWT eventuellement vole/traine dans un onglet, ne
- *    doit pas suffire a effacer definitivement un compte).
- *  - Les commandes ne sont PAS supprimees mais anonymisees
- *  =============================================*/
-
 add_action('rest_api_init', function () {
     register_rest_route('custom/v1', '/user', [
         'methods'             => 'DELETE',
@@ -24,7 +16,6 @@ function headless_delete_current_user($request)
         return new WP_Error('woocommerce_unavailable', 'WooCommerce est requis pour cette fonctionnalité.', ['status' => 500]);
     }
 
-    // Requis pour pouvoir utiliser la fonction wp_delete_user() dans l'API REST
     require_once ABSPATH . 'wp-admin/includes/user.php';
 
     $user_id = get_current_user_id();
@@ -39,8 +30,6 @@ function headless_delete_current_user($request)
     if (empty($password) || !wp_check_password($password, $user->user_pass, $user_id)) {
         return new WP_Error('invalid_password', 'Mot de passe incorrect. Suppression annulée.', ['status' => 403]);
     }
-
-    // 1. Anonymisation des commandes (on garde l'historique comptable, on retire les données personnelles)
     $orders = wc_get_orders([
         'customer_id' => $user_id,
         'limit'       => -1,
@@ -49,8 +38,6 @@ function headless_delete_current_user($request)
     foreach ($orders as $order) {
         headless_anonymize_order($order);
     }
-
-    // 2. Suppression du compte utilisateur WordPress
     $deleted = wp_delete_user($user_id);
 
     if (!$deleted) {
@@ -65,13 +52,10 @@ function headless_delete_current_user($request)
 
 function headless_anonymize_order($order)
 {
-    // Reutilise l'anonymiseur natif de WooCommerce  plutot que de reinventer la logique.
     if (class_exists('WC_Privacy_Erasers') && method_exists('WC_Privacy_Erasers', 'remove_order_personal_data')) {
         WC_Privacy_Erasers::remove_order_personal_data($order);
         return;
     }
-
-    // Repli manuel si la classe n'est pas chargee pour une raison ou une autre
     $anonymous = __('Compte supprimé', 'woocommerce');
 
     $order->set_customer_id(0);
