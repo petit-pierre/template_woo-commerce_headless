@@ -1,0 +1,149 @@
+.order-details {
+//   color: var(--white-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3vw;
+  margin: 0 auto;
+  border: 1px solid var(--primary-color);
+//   background-color: var(--surface-color);
+  border-radius: 2vw;
+  box-shadow: 0 0 10px var(--surface-color);
+  width: 90%;
+    @media screen and (aspect-ratio > 1/1) {
+        padding: 1vw;
+        border-radius: 0.5vw;
+        width: 50%;
+    }
+}
+
+.payment-ok,
+.payment-pending {
+  color: var(--success-color);
+  font-weight: bold;
+  text-align: center;
+}
+
+p.item-total {
+  font-weight: bold;
+//   color: var(--white-color);
+}
+
+.order-details h3 {
+//   color: var(--white-color);
+  margin-top: 4vw;
+  margin-bottom: 2vw;
+}
+
+// .success-summary {
+//   width: 100%;
+//   color: var(--white-color);
+// }
+
+.success-summary p{
+color: var(--success-color);
+  margin-bottom: 2vw;
+}
+.success-summary strong{
+    color: var(--success-color);
+  margin-bottom: 2vw;
+}
+// .success-summary li {
+//   color: var(--primary-color);
+// }
+
+.order-details .order-items {
+  display: flex;
+  flex-direction: column;
+  gap: 3vw;
+}
+
+.order-details .order-item {
+  display: flex;
+  align-items: center;
+  gap: 3vw;
+  padding-bottom: 3vw;
+  border-bottom: 1px solid var(--text-color-muted);
+}
+
+.order-details .order-item img {
+  border-radius: 1vw;
+  width: 15vw;
+  height: auto;
+}
+
+.order-details .order-item div {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+}
+
+.order-details .order-item div strong,
+.order-details .order-item div p {
+  color: var(--dark-color);
+}
+
+.order-details .order-item div p {
+  margin: 0;
+  font-size: 3.5vw;
+}
+
+@media screen and (aspect-ratio > 1/1) {
+  .order-details {
+    padding: 2vw;
+    border-radius: 0.5vw;
+  }
+
+  .order-details h3 {
+    margin-top: 0;
+  }
+
+  .order-details .order-items {
+    gap: 1vw;
+  }
+
+  .order-details .order-item {
+    gap: 1vw;
+    padding-bottom: 1vw;
+  }
+
+  .order-details .order-item img {
+    border-radius: 0.2vw;
+    width: 5vw;
+  }
+
+  .order-details .order-item div {
+    gap: 0.5vw;
+  }
+
+  .order-details .order-item div p {
+    font-size: 1.2vw;
+  }
+}
+
+@media screen and (aspect-ratio > 2.6/1) {
+  .order-details {
+    gap: 1.5lvh;
+    padding: 3lvh;
+    border-radius: 1lvh;
+  }
+
+  .order-details h3 {
+    margin-top: 2lvh;
+    margin-bottom: 1lvh;
+  }
+
+  .order-details .order-item {
+    gap: 1.5lvh;
+    padding-bottom: 1.5lvh;
+  }
+
+  .order-details .order-item img {
+    border-radius: 0.5lvh;
+    width: 8lvh;
+  }
+
+  .order-details .order-item div p {
+    font-size: 1.5lvh;
+  }
+}

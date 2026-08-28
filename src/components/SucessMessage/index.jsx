@@ -6,7 +6,7 @@ export default function SuccessMessage({ order }) {
   }
 
   return (
-    <div className="order-details">
+    <div className="success-summary">
       <p>Commande Numéro : {order.number ?? order.id}</p>
 
       {order.status && (
