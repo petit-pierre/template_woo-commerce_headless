@@ -21,20 +21,22 @@ export default function BillingDisplay() {
 
   return (
     <div>
-      <h2>Informations de facturation</h2>
-      <form onSubmit={handleSubmitBilling}>
-        {customer &&
-          Object.entries(billing).map(([key, value]) => (
-            <p key={key}>
-              {key} :{" "}
-              <input
-                key={key}
-                placeholder={key}
-                value={billing[key] || ""}
-                onChange={(e) => handleBillingChange(key, e.target.value)}
-              />
-            </p>
-          ))}
+      <form onSubmit={handleSubmitBilling} className="update-form">
+        <h2>Informations de facturation</h2>
+        <div className="input-container">
+          {customer &&
+            Object.entries(billing).map(([key, value]) => (
+              <p key={key}>
+                {key} :{" "}
+                <input
+                  key={key}
+                  placeholder={key}
+                  value={billing[key] || ""}
+                  onChange={(e) => handleBillingChange(key, e.target.value)}
+                />
+              </p>
+            ))}
+        </div>
         <button type="submit">Enregistrer informations</button>
       </form>
     </div>

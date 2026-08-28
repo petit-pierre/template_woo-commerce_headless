@@ -117,13 +117,13 @@
 }
 
 .header-logo img {
-  width: 12vw;
-  height: auto;
+  //width: 12vw;
+  height: 100%;
   margin-left: 1vw;
 
   @media screen and (aspect-ratio > 1/1) {
-    width: 4.5vw;
-  margin-left: 0.5vw;
+    //width: 4.5vw;
+    margin-left: 0.5vw;
   }
 }
 
@@ -167,4 +167,3 @@
     font-size: 1lvh;
   }
 }
-

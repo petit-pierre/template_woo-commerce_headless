@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Loader";
 import ShippingDisplay from "../ShippingDisplay";
 import BillingDisplay from "../BillingDisplay";
-import { fetchCurrentUserThunk } from "../../thunkActionsCreator/userThunks";
+import {
+  fetchCurrentUserThunk,
+  updateCurrentUserThunk,
+} from "../../thunkActionsCreator/userThunks";
+import "./index.css";
 
 export function UserDisplay() {
   const dispatch = useDispatch();
@@ -42,45 +46,48 @@ export function UserDisplay() {
   if (!profile) return <p>Aucun profil.</p>;
 
   return (
-    <div>
-      <form onSubmit={handleUpdateProfile}>
-        <p>Nom d'utilisateur : {profile.username}</p>
-        <p>
-          Email :{" "}
-          <input
-            type="email"
-            placeholder="nouvel email"
-            value={newEmail}
-            onChange={(e) => setNewEmail(e.target.value)}
-          />
-        </p>
-        <p>
-          Prénom :{" "}
-          <input
-            type="text"
-            placeholder="prenom"
-            value={newFirstName}
-            onChange={(e) => setNewFirstName(e.target.value)}
-          />
-        </p>
-        <p>
-          Nom :{" "}
-          <input
-            type="text"
-            placeholder="nom"
-            value={newLastName}
-            onChange={(e) => setNewLastName(e.target.value)}
-          />
-        </p>
-        <p>
-          Mot de passe :{" "}
-          <input
-            type="password"
-            placeholder="nouveau mot de passe"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-          />
-        </p>
+    <div className="form-container">
+      <form onSubmit={handleUpdateProfile} className="update-form">
+        <h3>Profil</h3>
+        <div className="input-container">
+          <p>Nom d'utilisateur : {profile.username}</p>
+          <p>
+            Email :{" "}
+            <input
+              type="email"
+              placeholder="nouvel email"
+              value={newEmail}
+              onChange={(e) => setNewEmail(e.target.value)}
+            />
+          </p>
+          <p>
+            Prénom :{" "}
+            <input
+              type="text"
+              placeholder="prenom"
+              value={newFirstName}
+              onChange={(e) => setNewFirstName(e.target.value)}
+            />
+          </p>
+          <p>
+            Nom :{" "}
+            <input
+              type="text"
+              placeholder="nom"
+              value={newLastName}
+              onChange={(e) => setNewLastName(e.target.value)}
+            />
+          </p>
+          <p>
+            Mot de passe :{" "}
+            <input
+              type="password"
+              placeholder="nouveau mot de passe"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+          </p>
+        </div>
         <button type="submit" disabled={user.loading}>
           {user.loading ? "Mise a jour..." : "Mettre a jour le profil"}
         </button>

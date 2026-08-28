@@ -37,7 +37,7 @@ export default function WishlistButton({ product }) {
     const result = await dispatch(
       isWishlisted
         ? removeFromWishlistThunk(product.id)
-        : addToWishlistThunk(product.id),
+        : addToWishlistThunk(product),
     );
 
     if (

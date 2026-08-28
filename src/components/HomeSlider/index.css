@@ -6,9 +6,21 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 2lvh;
-  margin-right: 2lvh;
-  height: clamp(300px, 40vw, 750px);
+  height: 80lvh;
+}
+@media screen and (aspect-ratio > 1/1) {
+  .sliderContainer {
+    height: 40vw;
+    margin-left: 2lvh;
+    margin-right: 2lvh;
+  }
+}
+@media screen and (aspect-ratio > 2.6/1) {
+  .sliderContainer {
+    height: 35vw;
+    margin-left: 2lvh;
+    margin-right: 2lvh;
+  }
 }
 .sliderContainer .carousel-item {
   display: inline-flex;
@@ -27,12 +39,29 @@
   justify-content: center;
 }
 .sliderContainer .slMax {
-  min-width: calc(100dvw - 4lvh - 12vw);
   pointer-events: none;
+  width: 100%;
+}
+@media screen and (aspect-ratio > 1/1) {
+  .sliderContainer .slMax {
+    width: 90%;
+    min-width: calc(100dvw - 4lvh - 12vw);
+  }
 }
 .sliderContainer .slMax .product-card {
   pointer-events: all;
   margin-top: 2vw;
+  width: 60%;
+}
+@media screen and (aspect-ratio > 1/1) {
+  .sliderContainer .slMax .product-card {
+    width: 25%;
+  }
+}
+@media screen and (aspect-ratio > 2.6/1) {
+  .sliderContainer .slMax .product-card {
+    width: 25%;
+  }
 }
 .sliderContainer .arrowAndCounter {
   position: static;
@@ -65,6 +94,14 @@
   cursor: pointer;
   opacity: 1;
   transition: 1s;
+  display: none;
+}
+@media screen and (aspect-ratio > 1/1) {
+  .sliderContainer .arrowLeft {
+    width: 7vw;
+    height: 7vw;
+    display: block;
+  }
 }
 .sliderContainer .arrowRight {
   right: 0;
@@ -74,6 +111,14 @@
   cursor: pointer;
   opacity: 1;
   transition: 1s;
+  display: none;
+}
+@media screen and (aspect-ratio > 1/1) {
+  .sliderContainer .arrowRight {
+    width: 7vw;
+    height: 7vw;
+    display: block;
+  }
 }
 .sliderContainer .counter {
   position: absolute;
@@ -94,16 +139,29 @@
   transition: 1s;
 }
 .sliderContainer .previous {
-  translate: -32%;
   transition: 1s;
+  translate: -64% 5%;
+  z-index: 3;
+}
+@media screen and (aspect-ratio > 1/1) {
+  .sliderContainer .previous {
+    translate: -32% 5%;
+  }
 }
 .sliderContainer .selected {
-  translate: 0% -5%;
+  translate: 0%;
   transition: 1s;
+  z-index: 5;
 }
 .sliderContainer .next {
-  translate: 32%;
+  translate: 64% 5%;
   transition: 1s;
+  z-index: 3;
+}
+@media screen and (aspect-ratio > 1/1) {
+  .sliderContainer .next {
+    translate: 32% 5%;
+  }
 }
 .sliderContainer .prevPrev {
   translate: -64%;
@@ -120,6 +178,11 @@
   z-index: 5;
   border: solid 3px black;
   transition: 0.4s;
+}
+@media screen and (aspect-ratio > 1/1) {
+  .sliderContainer .dot {
+    translate: 32% 5%;
+  }
 }
 .sliderContainer .dotSelected {
   margin-top: 5px;

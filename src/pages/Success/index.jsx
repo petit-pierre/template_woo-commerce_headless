@@ -7,6 +7,7 @@ import "./index.css";
 export default function Success() {
   const { orderId } = useParams();
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
   const { orders } = useSelector((state) => state.user);
 
   const order = orders.find(
@@ -19,9 +20,25 @@ export default function Success() {
 
   return (
     <main className="success-page">
-      <h1>Commande confirmée</h1>
-      <p className="thank-you">Merci pour votre commande.</p>
-      {order ? <OrderDetails order={order} /> : <p>regardes tes mails</p>}
+      <div className="success-header">
+        <h1>Commande confirmée</h1>
+        <p className="success-subtitle">
+          Merci pour votre commande n°{orderId}.
+        </p>
+      </div>
+
+      {token && order ? (
+        <div className="success-box">
+          <OrderDetails order={order} />
+        </div>
+      ) : (
+        <div className="success-guest">
+          <p>
+            Vous avez commandé en tant qu'invité. Un email de confirmation vous
+            a été envoyé avec le récapitulatif de votre commande.
+          </p>
+        </div>
+      )}
     </main>
   );
 }

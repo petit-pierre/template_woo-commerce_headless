@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import ProductCard from "../ProductCard";
 import Loader from "../Loader";
 
+const RECOMMENDED_COUNT = 5;
+
 export default function SimilarProducts({
   currentProduct,
   reduxProducts = [],
@@ -36,7 +38,10 @@ export default function SimilarProducts({
         }
 
         // NIVEAU 2 : Complément Redux
-        if (recommendations.length < 3 && reduxProducts.length > 0) {
+        if (
+          recommendations.length < RECOMMENDED_COUNT &&
+          reduxProducts.length > 0
+        ) {
           const reduxExtras = reduxProducts.filter(
             (p) =>
               p.id.toString() !== currentProduct.id.toString() &&
@@ -48,7 +53,7 @@ export default function SimilarProducts({
         }
 
         // NIVEAU 3 : Secours API global
-        if (recommendations.length < 3) {
+        if (recommendations.length < RECOMMENDED_COUNT) {
           const fallbackResponse = await fetch(`${baseUrl}?per_page=10`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -69,9 +74,9 @@ export default function SimilarProducts({
           }
         }
 
-        // Mélange aléatoire + Sélection des 3 premiers
+        // Mélange aléatoire + Sélection des premiers
         const randomized = recommendations.sort(() => 0.5 - Math.random());
-        setSimilarProducts(randomized.slice(0, 3));
+        setSimilarProducts(randomized.slice(0, RECOMMENDED_COUNT));
       } catch (error) {
         console.error(
           "Erreur lors de la récupération des recommandations :",
