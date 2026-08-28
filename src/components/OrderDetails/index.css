@@ -7,13 +7,11 @@
   border: 1px solid var(--primary-color);
   border-radius: 2vw;
   box-shadow: 0 0 10px var(--surface-color);
-  width: 90%;
 }
 @media screen and (aspect-ratio > 1/1) {
   .order-details {
     padding: 1vw;
     border-radius: 0.5vw;
-    width: 50%;
   }
 }
 
