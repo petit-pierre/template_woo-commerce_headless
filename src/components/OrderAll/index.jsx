@@ -1,11 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import OrderDetails from "../OrderDetails";
+import "./index.css";
 
 export function OrderAll() {
   const orders = useSelector((state) => state.user.orders);
 
   const [opened, setOpened] = useState(null);
+
+  useEffect(() => {
+    if (opened == null) return;
+
+    const onKey = (e) => {
+      if (e.key === "Escape") setOpened(null);
+    };
+
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [opened]);
 
   if (!orders?.length) {
     return <p>Aucune commande trouvée.</p>;
@@ -14,6 +26,8 @@ export function OrderAll() {
   const sortedOrders = [...orders].sort(
     (a, b) => new Date(b.date) - new Date(a.date),
   );
+
+  const openedOrder = sortedOrders.find((order) => order.id === opened);
 
   return (
     <div className="orders-history">
@@ -31,21 +45,38 @@ export function OrderAll() {
               <p>{order.status}</p>
             </div>
 
-            <button
-              type="button"
-              onClick={() =>
-                setOpened((prev) => (prev === order.id ? null : order.id))
-              }
-            >
-              {opened === order.id ? "Voir moins" : "Voir plus"}
+            <button type="button" onClick={() => setOpened(order.id)}>
+              Voir plus
             </button>
           </div>
-
-          {opened === order.id && (
-            <OrderDetails orderId={order.id} />
-          )}
         </div>
       ))}
+
+      {openedOrder && (
+        <div
+          className="order-modal-overlay"
+          role="presentation"
+          onClick={() => setOpened(null)}
+        >
+          <div
+            className="order-modal"
+            role="dialog"
+            aria-modal="true"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="order-modal-close"
+              aria-label="Fermer"
+              onClick={() => setOpened(null)}
+            >
+              ✕
+            </button>
+
+            <OrderDetails orderId={openedOrder.id} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,0 +1,80 @@
+.badge {
+  display: inline-block;
+  padding: 0.5vw 2.5vw;
+  border-radius: 10vw;
+  font-family: var(--font-heading);
+  font-size: 3vw;
+  background-color: var(--surface-color);
+  color: var(--dark-color);
+}
+.badge-processing, .badge-completed {
+  background-color: #b17979;
+  color: var(--white-color);
+}
+.badge-pending, .badge-on-hold {
+  background-color: var(--secondary-color);
+  color: var(--white-color);
+}
+.badge-cancelled, .badge-failed, .badge-refunded {
+  background-color: var(--danger-color);
+  color: var(--white-color);
+}
+@media screen and (aspect-ratio > 1/1) {
+  .badge {
+    padding: 0.2vw 0.8vw;
+    font-size: 0.9vw;
+  }
+}
+
+.order-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4vw;
+  background-color: rgba(15, 23, 42, 0.5);
+}
+
+.order-modal {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: var(--white-color);
+  border-radius: 3vw;
+  padding: 5vw;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+}
+.order-modal .order-details {
+  margin-top: 8vw;
+  border: none;
+  padding: 0;
+}
+@media screen and (aspect-ratio > 1/1) {
+  .order-modal {
+    border-radius: 1vw;
+    padding: 2vw;
+  }
+  .order-modal .order-details {
+    margin-top: 3vw;
+  }
+}
+
+.order-modal-close {
+  position: absolute;
+  top: 2vw;
+  right: 2vw;
+  padding: 1.5vw;
+  line-height: 1;
+  border-radius: 50%;
+}
+@media screen and (aspect-ratio > 1/1) {
+  .order-modal-close {
+    top: 0.8vw;
+    right: 0.8vw;
+    padding: 0.5vw 0.8vw;
+  }
+}/*# sourceMappingURL=index.css.map */

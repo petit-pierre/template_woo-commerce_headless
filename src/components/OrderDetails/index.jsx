@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import SucessMessage from "../SucessMessage";
+import "./index.css";
 
 const ordersCache = {};
+
+const productOrigin = (permalink) => {
+  if (!permalink) return null;
+  const pathSegments = permalink.split("/").filter(Boolean);
+  return pathSegments.pop() || null;
+};
 
 export default function OrderDetails({ order = null, orderId = null }) {
   const token = useSelector((state) => state.user.token);
@@ -84,7 +92,11 @@ export default function OrderDetails({ order = null, orderId = null }) {
 
           <div className="order-items">
             {detail.items?.map((item) => (
-              <div key={item.id} className="order-item">
+             <Link
+             key={item.id}
+             to={`/product/${productOrigin(item.permalink) ?? item.id}`}
+             className="order-item"
+            >
                 {item.images?.[0] && (
                   <img
                     src={item.images[0].thumbnail}
@@ -102,7 +114,7 @@ export default function OrderDetails({ order = null, orderId = null }) {
                     {(Number(item.totals.line_total) / 100).toFixed(2)} €
                   </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 

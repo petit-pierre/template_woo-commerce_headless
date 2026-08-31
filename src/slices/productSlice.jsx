@@ -43,6 +43,7 @@ export const productsSlice = createSlice({
       .addCase(fetchProductByIdThunk.pending, (state) => {
         state.loadingSingle = true;
         state.errorSingle = null;
+        state.singleProduct = null;
       })
       .addCase(fetchProductByIdThunk.fulfilled, (state, action) => {
         state.loadingSingle = false;
@@ -52,6 +53,7 @@ export const productsSlice = createSlice({
       .addCase(fetchProductByIdThunk.rejected, (state, action) => {
         state.loadingSingle = false;
         state.errorSingle = action.payload;
+        state.singleProduct = null;
       });
   },
 });

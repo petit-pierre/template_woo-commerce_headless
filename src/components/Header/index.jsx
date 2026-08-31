@@ -61,11 +61,11 @@ export default function Header() {
     <header className={`header ${isHidden ? "header-hidden" : ""}`}>
       <div className="margin"></div>
       <div className="content">
-        {/* <div
+        <div
             className={`header-overlay ${menuOpen ? "open" : ""}`}
             onClick={closeMenu}
             aria-hidden="true"
-          /> */}
+          />
         <div className="menu">
           <Link to="/" className="header-logo" aria-label="Ecommerce">
             <img src={logoUrl || "./logo.webp"} alt="Logo" />
@@ -74,10 +74,15 @@ export default function Header() {
               <small>BEAUTÉ & BIEN-ÊTRE</small>
             </span>
           </Link>
-          <nav
-            className={`header-nav ${menuOpen ? "open" : ""}`}
-            aria-hidden={!menuOpen}
+          <button
+            className="header-burger"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Menu"
+            aria-expanded={menuOpen}
           >
+            ☰
+          </button>
+          <div className={`header-panel ${menuOpen ? "open" : ""}`}>
             <button
               className="header-close"
               onClick={closeMenu}
@@ -85,74 +90,84 @@ export default function Header() {
             >
               ✕
             </button>
-            <button
-              className="header-burger"
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label="Menu"
-              aria-expanded={menuOpen}
-            >
-              ☰
-            </button>
-            <Link to="/catalogue" onClick={closeMenu}>
-              Catalogue
-            </Link>
-            <Link to="/blog" onClick={closeMenu}>
-              Blog
-            </Link>
-          </nav>
-          <div className="header-actions">
-            <Autocomplete />
-            <Link
-              to="/catalogue"
-              className="header-icon"
-              aria-label="Recherche"
-            >
-              <img src={searchIcon} alt="" className="header-icon-img" />
-            </Link>
-
-            {isAuthentificated ? (
-              <Link to="/profile" className="header-icon" aria-label="Profil">
-                <img src={peopleIcon} alt="" className="header-icon-img" />
+            <nav className="header-nav" aria-hidden={!menuOpen}>
+              <Link to="/catalogue" onClick={closeMenu}>
+                Catalogue
               </Link>
-            ) : (
-              <button
-                type="button"
-                className="header-icon"
-                aria-label="Profil"
-                onClick={() => dispatch(openModal({ name: "auth", props: { view: "login" } }))}
+              <Link to="/blog" onClick={closeMenu}>
+                Blog
+              </Link>
+            </nav>
+            <div className="header-actions">
+              <div className="header-search">
+                <Autocomplete />
+                <Link
+                  to="/catalogue"
+                  className="header-icon"
+                  aria-label="Recherche"
+                  onClick={closeMenu}
+                >
+                  <img src={searchIcon} alt="" className="header-icon-img" />
+                </Link>
+              </div>
+
+              {isAuthentificated ? (
+                <Link
+                  to="/profile"
+                  className="header-icon"
+                  aria-label="Profil"
+                  onClick={closeMenu}
+                >
+                  <img src={peopleIcon} alt="" className="header-icon-img" />
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  className="header-icon"
+                  aria-label="Profil"
+                  onClick={() => {
+                    closeMenu();
+                    dispatch(openAuthModal("login"));
+                  }}
+                >
+                  <img src={peopleIcon} alt="" className="header-icon-img" />
+                </button>
+              )}
+
+              <Link
+                to="/panier"
+                className="header-icon header-cart-link"
+                aria-label={`Panier (${cartBadgeValue})`}
+                onClick={closeMenu}
               >
-                <img src={peopleIcon} alt="" className="header-icon-img" />
-              </button>
-            )}
+                <img src={bagIcon} alt="" className="header-icon-img" />
+                {cartCount > 0 && (
+                  <span className="header-cart-badge">{cartBadgeValue}</span>
+                )}
+              </Link>
+              <Link
+                to="/wishlist"
+                className="header-icon header-wishlist-link"
+                aria-label={`Favoris (${wishlistItems.length})`}
+                onClick={closeMenu}
+              >
+                <img src={heartIcon} alt="" className="header-icon-img" />
+                {wishlistItems.length > 0 && (
+                  <span className="header-cart-badge">
+                    {wishlistItems.length > 9 ? "9+" : wishlistItems.length}
+                  </span>
+                )}
+              </Link>
 
-            <Link
-              to="/panier"
-              className="header-icon header-cart-link"
-              aria-label={`Panier (${cartBadgeValue})`}
-            >
-              <img src={bagIcon} alt="" className="header-icon-img" />
-              {cartCount > 0 && (
-                <span className="header-cart-badge">{cartBadgeValue}</span>
+              {token && (
+                <button
+                  className="deconexion"
+                  onClick={() => dispatch(logout())}
+                >
+                  Déconnexion
+                </button>
               )}
-            </Link>
-            <Link
-              to="/wishlist"
-              className="header-icon header-wishlist-link"
-              aria-label={`Favoris (${wishlistItems.length})`}
-            >
-              <img src={heartIcon} alt="" className="header-icon-img" />
-              {wishlistItems.length > 0 && (
-                <span className="header-cart-badge">
-                  {wishlistItems.length > 9 ? "9+" : wishlistItems.length}
-                </span>
-              )}
-            </Link>
-
-            {token && (
-              <button className="deconexion" onClick={() => dispatch(logout())}>
-                Déconnexion
-              </button>
-            )}
+            </div>
           </div>
         </div>
       </div>
