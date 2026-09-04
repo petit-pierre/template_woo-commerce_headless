@@ -41,6 +41,7 @@ body {
 }
 body main {
   min-height: 90lvh;
+  margin: 2vw;
 }
 
 ::-moz-selection {
@@ -101,6 +102,23 @@ p {
 }
 @media screen and (aspect-ratio > 2.6/1) {
   p {
+    font-size: 1.5lvh;
+  }
+}
+
+strong {
+  font-size: 3.5vw;
+  font-family: var(--font-heading);
+  color: var(--text-color-muted);
+  font-weight: 900;
+}
+@media screen and (aspect-ratio > 1/1) {
+  strong {
+    font-size: 1.2vw;
+  }
+}
+@media screen and (aspect-ratio > 2.6/1) {
+  strong {
     font-size: 1.5lvh;
   }
 }
@@ -200,7 +218,6 @@ h2 {
 h3 {
   font-size: 5vw;
   font-family: var(--font-body);
-  margin-top: 3vw;
   margin-bottom: 3vw;
 }
 @media screen and (aspect-ratio > 1/1) {

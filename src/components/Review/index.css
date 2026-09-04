@@ -2,9 +2,35 @@
   display: flex;
   align-items: center;
 }
+.review-rating img {
+  width: 4vw;
+}
+@media screen and (aspect-ratio > 1/1) {
+  .review-rating img {
+    width: 1.5vw;
+  }
+}
+@media screen and (aspect-ratio > 2.6/1) {
+  .review-rating img {
+    width: 4lvh;
+  }
+}
 
 .review-list {
   margin-top: 3.2lvh;
+}
+.review-list img {
+  width: 4vw;
+}
+@media screen and (aspect-ratio > 1/1) {
+  .review-list img {
+    width: 1.5vw;
+  }
+}
+@media screen and (aspect-ratio > 2.6/1) {
+  .review-list img {
+    width: 4lvh;
+  }
 }
 
 .review-stars {

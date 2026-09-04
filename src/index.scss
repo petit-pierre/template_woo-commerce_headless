@@ -41,6 +41,7 @@ body {
   margin: 0 auto;
   main {
     min-height: 90lvh;
+    margin: 2vw;
   }
 }
 
@@ -72,6 +73,18 @@ p {
   font-family: var(--font-heading);
   color: var(--text-color-muted);
   font-weight: 300;
+  @media screen and (aspect-ratio > 1/1) {
+    font-size: 1.2vw;
+  }
+  @media screen and (aspect-ratio > 2.6/1) {
+    font-size: 1.5lvh;
+  }
+}
+strong {
+  font-size: 3.5vw;
+  font-family: var(--font-heading);
+  color: var(--text-color-muted);
+  font-weight: 900;
   @media screen and (aspect-ratio > 1/1) {
     font-size: 1.2vw;
   }
@@ -149,7 +162,7 @@ h2 {
 h3 {
   font-size: 5vw;
   font-family: var(--font-body);
-  margin-top: 3vw;
+  //margin-top: 3vw;
   margin-bottom: 3vw;
   @media screen and (aspect-ratio > 1/1) {
     font-size: 2vw;
