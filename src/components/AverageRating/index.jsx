@@ -3,7 +3,6 @@ import "./index.css";
 const AverageRating = ({ avgRating = 0, totalReviews = 0 }) => {
   const normalizedRating = Math.max(0, Math.min(Number(avgRating) || 0, 5));
   const fullStars = Math.round(normalizedRating);
-  const stars = "★".repeat(fullStars) + "☆".repeat(5 - fullStars);
 
   const handleReviewsClick = (event) => {
     event.preventDefault();
@@ -13,9 +12,25 @@ const AverageRating = ({ avgRating = 0, totalReviews = 0 }) => {
 
   return (
     <div className="rating">
-      <span className="star">{stars}</span>
-      <a href="#reviews-section" onClick={handleReviewsClick}>
-        {Number(totalReviews) || 0} avis
+      <a
+        className="reviews"
+        href="#reviews-section"
+        onClick={handleReviewsClick}
+      >
+        <span className="stars-container">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <img
+              key={star}
+              src={
+                star <= fullStars
+                  ? "/review-active.svg"
+                  : "/review-inactive.svg"
+              }
+              alt="avis"
+            />
+          ))}
+        </span>
+        <span className="reviews-count">{Number(totalReviews) || 0} avis</span>
       </a>
     </div>
   );

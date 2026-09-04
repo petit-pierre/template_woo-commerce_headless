@@ -1,11 +1,123 @@
 .cart {
   width: 100%;
-  ul {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  max-width: 1100px;
+  margin: 4vw auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4vw;
+
+  @media screen and (aspect-ratio > 1/1) {
+    margin: 2vw auto;
+    gap: 1.5vw;
   }
-  .total {
-    margin-left: 2vw;
+  @media screen and (aspect-ratio > 2.6/1) {
+    margin: 2lvh auto;
+    gap: 2lvh;
   }
+}
+
+.cart__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4vw;
+  align-items: start;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  @media screen and (aspect-ratio > 1/1) {
+    gap: 1.5vw;
+  }
+}
+
+.cart__items {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  gap: 3vw;
+  margin: 0;
+
+  @media screen and (aspect-ratio > 1/1) {
+    gap: 1.2vw;
+  }
+}
+
+.cart__empty-state {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 3vw;
+  padding: 4vw;
+  text-align: center;
+  color: #475569;
+
+  @media screen and (aspect-ratio > 1/1) {
+    border-radius: 0.8vw;
+    padding: 1.5vw;
+  }
+}
+
+.cart__summary {
+  display: flex;
+  flex-direction: column;
+  gap: 3vw;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 3vw;
+  padding: 4vw;
+
+  @media (min-width: 768px) {
+    position: sticky;
+    top: 2vw;
+  }
+
+  @media screen and (aspect-ratio > 1/1) {
+    border-radius: 0.8vw;
+    padding: 1.5vw;
+    gap: 1vw;
+  }
+}
+
+.cart__total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 3vw;
+
+  span {
+    color: #475569;
+    margin-bottom: 0;
+  }
+
+  strong {
+    font-family: var(--font-heading);
+    font-size: 5.5vw;
+    color: var(--dark-color);
+  }
+
+  @media screen and (aspect-ratio > 1/1) {
+    padding-top: 1vw;
+
+    strong {
+      font-size: 1.6vw;
+    }
+  }
+}
+
+.cart__clear-button {
+  width: 100%;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--danger-color);
+  border: 1px solid var(--danger-color);
+
+  &:hover {
+    background-color: var(--danger-color);
+    color: #ffffff;
+  }
+}
+
+.cart__checkout {
+  width: 100%;
 }

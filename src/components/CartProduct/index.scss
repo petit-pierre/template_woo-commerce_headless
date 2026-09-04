@@ -1,22 +1,116 @@
 .cart-product {
-  width: 100%;
   display: flex;
-  a {
-    width: 70%;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 3vw;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 3vw;
+  padding: 3vw;
+
+  @media screen and (aspect-ratio > 1/1) {
+    border-radius: 0.8vw;
+    padding: 1.2vw;
+    gap: 1.2vw;
   }
 
-  &-thumbnail {
-    width: 20%;
-    object-fit: contain;
-    margin-top: 0;
-    float: left;
-    margin-right: 2lvh;
-  }
-
-  &-actions {
+  &__link {
     display: flex;
-    gap: 8px;
+    flex: 1 1 240px;
+    min-width: 0;
+    gap: 3vw;
     align-items: flex-start;
+
+    @media screen and (aspect-ratio > 1/1) {
+      gap: 1.2vw;
+    }
+  }
+
+  &__thumbnail {
+    width: 22vw;
+    max-width: 110px;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    background-color: var(--bg-color);
+    border-radius: 2vw;
+    flex-shrink: 0;
+
+    @media screen and (aspect-ratio > 1/1) {
+      border-radius: 0.5vw;
+    }
+  }
+
+  &__info {
+    min-width: 0;
+
+    h3 {
+      overflow-wrap: break-word;
+    }
+  }
+
+  &__variation,
+  &__quantity {
+    color: #475569;
+  }
+
+  &__price {
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 0;
+  }
+
+  &__actions {
+    display: flex;
     flex-wrap: wrap;
+    gap: 2vw;
+    margin-left: auto;
+
+    @media screen and (aspect-ratio > 1/1) {
+      flex-direction: column;
+      gap: 0.6vw;
+    }
+  }
+
+  &__qty-button {
+    padding: 2vw 3vw;
+    font-size: 3.5vw;
+    border-radius: 2vw;
+
+    @media screen and (aspect-ratio > 1/1) {
+      padding: 0.5vw 1vw;
+      font-size: 0.95vw;
+      border-radius: 0.4vw;
+    }
+
+    &--outline {
+      background-color: transparent;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+
+      &:hover {
+        background-color: var(--primary-color);
+        color: var(--bg-color);
+      }
+    }
+  }
+
+  &__remove {
+    padding: 2vw 3vw;
+    font-size: 3.5vw;
+    border-radius: 2vw;
+    background-color: transparent;
+    color: var(--danger-color);
+    border: 1px solid var(--danger-color);
+
+    &:hover {
+      background-color: var(--danger-color);
+      color: #ffffff;
+    }
+
+    @media screen and (aspect-ratio > 1/1) {
+      padding: 0.5vw 1vw;
+      font-size: 0.95vw;
+      border-radius: 0.4vw;
+    }
   }
 }

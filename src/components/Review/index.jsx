@@ -15,6 +15,10 @@ const Review = ({ productId }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // États pour la pagination
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+
   // États pour l'achat et le formulaire
   const [hasPurchased, setHasPurchased] = useState(false);
   const [checkingPurchase, setCheckingPurchase] = useState(false);
@@ -28,29 +32,35 @@ const Review = ({ productId }) => {
 
   // --- Chargement des avis ---
   const fetchReviews = () => {
-    if (!productId) {
-      setReviews([]);
-      setLoading(false);
-      return;
-    }
-
+    if (!productId) return;
     setLoading(true);
-    setError(null);
 
     fetch(
-      `${baseUrl}/wp-json/wc/store/v1/products/reviews?product_id=${productId}`,
+      `${baseUrl}/wp-json/wc/store/v1/products/reviews?product_id=${productId}&per_page=5&page=${currentPage}`,
     )
       .then((response) => {
-        if (!response.ok) throw new Error(`Erreur réseau ${response.status}`);
+        if (!response.ok) throw new Error("Erreur réseau");
+
+        // WooCommerce renvoie le total des pages dans les headers
+        const totalPagesHeader = response.headers.get("X-WP-TotalPages");
+        if (totalPagesHeader) {
+          setTotalPages(parseInt(totalPagesHeader, 10));
+        }
+
         return response.json();
       })
       .then((data) => setReviews(Array.isArray(data) ? data : []))
-      .catch((err) => setError(err.message || "Impossible de charger les avis"))
+      .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   };
-
+  // 1. Relance le fetch à chaque fois que le produit OU la page change
   useEffect(() => {
     fetchReviews();
+  }, [productId, currentPage]);
+
+  // 2. Remet la page à 1 uniquement si on change de produit
+  useEffect(() => {
+    setCurrentPage(1);
   }, [productId]);
 
   // Helper pour vérifier si une liste d'articles contient le produit
@@ -110,7 +120,6 @@ const Review = ({ productId }) => {
           }
         }
 
-        // 2. Option B : Appel API WooCommerce si aucune commande n’est déjà chargée
         const response = await fetch(
           `${baseUrl}/wp-json/wc/v3/orders?customer=${user?.id}&status=completed`,
           {
@@ -201,13 +210,55 @@ const Review = ({ productId }) => {
     }
   };
 
-  const renderStars = (ratingValue) => {
-    const value = Math.round(Number(ratingValue) || 0);
-    return Array.from({ length: 5 }, (_, index) =>
-      index < value ? "★" : "☆",
-    ).join("");
+  const renderStars = (rating = 0) => {
+    const normalizedRating = Math.max(0, Math.min(Number(rating) || 0, 5));
+    const fullStars = Math.round(normalizedRating);
+
+    return [1, 2, 3, 4, 5].map((star) => (
+      <img
+        key={star}
+        className="review-star-icon"
+        src={star <= fullStars ? "/review-active.svg" : "/review-inactive.svg"}
+        alt="avis"
+      />
+    ));
   };
 
+  // --- Calculs pour la pagination ---
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  const getPaginationRange = (current, total) => {
+    const delta = 1; // Nombre de pages affichées autour de la page active
+    const range = [];
+    const rangeWithDots = [];
+    let l;
+
+    for (let i = 1; i <= total; i++) {
+      if (
+        i === 1 ||
+        i === total ||
+        (i >= current - delta && i <= current + delta)
+      ) {
+        range.push(i);
+      }
+    }
+
+    for (let i of range) {
+      if (l) {
+        if (i - l === 2) {
+          rangeWithDots.push(l + 1);
+        } else if (i - l !== 1) {
+          rangeWithDots.push("...");
+        }
+      }
+      rangeWithDots.push(i);
+      l = i;
+    }
+
+    return rangeWithDots;
+  };
   return (
     <div id="reviews-section" className="review-list">
       <h2>Avis</h2>
@@ -226,18 +277,25 @@ const Review = ({ productId }) => {
             {submitError && <p>{submitError}</p>}
 
             <div>
-              <label>Note : </label>
-              {[1, 2, 3, 4, 5].map((star) => (
-                <button
-                  type="button"
-                  key={star}
-                  onClick={() => setRating(star)}
-                  aria-label={`Choisir ${star} étoiles`}
-                  className={`review-star-button ${star <= rating ? "active" : ""}`}
-                >
-                  ★
-                </button>
-              ))}
+              <div className="review-rating">
+                <label>Note : </label>
+
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <img
+                    type="button"
+                    className="review-star-button"
+                    key={star}
+                    onClick={() => setRating(star)}
+                    aria-label={`Choisir ${star} étoiles`}
+                    src={
+                      star <= rating
+                        ? "/review-active.svg"
+                        : "/review-inactive.svg"
+                    }
+                    alt="avis"
+                  />
+                ))}
+              </div>
               {!rating && (
                 <p className="review-helper-text">
                   Choisissez une note de 1 à 5.
@@ -272,29 +330,84 @@ const Review = ({ productId }) => {
       {loading && <Loader size="lg" />}
       {error && <p className="review-error">Erreur : {error}</p>}
       {!loading && !error && reviews.length === 0 && <p>Aucun avis trouvé.</p>}
+      <div className="reviews-block">
+        {reviews.map((review) => (
+          <article key={review.id || review.review_id} className="review-item">
+            <div className="review-stars">{renderStars(review.rating)}</div>
+            <div className="review-meta">
+              <strong>
+                {review.reviewer ?? "Anonyme"}
+                {" - "}
+              </strong>
+              <span>
+                {review.date_created
+                  ? new Date(review.date_created).toLocaleDateString("fr-FR")
+                  : ""}
+              </span>
+            </div>
+            <div
+              className="review-content"
+              dangerouslySetInnerHTML={{
+                __html: review.review || "",
+              }}
+            />
+          </article>
+        ))}
+      </div>
+      {/* --- BARRE DE PAGINATION --- */}
+      {!loading && totalPages > 1 && (
+        <div className="pagination">
+          {currentPage > 1 && (
+            <a
+              href="#reviews-section"
+              onClick={(e) => {
+                e.preventDefault();
+                handlePageChange(currentPage - 1);
+              }}
+            >
+              Précédent
+            </a>
+          )}
 
-      {reviews.map((review) => (
-        <article key={review.id || review.review_id} className="review-item">
-          <div className="review-stars">{renderStars(review.rating)}</div>
-          <div className="review-meta">
-            <strong>
-              {review.reviewer ?? "Anonyme"}
-              {" - "}
-            </strong>
-            <span>
-              {review.date_created
-                ? new Date(review.date_created).toLocaleDateString("fr-FR")
-                : ""}
-            </span>
-          </div>
-          <div
-            className="review-content"
-            dangerouslySetInnerHTML={{
-              __html: review.review || "",
-            }}
-          />
-        </article>
-      ))}
+          {getPaginationRange(currentPage, totalPages).map((page, index) => {
+            // Affichage des points de suspension
+            if (page === "...") {
+              return (
+                <span key={`dots-${index}`} className="pagination-dots">
+                  ...
+                </span>
+              );
+            }
+
+            // Affichage des numéros de page
+            return (
+              <a
+                key={page}
+                href="#reviews-section"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handlePageChange(page);
+                }}
+                className={currentPage === page ? "active" : ""}
+              >
+                {page}
+              </a>
+            );
+          })}
+
+          {currentPage < totalPages && (
+            <a
+              href="#reviews-section"
+              onClick={(e) => {
+                e.preventDefault();
+                handlePageChange(currentPage + 1);
+              }}
+            >
+              Suivant
+            </a>
+          )}
+        </div>
+      )}
     </div>
   );
 };

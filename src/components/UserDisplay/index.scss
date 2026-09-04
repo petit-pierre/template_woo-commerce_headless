@@ -7,11 +7,26 @@
     border: solid 1px black;
     padding: 2vw;
 
+    @media screen and (aspect-ratio > 2.6/1) {
+      padding: 5.2lvh;
+    }
+
     .input-container {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       flex-wrap: wrap;
+
+      p {
+        display: flex;
+        justify-content : space-between;
+        width : 100%;
+        @media screen and (aspect-ratio > 1/1) {
+          justify-content: flex-start;
+          width: auto;
+        }
+      }
+
     }
   }
 }

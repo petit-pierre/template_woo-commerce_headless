@@ -1,15 +1,10 @@
-.rating {
+.stars-container {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
 }
 
-.star {
-  color: #f5a623;
-  letter-spacing: 0.08rem;
-}
-
-.rating a {
-  color: inherit;
-  text-decoration: none;
-}
+.reviews {
+  display: flex;
+  align-items: center;
+  gap: 0.8vw;
+}/*# sourceMappingURL=index.css.map */

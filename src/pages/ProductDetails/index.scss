@@ -2,4 +2,17 @@
   max-width: 1200px;
   margin: 2rem auto;
   padding: 0 1rem;
+  .category-bg {
+    position: fixed;
+    z-index: -1;
+    top: 10lvh;
+    left: 0;
+    right: 0;
+    bottom: -3%;
+    background:
+      linear-gradient(rgba(253, 245, 234, 0.55), rgba(253, 245, 234, 0.55)),
+      var(--cat-bg, none) center / cover no-repeat;
+    border-radius: 40px 40px 0 0;
+    opacity: 0.5;
+  }
 }

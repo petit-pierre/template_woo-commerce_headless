@@ -17,9 +17,10 @@ export default function ProductDetails() {
   const { list, singleProduct, loadingSingle, errorSingle } = useSelector(
     (state) => state.products,
   );
+  const categories = useSelector((state) => state.categories.items || []);
 
   const productFromList = list?.data?.find(
-    (p) => p.id.toString() === id.toString(),
+    (p) => p.id?.toString() === id?.toString(),
   );
   const productToDisplay = productFromList || singleProduct;
 
@@ -27,7 +28,12 @@ export default function ProductDetails() {
     if (id && !productFromList) {
       dispatch(fetchProductByIdThunk(id));
     }
-  }, [id]);
+  }, [id, productFromList, dispatch]);
+  const categoryName = productToDisplay?.categories?.[0]?.name;
+  const matchedCategory = categories.find(
+    (cat) => cat.name?.toString() === categoryName?.toString(),
+  );
+  const bg = matchedCategory?.image?.src;
 
   if (loadingSingle && !productToDisplay) {
     return <Loader size="lg" />;
@@ -50,6 +56,10 @@ export default function ProductDetails() {
           reduxProducts={list?.data}
         />
         <Review productId={productToDisplay.id} />
+        <div
+          className="category-bg"
+          style={{ "--cat-bg": bg ? `url(${bg})` : "none" }}
+        ></div>
       </div>
     </main>
   );

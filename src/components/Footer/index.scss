@@ -23,6 +23,7 @@
 
   .footer_logo {
     height: 3vw;
+    min-height: 40px;
     width: auto;
     object-fit: contain;
   }
@@ -72,8 +73,15 @@
     width: auto;
     color: var(--secondary-color);
     font-family: var(--font-body);
+    font-size: inherit;
+    line-height: inherit;
     transition: color 0.2s ease;
 
+    &:hover {
+      color: var(--primary-color);
+      opacity: 1;
+      transform: none;
+    }
   }
 
   .footer_bottom {

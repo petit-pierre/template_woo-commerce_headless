@@ -15,43 +15,42 @@ export function CartProduct({ item }) {
 
   return (
     <li className="cart-product">
-      <Link to={/product/ + slug}>
+      <Link to={`/product/${slug}`} className="cart-product__link">
         <img
-          className="cart-product-thumbnail"
+          className="cart-product__thumbnail"
           src={
             item.images?.[0]?.src ||
             "https://placeholder.pics/svg/300/DEDEDE/555555/Produit%20sans%20illustration"
           }
           alt={item.name || "produit sans nom"}
         ></img>
-        <h3
-          dangerouslySetInnerHTML={{ __html: item.name || "produit sans nom" }}
-        ></h3>
-        {/* <span
-          dangerouslySetInnerHTML={{
-            __html:
-              item.short_description ||
-              item.description ||
-              "pas de description",
-          }}
-        ></span> */}
-        {item.variation &&
-          item.variation.map((variation) => (
-            <p key={variation.attribute}>
-              {variation.attribute} : {variation.value}
+        <div className="cart-product__info">
+          <h3
+            dangerouslySetInnerHTML={{
+              __html: item.name || "produit sans nom",
+            }}
+          ></h3>
+          {item.variation &&
+            item.variation.map((variation) => (
+              <p key={variation.attribute} className="cart-product__variation">
+                {variation.attribute} : {variation.value}
+              </p>
+            ))}
+          <p className="cart-product__quantity">Quantité : {item.quantity}</p>
+          {item.prices && (
+            <p className="cart-product__price">
+              Total :{" "}
+              {(
+                parseInt(item.prices.price * item.quantity) / 100
+              ).toFixed(2) + item.prices.currency_suffix}
             </p>
-          ))}
-        <p>Quantité: {item.quantity}</p>
-        {item.prices && (
-          <p>
-            Total:{" "}
-            {(parseInt(item.prices.price * item.quantity) / 100).toFixed(2) +
-              item.prices.currency_suffix}
-          </p>
-        )}
+          )}
+        </div>
       </Link>
-      <div className="cart-product-actions">
+
+      <div className="cart-product__actions">
         <button
+          className="cart-product__qty-button"
           disabled={item.quantity === item.quantity_limits.maximum}
           onClick={() => {
             dispatch(
@@ -66,6 +65,7 @@ export function CartProduct({ item }) {
           Ajouter +
         </button>
         <button
+          className="cart-product__qty-button cart-product__qty-button--outline"
           onClick={() => {
             dispatch(
               substractProductFromCart({
@@ -75,9 +75,10 @@ export function CartProduct({ item }) {
             );
           }}
         >
-          Reduire -
+          Réduire -
         </button>
         <button
+          className="cart-product__remove"
           onClick={() => {
             dispatch(
               deleteProductFromCart({

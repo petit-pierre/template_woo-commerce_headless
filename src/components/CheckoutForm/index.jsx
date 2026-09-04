@@ -10,7 +10,7 @@ import {
   fetchCurrentUserOrdersThunk,
   fetchCurrentUserThunk,
 } from "../../thunkActionsCreator/userThunks";
-import CheckoutAuthPromptModal from "../CheckoutAuthPromptModal";
+import { openModal } from "../../slices/modalSlice";
 
 export default function CheckoutForm() {
   const navigate = useNavigate();
@@ -19,7 +19,6 @@ export default function CheckoutForm() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [showGuestModal, setShowGuestModal] = useState(false);
 
   const user = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart);
@@ -51,6 +50,16 @@ export default function CheckoutForm() {
       setBillingAddress(shippingAddress);
     }
   }, [shippingAddress, sameAsBilling]);
+
+  useEffect(() => {
+    const handleGuestCheckout = () => {
+      processCheckout();
+    };
+    window.addEventListener("checkoutContinueAsGuest", handleGuestCheckout);
+    return () => {
+      window.removeEventListener("checkoutContinueAsGuest", handleGuestCheckout);
+    };
+  }, [stripe, elements, loading, billingAddress, shippingAddress]);
 
   const processCheckout = async () => {
     if (!stripe || !elements || loading) return;
@@ -120,14 +129,9 @@ export default function CheckoutForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!user?.token) {
-      setShowGuestModal(true);
+      dispatch(openModal({ name: "checkoutAuthPrompt" }));
       return;
     }
-    processCheckout();
-  };
-
-  const handleContinueAsGuest = (e) => {
-    setShowGuestModal(false);
     processCheckout();
   };
 
@@ -336,13 +340,6 @@ export default function CheckoutForm() {
 
         {error && <p className="checkout-form__error">{error}</p>}
       </form>
-
-      {showGuestModal && (
-        <CheckoutAuthPromptModal
-          handleContinueAsGuest={handleContinueAsGuest}
-          onClose={() => setShowGuestModal(false)}
-        />
-      )}
     </div>
   );
 }

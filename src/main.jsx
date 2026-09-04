@@ -12,6 +12,7 @@ import {
   fetchCurrentUserOrdersThunk,
 } from "./thunkActionsCreator/userThunks";
 import { fetchSiteThunk } from "./thunkActionsCreator/siteThunk";
+import { fetchWishlistThunk } from "./thunkActionsCreator/wishlistThunks";
 
 import Home from "./pages/Home";
 import Store from "./pages/Store";
@@ -33,7 +34,7 @@ import Seo from "./components/Seo";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Toast from "./components/Toast";
-import AuthModal from "./components/AuthModal";
+import Modal from "./components/Modal";
 
 import "./index.css";
 import ScrollToTop from "./components/ScrollToTop";
@@ -45,6 +46,7 @@ if (store.getState().user.token) {
   store.dispatch(fetchCurrentUserThunk());
   store.dispatch(fetchCurrentCustomerThunk());
   store.dispatch(fetchCurrentUserOrdersThunk());
+  store.dispatch(fetchWishlistThunk());
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -81,7 +83,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </Routes>
         <Footer />
         <Toast />
-        <AuthModal />
+        <Modal />
       </Router>
     </Provider>
   </HelmetProvider>,

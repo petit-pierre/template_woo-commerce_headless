@@ -1,14 +1,19 @@
-.auth-overlay {
+.modal-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 11;
+  z-index: 999;
   animation: fadeIn 0.2s ease;
-  .auth-modal {
-    background: var(--bg-color);
+
+  &.modal-closed {
+    display: none;
+  }
+
+  .modal-content {
+    background: var(--bg-color, #fff);
     border-radius: 16px;
     padding: 4lvh;
     width: 100%;
@@ -16,26 +21,45 @@
     position: relative;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
     animation: slideUp 0.25s ease;
-    .auth-modal__close {
-      position: absolute;
-      top: 3lvh;
-      right: 3lvh;
-      padding: 2lvh;
-    }
   }
+
+  .modal-close-btn {
+    position: absolute;
+    top: 3lvh;
+    right: 3lvh;
+    padding: 2lvh;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--text-color, #333);
+  }
+
+  .modal-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    font-weight: 500;
+    color: var(--text-color);
+  }
+
   @keyframes fadeIn {
     from {
       opacity: 0;
     }
+
     to {
       opacity: 1;
     }
   }
+
   @keyframes slideUp {
     from {
       transform: translateY(24px);
       opacity: 0;
     }
+
     to {
       transform: translateY(0);
       opacity: 1;

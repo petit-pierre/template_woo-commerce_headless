@@ -174,11 +174,13 @@ export default function Product({ product }) {
                   </div>
                 ))}
                 {checkInStock(product) ? (
-                  <button onClick={handleAddToCart}>
+                  <button className="addToCart" onClick={handleAddToCart}>
                     🧺 Ajouter au panier
                   </button>
                 ) : (
-                  <button disabled>Rupture de stock</button>
+                  <button className="addToCart" disabled>
+                    Rupture de stock
+                  </button>
                 )}
                 {/* TEMP: wishlist testing, remove before commit */}
                 <WishlistButton product={product} />

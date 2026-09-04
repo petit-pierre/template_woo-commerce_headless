@@ -13,24 +13,41 @@ export default function Cart() {
 
   return (
     <div className="cart">
-      <ul>
-        {items.map((item) => (
-          <CartProduct key={item.key} item={item} />
-        ))}
-      </ul>
+      <div className="cart__layout">
+        <ul className="cart__items">
+          {items.length === 0 && (
+            <li className="cart__empty-state">Votre panier est vide.</li>
+          )}
+          {items.map((item) => (
+            <CartProduct key={item.key} item={item} />
+          ))}
+        </ul>
 
-      <Coupon />
+        <aside className="cart__summary">
+          <Coupon />
 
-      <div className="total">
-        <p>
-          Total:{" "}
-          {totals &&
-            (parseInt(totals.total_price) / 100).toFixed(2) +
-              totals.currency_suffix}
-        </p>
-        <button onClick={() => dispatch(emptyCartThunk())}>Vider Panier</button>
+          <div className="cart__total">
+            <span>Total</span>
+            <strong>
+              {totals &&
+                (parseInt(totals.total_price) / 100).toFixed(2) +
+                  totals.currency_suffix}
+            </strong>
+          </div>
+
+          <button
+            type="button"
+            className="cart__clear-button"
+            onClick={() => dispatch(emptyCartThunk())}
+          >
+            Vider le panier
+          </button>
+        </aside>
       </div>
-      <StripeWrapper></StripeWrapper>
+
+      <div className="cart__checkout">
+        <StripeWrapper></StripeWrapper>
+      </div>
     </div>
   );
 }
