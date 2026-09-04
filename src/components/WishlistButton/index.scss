@@ -3,14 +3,10 @@
   cursor: pointer;
   width: 2vw;
   height: 2vw;
-}
-@media screen and (aspect-ratio > 2.6/1) {
-  .wishlist-button {
+  @media screen and (aspect-ratio > 2.6/1) {
     width: 5.2lvh;
     height: 5.2lvh;
   }
-}
-.wishlist-button {
   background-color: var(--bg-color);
   border-radius: 100%;
   margin: auto;
@@ -31,4 +27,4 @@
   100% {
     transform: scale(1);
   }
-}/*# sourceMappingURL=index.css.map */
+}

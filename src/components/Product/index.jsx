@@ -70,7 +70,7 @@ export default function Product({ product }) {
   const mainImage = productImages[activeImageIndex]?.src || null;
 
   return (
-    <>
+    <div className="product-page-container">
       <Seo
         title={decodeHtml(product.name)}
         description={product.short_description || product.description}
@@ -182,13 +182,12 @@ export default function Product({ product }) {
                     Rupture de stock
                   </button>
                 )}
-                {/* TEMP: wishlist testing, remove before commit */}
                 <WishlistButton product={product} />
               </div>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
