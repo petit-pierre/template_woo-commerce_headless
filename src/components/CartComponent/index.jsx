@@ -6,7 +6,7 @@ import { emptyCartThunk } from "../../thunkActionsCreator/cartThunks";
 import Coupon from "../Coupon";
 import StripeWrapper from "../StripeWrapper";
 
-export default function Cart() {
+export default function CartComponent() {
   const items = useSelector((state) => state.cart.items);
   const totals = useSelector((state) => state.cart.totals);
   const dispatch = useDispatch();
