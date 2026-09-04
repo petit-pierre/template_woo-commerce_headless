@@ -2,10 +2,13 @@
   .apropos-wrapper {
     display: flex;
     flex-direction: row;
-    .pageContent {
-      width: 40vw;
-    }
-
     margin-bottom: 5.5vw;
+    flex-wrap: wrap;
+    & > div {
+      width: 100%;
+      @media screen and (aspect-ratio > 1/1) {
+        width: calc(50% - 4vw);
+      }
+    }
   }
 }
