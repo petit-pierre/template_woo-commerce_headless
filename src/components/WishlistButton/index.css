@@ -14,7 +14,9 @@
   background-color: var(--bg-color);
   border-radius: 100%;
   margin: auto;
-  padding: 3px;
+  padding: 0.2vw;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .wishlist-button.active {

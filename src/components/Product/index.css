@@ -1,11 +1,11 @@
 .product-page-container .product-main-card {
   border-radius: 16px;
-  padding: 2rem;
+  padding: 2.5vw;
   box-shadow: 0 10px 25px -5px color-mix(in srgb, var(--primary-color) 35%, transparent);
 }
 @media screen and (aspect-ratio > 1/1) {
   .product-page-container .product-main-card {
-    padding: 1.25rem;
+    padding: 1.4vw;
   }
 }
 .product-page-container .product-main-card .addToCart {
@@ -97,7 +97,7 @@
   background-color: var(--surface-color);
   border: 1px solid var(--primary-color);
   border-radius: 12px;
-  padding: 0.5rem;
+  padding: 1vw;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
