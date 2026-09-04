@@ -12,11 +12,6 @@
       border-radius: 2vw;
       padding: 2.5vw;
       background-color: var(--bg-color);
-      // &:focus {
-      //   outline: none;
-      //   border-color: var(--primary-color);
-      //   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-      // }
       @media screen and (aspect-ratio > 1/1) {
         border-radius: 0.5vw;
         padding: 0.7vw 0.9vw;
