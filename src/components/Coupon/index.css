@@ -6,33 +6,17 @@
   align-items: center;
 }
 .promo form input {
-  flex: 1 1 160px;
+  width: 60%;
   margin-bottom: 0;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--surface-color);
   border-radius: 2vw;
   padding: 2.5vw;
   background-color: var(--bg-color);
-}
-.promo form input:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 @media screen and (aspect-ratio > 1/1) {
   .promo form input {
     border-radius: 0.5vw;
     padding: 0.7vw 0.9vw;
-  }
-}
-.promo form button {
-  margin-bottom: 0;
-  padding: 2vw 4vw;
-  font-size: 3.5vw;
-}
-@media screen and (aspect-ratio > 1/1) {
-  .promo form button {
-    padding: 0.5vw 1.2vw;
-    font-size: 0.95vw;
   }
 }
 @media screen and (aspect-ratio > 1/1) {
@@ -51,21 +35,12 @@
   background-color: transparent;
   color: var(--danger-color);
   border: 1px solid var(--danger-color);
-  padding: 1vw 2.5vw;
-  font-size: 3.2vw;
 }
 .promo > p button:hover {
   background-color: var(--danger-color);
-  color: #ffffff;
-}
-@media screen and (aspect-ratio > 1/1) {
-  .promo > p button {
-    padding: 0.3vw 0.8vw;
-    font-size: 0.85vw;
-  }
+  color: var(--white-color);
 }
 .promo > div {
   margin-top: 2vw;
   color: var(--success-color);
-  font-weight: 600;
 }/*# sourceMappingURL=index.css.map */

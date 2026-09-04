@@ -35,14 +35,12 @@
       gap: 1.2vw;
     }
   }
-
   .cart__empty-state {
-    background-color: #ffffff;
-    border: 1px solid #e2e8f0;
+    background-color: var(--white-color);
+    border: 1px solid var(--surface-color);
     border-radius: 3vw;
     padding: 4vw;
     text-align: center;
-    // color: #475569;
     @media screen and (aspect-ratio > 1/1) {
       border-radius: 0.8vw;
       padding: 1.5vw;
