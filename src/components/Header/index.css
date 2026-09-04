@@ -94,9 +94,6 @@
 .header .content .menu nav a {
   margin: 0 3lvh;
 }
-.header.header-hidden .margin {
-  height: 0;
-}
 .header.header-hidden .content {
   height: 0;
   overflow: hidden;
