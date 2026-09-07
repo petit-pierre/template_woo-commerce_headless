@@ -13,11 +13,9 @@
   padding: 0.2vw;
   object-fit: contain;
 }
-
 .wishlist-button.active {
   animation: wishlist-pop 0.2s ease-in-out;
 }
-
 @keyframes wishlist-pop {
   0% {
     transform: scale(1);
