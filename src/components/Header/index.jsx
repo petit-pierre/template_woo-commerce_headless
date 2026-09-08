@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Autocomplete from "../Autocomplete";
 import { logout } from "../../slices/userSlice";
-import { openAuthModal } from "../../slices/authModalSlice";
+import { openModal } from "../../slices/modalSlice";
 import searchIcon from "./search.svg";
 import heartIcon from "./heart.svg";
 import bagIcon from "./bag.svg";
@@ -119,7 +119,7 @@ export default function Header() {
                 type="button"
                 className="header-icon"
                 aria-label="Profil"
-                onClick={() => dispatch(openAuthModal("login"))}
+                onClick={() => dispatch(openModal({ name: "auth", props: { view: "login" } }))}
               >
                 <img src={peopleIcon} alt="" className="header-icon-img" />
               </button>

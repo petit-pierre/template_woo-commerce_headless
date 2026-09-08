@@ -3,19 +3,19 @@ import "./index.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  closeAuthModal,
-  switchAuthModalView,
-} from "../../slices/authModalSlice";
+  closeModal,
+  updateModalProps,
+} from "../../slices/modalSlice";
 import { showToast } from "../../slices/toastSlice";
 import {
   loginThunk,
   registerThunk,
 } from "../../thunkActionsCreator/userThunks";
 
-export default function AuthForm() {
+export default function AuthForm({ view = "login" }) {
   const dispatch = useDispatch();
   const { loading, error, token } = useSelector((state) => state.user);
-  const [mode, setMode] = useState("login");
+
   const [errors, setErrors] = useState({});
   const [form, setForm] = useState({
     username: "",
@@ -25,7 +25,7 @@ export default function AuthForm() {
   });
 
   useEffect(() => {
-    if (token) dispatch(closeAuthModal());
+    if (token) dispatch(closeModal());
   }, [dispatch, token]);
 
   useEffect(() => {
@@ -67,11 +67,8 @@ export default function AuthForm() {
     validateLogin(e, updatedForm);
   };
 
-  const handleSubmit = (e) => {
-    let method = "register";
-    e.target.className === "login" && (setMode("login"), (method = "login"));
-    e.target.className === "signin" && setMode("register");
-
+  const handleSubmit = (e, method = view) => {
+    if (e) e.preventDefault();
     const validation = validateLogin(method);
     if (Object.keys(validation).length > 0) {
       setErrors(validation);
@@ -91,15 +88,14 @@ export default function AuthForm() {
         }),
       );
     }
-    return;
   };
 
   return (
     <form className="auth-form">
       <h2>
-        {mode === "login"
+        {view === "login"
           ? "Bonjour"
-          : mode === "register"
+          : view === "register"
             ? "Créer un compte"
             : "Confirmez votre mot de passe"}
       </h2>
@@ -124,7 +120,7 @@ export default function AuthForm() {
           }}
         />
       </div>
-      {mode === "register" && (
+      {view === "register" && (
         <div className="auth-form__field">
           <label htmlFor="email">E-mail</label>
           <input
@@ -155,7 +151,7 @@ export default function AuthForm() {
           value={form.password}
           onChange={handleChange}
           className={errors.password ? "input--error" : ""}
-          autoComplete={mode === "login" ? "current-password" : "new-password"}
+          autoComplete={view === "login" ? "current-password" : "new-password"}
           placeholder={errors.password}
           title={errors.password}
           onKeyDown={(e) => {
@@ -166,7 +162,7 @@ export default function AuthForm() {
           }}
         />
       </div>
-      {mode === "register" && (
+      {view === "register" && (
         <div className="auth-form__field">
           <label htmlFor="confirmPassword">Confirmez le mot de passe</label>
           <input
@@ -192,7 +188,7 @@ export default function AuthForm() {
       <button
         type="button"
         className="auth-form__forgot"
-        onClick={() => dispatch(switchAuthModalView("reset-password"))}
+        onClick={() => dispatch(updateModalProps({ view: "reset-password" }))}
       >
         Mot de passe oublié ?
       </button>
@@ -200,14 +196,20 @@ export default function AuthForm() {
         <button
           className="login"
           type="button"
-          onClick={(e) => handleSubmit(e)}
+          onClick={(e) => {
+            dispatch(updateModalProps({ view: "login" }));
+            handleSubmit(e, "login");
+          }}
         >
           Se connecter
         </button>
         <button
           type="button"
           className="signin"
-          onClick={(e) => handleSubmit(e)}
+          onClick={(e) => {
+            dispatch(updateModalProps({ view: "register" }));
+            handleSubmit(e, "register");
+          }}
         >
           S'inscrire
         </button>{" "}

@@ -1,0 +1,30 @@
+.checkout-auth-prompt {
+  h2 {
+    margin-bottom: 2.5vw;
+  }
+
+  p {
+    margin-bottom: 4vw;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+
+    @media screen and (aspect-ratio > 1/1) {
+      flex-direction: row;
+      gap: 1vw;
+    }
+
+    button {
+      flex: 1;
+
+      &:last-child {
+        background-color: transparent;
+        color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+      }
+    }
+  }
+}

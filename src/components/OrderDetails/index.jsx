@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import SucessMessage from "../SucessMessage";
+import "./index.css";
 
 const ordersCache = {};
 
 export default function OrderDetails({ order = null, orderId = null }) {
   const token = useSelector((state) => state.user.token);
 
-  const [detail, setDetail] = useState(
-    orderId ? ordersCache[orderId] : null
-  );
+  const [detail, setDetail] = useState(orderId ? ordersCache[orderId] : null);
 
   const [loading, setLoading] = useState(
-    Boolean(!order && orderId && !ordersCache[orderId])
+    Boolean(!order && orderId && !ordersCache[orderId]),
   );
 
   const [error, setError] = useState("");
@@ -31,14 +30,14 @@ export default function OrderDetails({ order = null, orderId = null }) {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          }
+          },
         );
 
         const data = await response.json();
 
         if (!response.ok)
           throw new Error(
-            data.message || "Impossible de récupérer la commande."
+            data.message || "Impossible de récupérer la commande.",
           );
 
         ordersCache[orderId] = data;
@@ -67,14 +66,15 @@ export default function OrderDetails({ order = null, orderId = null }) {
   const isPaid = ["processing", "completed"].includes(current.status);
   const label = current.number ?? current.id;
   const statusText = isPaid
-    ? `Paiement confirmé pour la commande n°${label}`
-    : `Paiement en attente de confirmation pour la commande n°${label}`;
+    ? "Paiement confirmé pour la commande n°"
+    : "Paiement en attente de confirmation pour la commande n°";
 
   return (
     <div className="order-details">
-      <p className={isPaid ? "payment-ok" : "payment-pending"}>
+      <h5 className={isPaid ? "payment-ok" : "payment-pending"}>
         {statusText}
-      </p>
+        {label}
+      </h5>
 
       {!orderId && <SucessMessage order={current} />}
 
@@ -98,9 +98,7 @@ export default function OrderDetails({ order = null, orderId = null }) {
 
                   <p>Quantité : {item.quantity}</p>
 
-                  <p>
-                    {(Number(item.totals.line_total) / 100).toFixed(2)} €
-                  </p>
+                  <p>{(Number(item.totals.line_total) / 100).toFixed(2)} €</p>
                 </div>
               </div>
             ))}

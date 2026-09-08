@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { switchAuthModalView } from "../../slices/authModalSlice";
+import { updateModalProps } from "../../slices/modalSlice";
 
 export default function ResetPasswordForm() {
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ export default function ResetPasswordForm() {
         <button
           type="button"
           className="auth-modal__link"
-          onClick={() => dispatch(switchAuthModalView("login"))}
+          onClick={() => dispatch(updateModalProps({ view: "login" }))}
         >
           Retour à la connexion
         </button>

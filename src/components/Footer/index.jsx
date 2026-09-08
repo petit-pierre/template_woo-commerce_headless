@@ -2,7 +2,7 @@ import "./index.css";
 
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { openAuthModal } from "../../slices/authModalSlice";
+import { openModal } from "../../slices/modalSlice";
 import { logout } from "../../slices/userSlice";
 
 export default function Footer() {
@@ -54,7 +54,7 @@ export default function Footer() {
                 <button
                   type="button"
                   className="footer_link-button"
-                  onClick={() => dispatch(openAuthModal("login"))}
+                  onClick={() => dispatch(openModal({ name: "auth", props: { view: "login" } }))}
                 >
                   Se connecter
                 </button>

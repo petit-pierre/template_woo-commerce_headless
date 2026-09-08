@@ -17,7 +17,7 @@ export default function Profile() {
   if (isAuthentificated) {
     return (
       <main>
-        <div className="test">
+        <div className="profile-container">
           <UserDisplay />
           <DeleteAccountButton />
           <OrderAll />

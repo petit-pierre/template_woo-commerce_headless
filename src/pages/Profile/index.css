@@ -1,4 +1,4 @@
-.test {
+.profile-container {
   padding: 2vw;
   background-color: var(--bg-color);
   display: flex;
@@ -6,7 +6,12 @@
   justify-content: space-evenly;
   row-gap: 2vw;
 }
-.test .orders-history {
+@media screen and (aspect-ratio > 2.6/1) {
+  .profile-container {
+    padding: 5.2lvh;
+  }
+}
+.profile-container .orders-history {
   padding: 2vw;
   display: flex;
   flex-direction: row;

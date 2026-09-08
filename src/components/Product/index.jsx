@@ -70,7 +70,7 @@ export default function Product({ product }) {
   const mainImage = productImages[activeImageIndex]?.src || null;
 
   return (
-    <>
+    <div className="product-page-container">
       <Seo
         title={decodeHtml(product.name)}
         description={product.short_description || product.description}
@@ -174,19 +174,20 @@ export default function Product({ product }) {
                   </div>
                 ))}
                 {checkInStock(product) ? (
-                  <button onClick={handleAddToCart}>
+                  <button className="addToCart" onClick={handleAddToCart}>
                     🧺 Ajouter au panier
                   </button>
                 ) : (
-                  <button disabled>Rupture de stock</button>
+                  <button className="addToCart" disabled>
+                    Rupture de stock
+                  </button>
                 )}
-                {/* TEMP: wishlist testing, remove before commit */}
                 <WishlistButton product={product} />
               </div>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -1,15 +1,22 @@
-.rating {
+.rating .stars-container {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
 }
-
-.star {
-  color: #f5a623;
-  letter-spacing: 0.08rem;
+.rating img {
+  width: 4vw;
 }
-
-.rating a {
-  color: inherit;
-  text-decoration: none;
+@media screen and (aspect-ratio > 1/1) {
+  .rating img {
+    width: 1.5vw;
+  }
 }
+@media screen and (aspect-ratio > 2.6/1) {
+  .rating img {
+    width: 4lvh;
+  }
+}
+.rating .reviews {
+  display: flex;
+  align-items: center;
+  gap: 0.8vw;
+}/*# sourceMappingURL=index.css.map */
