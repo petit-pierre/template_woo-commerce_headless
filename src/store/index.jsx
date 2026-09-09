@@ -9,7 +9,6 @@ import { userSlice } from "../slices/userSlice";
 import { pagesSlice } from "../slices/pagesSlice";
 import { blogSlice } from "../slices/blogSlice";
 import { siteSlice } from "../slices/siteSlice";
-import { themeSlice } from "../slices/themeSlice";
 import { toastSlice } from "../slices/toastSlice";
 import { modalSlice } from "../slices/modalSlice";
 import { wishlistSlice } from "../slices/wishlistSlice";
@@ -27,7 +26,6 @@ const store = configureStore({
     pages: pagesSlice.reducer,
     blog: blogSlice.reducer,
     site: siteSlice.reducer,
-    theme: themeSlice.reducer,
     toast: toastSlice.reducer,
     modal: modalSlice.reducer,
     wishlist: wishlistSlice.reducer,

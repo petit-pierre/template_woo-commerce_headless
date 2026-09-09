@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setTheme } from "../slices/themeSlice";
+import { setSite } from "../slices/siteSlice";
 
 export const fetchThemeThunk = createAsyncThunk(
   "theme/fetchTheme",
@@ -16,7 +16,7 @@ export const fetchThemeThunk = createAsyncThunk(
       const themeData = await response.json();
       const palette = themeData.settings?.color?.palette ?? [];
 
-      thunkAPI.dispatch(setTheme({ palette }));
+      thunkAPI.dispatch(setSite({ palette }));
 
       return palette;
     } catch (error) {

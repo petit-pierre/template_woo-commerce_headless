@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 function ThemeApplier() {
-  const palette = useSelector((state) => state.theme.palette);
+  const palette = useSelector((state) => state.site.palette) ?? [];
 
   useEffect(() => {
     palette.forEach(({ slug, color }) => {
