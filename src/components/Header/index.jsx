@@ -127,7 +127,7 @@ export default function Header() {
                   aria-label="Profil"
                   onClick={() => {
                     closeMenu();
-                    dispatch(openAuthModal("login"));
+                    dispatch(openModal({ name: "auth", props: { view: "login" } }));
                   }}
                 >
                   <img src={peopleIcon} alt="" className="header-icon-img" />
