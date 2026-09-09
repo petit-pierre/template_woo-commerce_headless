@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { showToast } from "../../slices/toastSlice";
 import OrderDetails from "../../components/OrderDetails";
 import "./index.css";
-
 export default function Success() {
   const { orderId } = useParams();
   const dispatch = useDispatch();

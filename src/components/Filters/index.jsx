@@ -70,7 +70,8 @@ export default function Filters() {
         <div
           id="filter-controls"
           className={`filter-controls${isOpen ? " open" : ""}`}
-          inert={!isOpen}
+          inert={!isOpen ? "" : undefined}
+          // inert={isOpen ? false : true}
           onBlur={handleControlsBlur}
         >
           <div className="filter-controls-inner">

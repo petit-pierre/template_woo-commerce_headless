@@ -30,21 +30,22 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  :focus-visible {
+    outline: 2px solid var(--primary-color-light);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  }
   //outline: 1px solid red;
 }
-// html {
-//   scroll-behavior: smooth;
-// }
 body {
   background-color: var(--bg-color);
   color: var(--dark-color);
-  // font-family: var(--font-body);
   display: flex;
   flex-direction: column;
   max-width: 260lvh;
   margin: 0 auto;
   main {
     min-height: 90lvh;
+    margin: 2vw;
   }
 }
 
@@ -64,12 +65,10 @@ a {
   font-family: var(--font-body);
   color: var(--dark-color);
   line-height: 1.5;
-
   @media screen and (aspect-ratio > 1/1) {
     font-size: 1.2vw;
   }
   @media screen and (aspect-ratio > 2.6/1) {
-    /* Ajustement pour les écrans ultra-larges */
     font-size: 1.5lvh;
   }
 }
@@ -78,18 +77,25 @@ p {
   font-family: var(--font-heading);
   color: var(--text-color-muted);
   font-weight: 300;
-  // line-height: 1.5;
-  // margin-top: 3vw;
-
   @media screen and (aspect-ratio > 1/1) {
     font-size: 1.2vw;
   }
   @media screen and (aspect-ratio > 2.6/1) {
-    /* Ajustement pour les écrans ultra-larges */
     font-size: 1.5lvh;
   }
 }
-
+strong {
+  font-size: 3.5vw;
+  font-family: var(--font-heading);
+  color: var(--text-color-muted);
+  font-weight: 900;
+  @media screen and (aspect-ratio > 1/1) {
+    font-size: 1.2vw;
+  }
+  @media screen and (aspect-ratio > 2.6/1) {
+    font-size: 1.5lvh;
+  }
+}
 input,
 textarea,
 select {
@@ -160,7 +166,6 @@ h2 {
 h3 {
   font-size: 5vw;
   font-family: var(--font-body);
-  margin-top: 3vw;
   margin-bottom: 3vw;
   @media screen and (aspect-ratio > 1/1) {
     font-size: 2vw;

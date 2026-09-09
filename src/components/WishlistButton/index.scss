@@ -3,26 +3,19 @@
   cursor: pointer;
   width: 2vw;
   height: 2vw;
-}
-@media screen and (aspect-ratio > 2.6/1) {
-  .wishlist-button {
+  @media screen and (aspect-ratio > 2.6/1) {
     width: 5.2lvh;
     height: 5.2lvh;
   }
-}
-.wishlist-button {
   background-color: var(--bg-color);
   border-radius: 100%;
   margin: auto;
   padding: 0.2vw;
-  -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
 }
-
 .wishlist-button.active {
   animation: wishlist-pop 0.2s ease-in-out;
 }
-
 @keyframes wishlist-pop {
   0% {
     transform: scale(1);
@@ -33,4 +26,4 @@
   100% {
     transform: scale(1);
   }
-}/*# sourceMappingURL=index.css.map */
+}

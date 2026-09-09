@@ -1,10 +1,28 @@
 .review-rating {
   display: flex;
   align-items: center;
+  img {
+    width: 4vw;
+    @media screen and (aspect-ratio > 1/1) {
+      width: 1.5vw;
+    }
+    @media screen and (aspect-ratio > 2.6/1) {
+      width: 4lvh;
+    }
+  }
 }
 
 .review-list {
   margin-top: 3.2lvh;
+  img {
+    width: 4vw;
+    @media screen and (aspect-ratio > 1/1) {
+      width: 1.5vw;
+    }
+    @media screen and (aspect-ratio > 2.6/1) {
+      width: 4lvh;
+    }
+  }
 }
 .review-stars {
   display: flex;

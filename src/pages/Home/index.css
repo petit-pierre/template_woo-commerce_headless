@@ -1,10 +1,14 @@
 .home .apropos-wrapper {
   display: flex;
   flex-direction: row;
-}
-.home .apropos-wrapper .pageContent {
-  width: 40vw;
-}
-.home .apropos-wrapper {
   margin-bottom: 5.5vw;
+  flex-wrap: wrap;
+}
+.home .apropos-wrapper > div {
+  width: 100%;
+}
+@media screen and (aspect-ratio > 1/1) {
+  .home .apropos-wrapper > div {
+    width: calc(50% - 4vw);
+  }
 }/*# sourceMappingURL=index.css.map */
