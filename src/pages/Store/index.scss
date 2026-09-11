@@ -1,8 +1,10 @@
 .store-page {
   position: relative;
   width: 100%;
+  margin: 0;
   .category-bg {
     position: fixed;
+    object-fit: contain;
     z-index: -1;
     top: 10lvh;
     left: 0;
