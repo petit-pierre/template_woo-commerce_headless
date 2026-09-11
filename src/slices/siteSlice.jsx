@@ -8,10 +8,11 @@ export const siteSlice = createSlice({
     // url: "",
     // logoUrl: "",
     // faviconUrl: "",
+    palette: [],
   },
   reducers: {
     setSite: (state, action) => {
-      return action.payload;
+      return { ...state, ...action.payload };
     },
   },
 });

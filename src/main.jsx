@@ -12,6 +12,7 @@ import {
   fetchCurrentUserOrdersThunk,
 } from "./thunkActionsCreator/userThunks";
 import { fetchSiteThunk } from "./thunkActionsCreator/siteThunk";
+import { fetchThemeThunk } from "./thunkActionsCreator/themeThunk";
 import { fetchWishlistThunk } from "./thunkActionsCreator/wishlistThunks";
 
 import Home from "./pages/Home";
@@ -35,12 +36,14 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Toast from "./components/Toast";
 import Modal from "./components/Modal";
+import ThemeApplier from "./components/ThemeApplier";
 
 import "./index.css";
 import ScrollToTop from "./components/ScrollToTop";
 
 store.dispatch(initializeCartThunk());
 store.dispatch(fetchSiteThunk());
+store.dispatch(fetchThemeThunk());
 
 if (store.getState().user.token) {
   store.dispatch(fetchCurrentUserThunk());
@@ -61,6 +64,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         // basename="/ecom"
       >
         <ScrollToTop />
+        <ThemeApplier />
         <Header />
         <Seo />
         <Routes>
