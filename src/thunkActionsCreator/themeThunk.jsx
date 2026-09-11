@@ -6,7 +6,7 @@ export const fetchThemeThunk = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/wp-content/themes/twentytwentyfive/theme.json`,
+        `${import.meta.env.VITE_API_URL}wp-json/custom/v1/theme-settings`,
       );
 
       if (!response.ok) {
@@ -14,7 +14,7 @@ export const fetchThemeThunk = createAsyncThunk(
       }
 
       const themeData = await response.json();
-      const palette = themeData.settings?.color?.palette ?? [];
+      const palette = themeData.color.palette.custom ?? [];
 
       thunkAPI.dispatch(setSite({ palette }));
 

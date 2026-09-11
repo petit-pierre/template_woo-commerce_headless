@@ -40,7 +40,7 @@
 .order-modal {
   position: relative;
   width: 100%;
-  max-width: 500px;
+  max-width: 90vh;
   max-height: 90vh;
   overflow-y: auto;
   background-color: var(--white-color);

@@ -78,7 +78,8 @@
 .order-item img {
   width: 16vw;
   height: 16vw;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 2vw;
   flex-shrink: 0;
 }
@@ -107,6 +108,4 @@
   .order-item > div {
     gap: 0.2vw;
   }
-}
-
-/*# sourceMappingURL=index.css.map */
+}/*# sourceMappingURL=index.css.map */

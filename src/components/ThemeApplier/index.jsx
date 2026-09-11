@@ -5,8 +5,8 @@ function ThemeApplier() {
   const palette = useSelector((state) => state.site.palette) ?? [];
 
   useEffect(() => {
-    palette.forEach(({ slug, color }) => {
-      document.documentElement.style.setProperty(`--wp--preset--color--${slug}`, color);
+    palette.forEach(({ name, color }) => {
+      document.documentElement.style.setProperty(name, color);
     });
   }, [palette]);
 
