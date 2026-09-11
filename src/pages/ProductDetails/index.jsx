@@ -14,7 +14,7 @@ export default function ProductDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const { list, singleProduct, loadingSingle, errorSingle } = useSelector(
+  const { list, singleProduct, loadingSingle } = useSelector(
     (state) => state.products,
   );
   const categories = useSelector((state) => state.categories.items || []);
@@ -39,12 +39,8 @@ export default function ProductDetails() {
     return <Loader size="lg" />;
   }
 
-  if (errorSingle && !productToDisplay) {
-    return <div className="error-state">Erreur : {errorSingle}</div>;
-  }
-
   if (!productToDisplay) {
-    return <div className="not-found-state">Aucun produit trouvé.</div>;
+    return <p className="not-found-state">Aucun produit trouvé.</p>;
   }
 
   return (
