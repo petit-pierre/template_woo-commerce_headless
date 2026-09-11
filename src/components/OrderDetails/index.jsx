@@ -4,15 +4,14 @@ import { useSelector } from "react-redux";
 import SucessMessage from "../SucessMessage";
 import "./index.css";
 
-const ordersCache = {};
-
-const productOrigin = (permalink) => {
-  if (!permalink) return null;
-  const pathSegments = permalink.split("/").filter(Boolean);
-  return pathSegments.pop() || null;
-};
-
 export default function OrderDetails({ order = null, orderId = null }) {
+  const ordersCache = {};
+
+  const productOrigin = (permalink) => {
+    if (!permalink) return null;
+    const pathSegments = permalink.split("produit/").filter(Boolean);
+    return pathSegments.pop() || null;
+  };
   const token = useSelector((state) => state.user.token);
 
   const [detail, setDetail] = useState(orderId ? ordersCache[orderId] : null);
@@ -91,11 +90,11 @@ export default function OrderDetails({ order = null, orderId = null }) {
 
           <div className="order-items">
             {detail.items?.map((item) => (
-             <Link
-             key={item.id}
-             to={`/product/${productOrigin(item.permalink) ?? item.id}`}
-             className="order-item"
-            >
+              <Link
+                key={item.id}
+                to={`/product/${productOrigin(item.permalink)}`}
+                className="order-item"
+              >
                 {item.images?.[0] && (
                   <img
                     src={item.images[0].thumbnail}
