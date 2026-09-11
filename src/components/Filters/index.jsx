@@ -75,27 +75,29 @@ export default function Filters() {
           onBlur={handleControlsBlur}
         >
           <div className="filter-controls-inner">
-            <select value={filters.category} onChange={handleCategoryChange}>
-              <option value="">Toutes les catégories</option>
-              {categories.map((cat) => (
-                <option
-                  key={cat.id}
-                  value={cat.id}
-                  dangerouslySetInnerHTML={{ __html: cat.name }}
-                ></option>
-              ))}
-            </select>
-            <PriceRangeSlider onApply={() => setIsOpen(false)} />
+            <div className="filter-controls-fields">
+              <select value={filters.category} onChange={handleCategoryChange}>
+                <option value="">Toutes les catégories</option>
+                {categories.map((cat) => (
+                  <option
+                    key={cat.id}
+                    value={cat.id}
+                    dangerouslySetInnerHTML={{ __html: cat.name }}
+                  ></option>
+                ))}
+              </select>
+              <PriceRangeSlider onApply={() => setIsOpen(false)} />
 
-            <select
-              value={`${filters.orderby}-${filters.order}`}
-              onChange={handleSortChange}
-            >
-              <option value="date-desc">Nouveautés</option>
-              <option value="price-asc">Prix : du - cher au + cher</option>
-              <option value="price-desc">Prix : du + cher au - cher</option>
-              <option value="title-asc">Nom : A à Z</option>
-            </select>
+              <select
+                value={`${filters.orderby}-${filters.order}`}
+                onChange={handleSortChange}
+              >
+                <option value="date-desc">Nouveautés</option>
+                <option value="price-asc">Prix : du - cher au + cher</option>
+                <option value="price-desc">Prix : du + cher au - cher</option>
+                <option value="title-asc">Nom : A à Z</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>

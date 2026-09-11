@@ -19,8 +19,7 @@
     padding: 0 5vw;
     border-bottom: 1px solid transparent;
     box-shadow: 0 4px 12px transparent;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: visible;
     transition:
       background-color 0.2s ease,
       border-color 0.2s ease,
@@ -35,13 +34,15 @@
         color-mix(in srgb, var(--dark-color) 4%, transparent);
     }
 
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
     @media screen and (aspect-ratio > 1/1) {
       gap: 1vw;
       padding: 0 2vw;
+      overflow-x: auto;
+      overflow-y: hidden;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
     @media screen and (aspect-ratio > 2.6/1) {
       gap: 2lvh;
@@ -124,24 +125,61 @@
     }
 
     .filter-controls {
+      position: absolute;
+      top: 100%;
+      left: 0;
       display: grid;
-      grid-template-columns: 0fr;
-      transition: grid-template-columns 0.3s ease;
+      grid-template-rows: 0fr;
+      width: 100%;
+      background-color: var(--bg-color);
+      transition: grid-template-rows 0.3s ease;
 
       &.open {
-        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        border-bottom: 1px solid
+          color-mix(in srgb, var(--dark-color) 8%, transparent);
+        box-shadow: 0 12px 20px
+          color-mix(in srgb, var(--dark-color) 8%, transparent);
+      }
+
+      @media screen and (aspect-ratio > 1/1) {
+        position: static;
+        width: auto;
+        background-color: transparent;
+        grid-template-columns: 0fr;
+        grid-template-rows: none;
+        transition: grid-template-columns 0.3s ease;
+
+        &.open {
+          grid-template-columns: 1fr;
+          grid-template-rows: none;
+          border-bottom: none;
+          box-shadow: none;
+        }
       }
     }
 
+    // Purely a clipping layer: must be able to render at 0 height when
+    // collapsed, so it carries no padding/border of its own (those can't
+    // shrink below their own thickness and would leave a residual sliver).
     .filter-controls-inner {
-      display: flex;
-      align-items: center;
       min-width: 0;
+      min-height: 0;
       overflow: hidden;
-      gap: 3vw;
+    }
+
+    .filter-controls-fields {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 4vw;
+      padding: 1vw 5vw 5vw;
 
       @media screen and (aspect-ratio > 1/1) {
+        flex-direction: row;
+        align-items: center;
         gap: 1vw;
+        padding: 0;
       }
       @media screen and (aspect-ratio > 2.6/1) {
         gap: 2lvh;

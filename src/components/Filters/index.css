@@ -20,8 +20,7 @@
   padding: 0 5vw;
   border-bottom: 1px solid transparent;
   box-shadow: 0 4px 12px transparent;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: visible;
   transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .filters .content.open {
@@ -30,13 +29,15 @@
   border-bottom: 1px solid color-mix(in srgb, var(--dark-color) 8%, transparent);
   box-shadow: 0 4px 12px color-mix(in srgb, var(--dark-color) 4%, transparent);
 }
-.filters .content::-webkit-scrollbar {
-  display: none;
-}
 @media screen and (aspect-ratio > 1/1) {
   .filters .content {
     gap: 1vw;
     padding: 0 2vw;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .filters .content::-webkit-scrollbar {
+    display: none;
   }
 }
 @media screen and (aspect-ratio > 2.6/1) {
@@ -117,27 +118,58 @@
   }
 }
 .filters .content .filter-controls {
+  position: absolute;
+  top: 100%;
+  left: 0;
   display: grid;
-  grid-template-columns: 0fr;
-  transition: grid-template-columns 0.3s ease;
+  grid-template-rows: 0fr;
+  width: 100%;
+  background-color: var(--bg-color);
+  transition: grid-template-rows 0.3s ease;
 }
 .filters .content .filter-controls.open {
-  grid-template-columns: 1fr;
-}
-.filters .content .filter-controls-inner {
-  display: flex;
-  align-items: center;
-  min-width: 0;
-  overflow: hidden;
-  gap: 3vw;
+  grid-template-rows: 1fr;
+  border-bottom: 1px solid color-mix(in srgb, var(--dark-color) 8%, transparent);
+  box-shadow: 0 12px 20px color-mix(in srgb, var(--dark-color) 8%, transparent);
 }
 @media screen and (aspect-ratio > 1/1) {
-  .filters .content .filter-controls-inner {
+  .filters .content .filter-controls {
+    position: static;
+    width: auto;
+    background-color: transparent;
+    grid-template-columns: 0fr;
+    grid-template-rows: none;
+    transition: grid-template-columns 0.3s ease;
+  }
+  .filters .content .filter-controls.open {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    border-bottom: none;
+    box-shadow: none;
+  }
+}
+.filters .content .filter-controls-inner {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+.filters .content .filter-controls-fields {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4vw;
+  padding: 1vw 5vw 5vw;
+}
+@media screen and (aspect-ratio > 1/1) {
+  .filters .content .filter-controls-fields {
+    flex-direction: row;
+    align-items: center;
     gap: 1vw;
+    padding: 0;
   }
 }
 @media screen and (aspect-ratio > 2.6/1) {
-  .filters .content .filter-controls-inner {
+  .filters .content .filter-controls-fields {
     gap: 2lvh;
   }
 }
