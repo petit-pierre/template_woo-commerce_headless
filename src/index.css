@@ -10,6 +10,11 @@
   font-weight: 700;
   font-style: normal;
 }
+:root {
+  --font-body: "PlayfairDisplay", sans-serif;
+  --font-heading: "PoppinsCustom", sans-serif;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

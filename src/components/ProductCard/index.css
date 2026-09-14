@@ -77,11 +77,10 @@
   font-style: italic;
 }
 .product-card .product-link img {
-  width: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  margin: auto;
-  height: 70%;
+  height: 31.2vw;
+  background-color: white;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 @media screen and (aspect-ratio > 1/1) {
   .product-card .product-link img {
@@ -90,7 +89,7 @@
 }
 @media screen and (aspect-ratio > 2.6/1) {
   .product-card .product-link img {
-    height: 9vw;
+    height: 31.2lvh;
   }
 }
 .product-card .description {

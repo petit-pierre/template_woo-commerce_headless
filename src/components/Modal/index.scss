@@ -7,11 +7,9 @@
   justify-content: center;
   z-index: 999;
   animation: fadeIn 0.2s ease;
-
   &.modal-closed {
     display: none;
   }
-
   .modal-content {
     background: var(--bg-color, #fff);
     border-radius: 16px;
@@ -22,7 +20,6 @@
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
     animation: slideUp 0.25s ease;
   }
-
   .modal-close-btn {
     position: absolute;
     top: 3lvh;
@@ -34,7 +31,6 @@
     font-size: 1.2rem;
     color: var(--text-color, #333);
   }
-
   .modal-loader {
     display: flex;
     justify-content: center;
@@ -43,7 +39,6 @@
     font-weight: 500;
     color: var(--text-color);
   }
-
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -53,7 +48,6 @@
       opacity: 1;
     }
   }
-
   @keyframes slideUp {
     from {
       transform: translateY(24px);
