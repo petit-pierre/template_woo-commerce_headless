@@ -55,7 +55,7 @@ span,
 label,
 li,
 a {
-  font-size: 4vw;
+  font-size: 3.12vw;
   font-family: var(--font-body);
   color: var(--dark-color);
   line-height: 1.5;
@@ -79,7 +79,7 @@ a {
   label,
   li,
   a {
-    font-size: 1.5lvh;
+    font-size: 3.12lvh;
   }
 }
 
@@ -291,8 +291,8 @@ button {
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  padding: 3vw 6vw;
-  font-size: 3vw;
+  padding: 2.6vw 5.2vw;
+  font-size: 2.6vw;
   width: -moz-fit-content;
   width: fit-content;
   border-radius: 2vw;
@@ -306,8 +306,8 @@ button {
 }
 @media screen and (aspect-ratio > 2.6/1) {
   button {
-    padding: 1.5lvh 3lvh;
-    font-size: 3lvh;
+    padding: 2.6lvh 5.2lvh;
+    font-size: 2.6lvh;
     border-radius: 1lvh;
   }
 }
