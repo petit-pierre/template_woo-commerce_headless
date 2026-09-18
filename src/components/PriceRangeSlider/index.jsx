@@ -6,12 +6,12 @@ import "./index.css";
 export default function PriceRangeSlider({ onApply }) {
   const dispatch = useDispatch();
   const filters = useSelector((state) => state.filters);
+
   const minLimit = 0;
   const maxLimit = 1000;
   const priceGap = 50;
   const priceStep = 25;
 
-  // Récupération des valeurs depuis Redux
   const minPrice =
     filters.min_price !== "" && filters.min_price !== undefined
       ? Number(filters.min_price)
@@ -29,7 +29,6 @@ export default function PriceRangeSlider({ onApply }) {
     setDraftMaxPrice(maxPrice);
   }, [minPrice, maxPrice]);
 
-  // Gestion des curseurs
   const handleMinRange = (e) => {
     const value = Number(e.target.value);
     if (draftMaxPrice - value >= priceGap) {
@@ -60,14 +59,44 @@ export default function PriceRangeSlider({ onApply }) {
     }
   };
 
-  const handlePriceChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    dispatch(setFilters({ [name]: value }));
+    if (name === "min_price") setDraftMinPrice(value);
+    if (name === "max_price") setDraftMaxPrice(value);
   };
 
-  // Calcul du remplissage
-  const leftPercent = (draftMinPrice / maxLimit) * 100;
-  const rightPercent = 100 - (draftMaxPrice / maxLimit) * 100;
+  const handleInputBlur = (e) => {
+    const { name, value } = e.target;
+    let numVal = Number(value);
+
+    if (name === "min_price") {
+      if (isNaN(numVal) || numVal < minLimit) numVal = minLimit;
+      if (numVal > draftMaxPrice - priceGap) numVal = draftMaxPrice - priceGap;
+
+      setDraftMinPrice(numVal);
+      dispatch(setFilters({ min_price: numVal }));
+      onApply?.();
+    }
+
+    if (name === "max_price") {
+      if (isNaN(numVal) || numVal > maxLimit) numVal = maxLimit;
+      if (numVal < draftMinPrice + priceGap) numVal = draftMinPrice + priceGap;
+
+      setDraftMaxPrice(numVal);
+      dispatch(setFilters({ max_price: numVal }));
+      onApply?.();
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.target.blur();
+    }
+  };
+
+  const leftPercent = (Math.max(minLimit, draftMinPrice) / maxLimit) * 100;
+  const rightPercent =
+    100 - (Math.min(maxLimit, draftMaxPrice) / maxLimit) * 100;
 
   return (
     <div className="price-range-slider">
@@ -75,7 +104,9 @@ export default function PriceRangeSlider({ onApply }) {
         type="number"
         name="min_price"
         value={draftMinPrice}
-        onChange={handlePriceChange}
+        onChange={handleInputChange}
+        onBlur={handleInputBlur}
+        onKeyDown={handleKeyDown}
         placeholder="Prix min (€)"
       />
 
@@ -134,7 +165,9 @@ export default function PriceRangeSlider({ onApply }) {
         type="number"
         name="max_price"
         value={draftMaxPrice}
-        onChange={handlePriceChange}
+        onChange={handleInputChange}
+        onBlur={handleInputBlur}
+        onKeyDown={handleKeyDown}
         placeholder="Prix max (€)"
       />
     </div>

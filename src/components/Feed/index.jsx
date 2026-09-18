@@ -55,7 +55,7 @@ export default function Feed() {
   return (
     <div className="feed-container">
       {items.map((product) => (
-        <ProductCard key={product.id} product={product} />
+        <ProductCard key={"store " + product.id} product={product} />
       ))}
       {hasMore && !loading && (
         <div className="load-more">
