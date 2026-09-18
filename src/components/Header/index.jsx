@@ -62,10 +62,10 @@ export default function Header() {
       <div className="margin"></div>
       <div className="content">
         <div
-            className={`header-overlay ${menuOpen ? "open" : ""}`}
-            onClick={closeMenu}
-            aria-hidden="true"
-          />
+          className={`header-overlay ${menuOpen ? "open" : ""}`}
+          onClick={closeMenu}
+          aria-hidden="true"
+        />
         <div className="menu">
           <Link to="/" className="header-logo" aria-label="Ecommerce">
             <img src={logoUrl || "./logo.webp"} alt="Logo" />
@@ -127,7 +127,9 @@ export default function Header() {
                   aria-label="Profil"
                   onClick={() => {
                     closeMenu();
-                    dispatch(openModal({ name: "auth", props: { view: "login" } }));
+                    dispatch(
+                      openModal({ name: "auth", props: { view: "login" } }),
+                    );
                   }}
                 >
                   <img src={peopleIcon} alt="" className="header-icon-img" />

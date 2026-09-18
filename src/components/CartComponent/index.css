@@ -46,6 +46,7 @@
   }
 }
 .cart .cart__empty-state {
+  list-style: none;
   background-color: var(--white-color);
   border: 1px solid var(--surface-color);
   border-radius: 3vw;

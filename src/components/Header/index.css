@@ -30,15 +30,14 @@
   align-items: center;
   justify-content: space-between;
 }
-
-.header-logo {
+.header .header-logo {
   display: flex;
   align-items: center;
   margin-left: 1%;
   padding: 1% 0;
   height: 10lvh;
 }
-.header-logo img {
+.header .header-logo img {
   display: block;
   height: 100%;
   width: auto;
@@ -46,76 +45,71 @@
      object-fit: contain;
   margin-right: 3%;
 }
-
-.header-logo-text {
+.header .header-logo-text {
   display: flex;
   flex-direction: column;
   align-items: center;
   line-height: 1;
 }
-.header-logo-text strong {
+.header .header-logo-text strong {
   font-family: "PlayfairDisplay", serif;
   font-size: 5.2vw;
   letter-spacing: 0.47vw;
 }
 @media screen and (aspect-ratio > 1/1) {
-  .header-logo-text strong {
+  .header .header-logo-text strong {
     font-size: 2vw;
     letter-spacing: 0.18vw;
   }
 }
 @media screen and (aspect-ratio > 2.6/1) {
-  .header-logo-text strong {
+  .header .header-logo-text strong {
     font-size: 5.2lvh;
     letter-spacing: 0.47lvh;
   }
 }
-.header-logo-text strong {
+.header .header-logo-text strong {
   font-weight: 400;
   color: var(--dark-color);
 }
-.header-logo-text small {
+.header .header-logo-text small {
   margin-top: 1%;
   font-family: "PoppinsCustom", sans-serif;
   font-size: 1.3vw;
   letter-spacing: 0.26vw;
 }
 @media screen and (aspect-ratio > 1/1) {
-  .header-logo-text small {
+  .header .header-logo-text small {
     font-size: 0.5vw;
     letter-spacing: 0.1vw;
   }
 }
 @media screen and (aspect-ratio > 2.6/1) {
-  .header-logo-text small {
+  .header .header-logo-text small {
     font-size: 1.3lvh;
     letter-spacing: 0.26lvh;
   }
 }
-.header-logo-text small {
+.header .header-logo-text small {
   font-weight: 200;
   white-space: nowrap;
   color: var(--text-color-muted);
 }
-
-.header-panel {
+.header .header-panel {
   display: contents;
 }
-
-.header-nav {
+.header .header-nav {
   display: flex;
   align-items: center;
   height: 100%;
 }
-.header-nav a {
+.header .header-nav a {
   margin: 0 1vw;
 }
-
-.header-search {
+.header .header-search {
   display: contents;
 }
-
-.header-actions {
+.header .header-actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -123,37 +117,41 @@
   height: 100%;
   padding-right: 0.5%;
 }
-.header-actions button:not(.deconexion) {
+.header .header-actions button:not(.deconexion) {
   background: none;
   border: none;
 }
-.header-actions .header-icon {
+.header .header-actions .header-icon {
   position: relative;
 }
-.header-actions .header-icon .header-icon-img {
+.header .header-actions .header-icon .header-icon-img {
   display: block;
   width: 1em;
   height: 1em;
 }
-.header-actions .header-icon span {
+.header .header-actions .header-icon span {
   position: absolute;
+  text-align: right;
   top: -1lvh;
-  left: 6lvh;
+  right: -1vw;
+}
+@media screen and (aspect-ratio > 2.6/1) {
+  .header .header-actions .header-icon span {
+    right: -3lvh;
+  }
+}
+.header .header-actions .header-icon span {
   font-weight: 700;
   line-height: 1;
   color: #000;
 }
-
-.header-burger,
-.header-close {
+.header .header-burger,
+.header .header-close {
   display: none;
 }
-
-.header-overlay {
+.header .header-overlay {
   display: none;
 }
-
-/* Scroll */
 .header.header-hidden .margin,
 .header.header-hidden .content {
   height: 0;
@@ -161,45 +159,40 @@
 .header.header-hidden .content {
   overflow: hidden;
 }
-
 @media screen and (min-aspect-ratio: 1/1) {
-  .header .content,
-  .header .margin {
+  .header .header .content,
+  .header .header .margin {
     height: 10lvh;
   }
-  .header-nav {
+  .header .header-nav {
     justify-content: space-around;
   }
-  .header-nav a {
+  .header .header-nav a {
     margin: 0 3lvh;
   }
-  .header-actions {
+  .header .header-actions {
     width: 80%;
     gap: 3%;
     padding-right: 1%;
   }
-  .header-actions .header-icon {
+  .header .header-actions .header-icon {
     font-size: 6lvh;
   }
-  .header-actions .autocomplete {
+  .header .header-actions .autocomplete {
     height: 100%;
   }
-  .header-actions .autocomplete input {
+  .header .header-actions .autocomplete input {
     height: 100%;
   }
-  .header-actions button {
+  .header .header-actions button {
     height: 8lvh;
   }
 }
-/* Responsive */
 @media screen and (max-aspect-ratio: 1/1) {
-  .header.header-hidden .content {
+  .header .header.header-hidden .content {
     overflow: visible;
   }
-  .header-logo {
-    order: 1;
-  }
-  .header-burger {
+  .header .header-burger {
     display: flex;
     order: 2;
     align-items: center;
@@ -213,7 +206,7 @@
     color: var(--dark-color);
     cursor: pointer;
   }
-  .header-panel {
+  .header .header-panel {
     display: flex;
     position: fixed;
     top: 0;
@@ -223,7 +216,7 @@
     height: 100%;
     flex-direction: column;
     align-items: flex-start;
-    gap: 5%;
+    gap: 5vw;
     padding: 10% 8% 8%;
     background-color: var(--bg-color);
     box-shadow: -8px 0 24px rgba(0, 0, 0, 0.25);
@@ -231,50 +224,65 @@
     transition: transform 0.3s ease;
     overflow-y: auto;
   }
-  .header-panel.open {
+  .header .header-panel.open {
     transform: translateX(0);
   }
-  .header-nav {
+  .header .header-panel .header-nav {
     flex-direction: column;
     align-items: flex-start;
-    gap: 5%;
+    gap: 5vw;
     width: 100%;
     height: auto;
   }
-  .header-nav a {
+  .header .header-panel .header-nav a {
     margin: 0;
+    font-size: 5vw;
+    width: 100%;
   }
-  .header-actions {
+  .header .header-panel .header-actions {
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 5%;
+    gap: 5vw;
     width: 100%;
     height: auto;
     padding: 0;
   }
-  .header-actions .header-search {
+  .header .header-panel .header-actions .header-search {
     display: flex;
     align-items: center;
     gap: 4%;
     width: 100%;
   }
-  .header-actions .autocomplete {
+  .header .header-panel .header-actions .autocomplete {
     flex: 1;
     min-width: 0;
   }
-  .header-actions .autocomplete input {
+  .header .header-panel .header-actions .autocomplete input {
     width: 100%;
   }
-  .header-actions .header-icon {
+  .header .header-panel .header-actions .header-icon {
     flex-shrink: 0;
     display: inline-flex;
     font-size: 10vw;
   }
-  .header-actions button {
-    height: auto;
+  .header .header-panel .header-actions .header-icon span {
+    right: -3vw;
+    left: inherit;
   }
-  .header-close {
+  .header .header-panel .header-actions > .header-icon {
+    width: 100%;
+  }
+  .header .header-panel .header-actions > .header-icon img {
+    margin: auto;
+    margin-right: 0;
+  }
+  .header .header-panel .header-actions button {
+    height: auto;
+    margin: auto;
+    margin-right: 0;
+  }
+  .header .header-close {
     display: block;
     position: absolute;
     top: 4vw;
@@ -287,7 +295,7 @@
     color: var(--dark-color);
     cursor: pointer;
   }
-  .header-overlay {
+  .header .header-overlay {
     display: block;
     position: fixed;
     inset: 0;
@@ -297,7 +305,7 @@
     pointer-events: none;
     transition: opacity 0.25s ease;
   }
-  .header-overlay.open {
+  .header .header-overlay.open {
     opacity: 1;
     pointer-events: auto;
   }
