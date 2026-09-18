@@ -1,6 +1,5 @@
 .price-range-slider {
-  width: -moz-max-content;
-  width: max-content;
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 1lvw;
@@ -8,8 +7,7 @@
 }
 .price-range-slider .custom-wrapper {
   position: relative;
-  width: 18lvw;
-  flex: 0 0 18lvw;
+  width: 100%;
   height: 4lvh;
   display: flex;
   align-items: center;

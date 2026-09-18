@@ -50,6 +50,9 @@
     }
 
     .filter-toggle {
+      @media screen and (aspect-ratio > 1/1) {
+        width: 8%;
+      }
       flex-shrink: 0;
       display: flex;
       align-items: center;
@@ -136,6 +139,10 @@
 
       &.open {
         grid-template-rows: 1fr;
+        width: 100%;
+        @media screen and (aspect-ratio > 1/1) {
+          width: 92%;
+        }
         border-bottom: 1px solid
           color-mix(in srgb, var(--dark-color) 8%, transparent);
         box-shadow: 0 12px 20px

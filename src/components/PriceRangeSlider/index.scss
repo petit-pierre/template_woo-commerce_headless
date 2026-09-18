@@ -1,14 +1,15 @@
 .price-range-slider {
-  width: max-content;
+  //width: max-content;
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 1lvw;
   border: none;
-
   .custom-wrapper {
     position: relative;
-    width: 18lvw;
-    flex: 0 0 18lvw;
+    // width: 18lvw;
+    width: 100%;
+    //flex: 0 0 18lvw;
     height: 4lvh;
     display: flex;
     align-items: center;
