@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { showToast } from "../../slices/toastSlice";
-import OrderDetails from "../../components/OrderDetails";
+import OrderDetails from "../../modals/orderDetails";
 import "./index.css";
 export default function Success() {
   const { orderId } = useParams();
@@ -27,11 +27,7 @@ export default function Success() {
         </p>
       </div>
 
-      {token && order ? (
-        <div className="success-box">
-          <OrderDetails order={order} />
-        </div>
-      ) : (
+      {!token && (
         <div className="success-guest">
           <p>
             Vous avez commandé en tant qu'invité. Un email de confirmation vous

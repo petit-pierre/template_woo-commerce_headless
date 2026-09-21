@@ -57,7 +57,10 @@ export default function CheckoutForm() {
     };
     window.addEventListener("checkoutContinueAsGuest", handleGuestCheckout);
     return () => {
-      window.removeEventListener("checkoutContinueAsGuest", handleGuestCheckout);
+      window.removeEventListener(
+        "checkoutContinueAsGuest",
+        handleGuestCheckout,
+      );
     };
   }, [stripe, elements, loading, billingAddress, shippingAddress]);
 
@@ -117,6 +120,8 @@ export default function CheckoutForm() {
         dispatch(fetchCurrentUserThunk());
         dispatch(fetchCurrentCustomerThunk());
         dispatch(fetchCurrentUserOrdersThunk());
+        user.token &&
+          dispatch(openModal({ name: "orderDetails", props: data.order_id }));
         navigate(`/success/${data.order_id}`);
       }
     } catch (err) {

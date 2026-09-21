@@ -39,7 +39,10 @@ export default function Modal() {
   const handleClose = () => dispatch(closeModal());
 
   return (
-    <div className={`modal-overlay ${isOpen ? "modal-open" : "modal-closed"}`} onClick={handleClose}>
+    <div
+      className={`modal-overlay ${isOpen ? "modal-open" : "modal-closed"}`}
+      onClick={handleClose}
+    >
       <FocusTrap active={isOpen}>
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
           <button
@@ -50,7 +53,9 @@ export default function Modal() {
             ✕
           </button>
 
-          <Suspense fallback={<div className="modal-loader">Chargement...</div>}>
+          <Suspense
+            fallback={<div className="modal-loader">Chargement...</div>}
+          >
             {DynamicModal && <DynamicModal {...modalProps} />}
           </Suspense>
         </div>
