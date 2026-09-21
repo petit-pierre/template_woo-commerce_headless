@@ -24,7 +24,6 @@
       background-color 0.2s ease,
       border-color 0.2s ease,
       box-shadow 0.2s ease;
-
     &.open {
       backdrop-filter: blur(4px);
       background-color: color-mix(in srgb, var(--bg-color) 70%, transparent);
@@ -33,13 +32,11 @@
       box-shadow: 0 4px 12px
         color-mix(in srgb, var(--dark-color) 4%, transparent);
     }
-
     @media screen and (aspect-ratio > 1/1) {
       gap: 1vw;
       padding: 0 2vw;
       overflow-x: auto;
       overflow-y: hidden;
-
       &::-webkit-scrollbar {
         display: none;
       }
@@ -48,7 +45,6 @@
       gap: 2lvh;
       padding: 0 4lvh;
     }
-
     .filter-toggle {
       @media screen and (aspect-ratio > 1/1) {
         width: 8%;
@@ -71,7 +67,6 @@
         box-shadow 0.2s ease,
         background-color 0.2s ease,
         color 0.2s ease;
-
       @media screen and (aspect-ratio > 1/1) {
         gap: 0.4vw;
         border-radius: 0.4vw;
@@ -84,13 +79,11 @@
         padding: 1lvh 1.8lvh;
         font-size: 2.2lvh;
       }
-
       svg {
         flex-shrink: 0;
         width: 1.2em;
         height: 1.2em;
       }
-
       &:hover {
         border-color: var(--primary-color);
         color: var(--primary-color);
@@ -101,13 +94,11 @@
         box-shadow: 0 0 0 3px
           color-mix(in srgb, var(--primary-color) 15%, transparent);
       }
-
       &.active {
         background-color: var(--primary-color);
         border-color: var(--primary-color);
         color: var(--bg-color);
       }
-
       .filter-toggle-dot {
         flex-shrink: 0;
         width: 1.4vw;
@@ -115,7 +106,6 @@
         border-radius: 50%;
         background-color: var(--danger-color);
         border: 1px solid var(--bg-color);
-
         @media screen and (aspect-ratio > 1/1) {
           width: 0.45vw;
           height: 0.45vw;
@@ -126,7 +116,6 @@
         }
       }
     }
-
     .filter-controls {
       position: absolute;
       top: 100%;
@@ -136,7 +125,6 @@
       width: 100%;
       background-color: var(--bg-color);
       transition: grid-template-rows 0.3s ease;
-
       &.open {
         grid-template-rows: 1fr;
         width: 100%;
@@ -148,7 +136,6 @@
         box-shadow: 0 12px 20px
           color-mix(in srgb, var(--dark-color) 8%, transparent);
       }
-
       @media screen and (aspect-ratio > 1/1) {
         position: static;
         width: auto;
@@ -156,7 +143,6 @@
         grid-template-columns: 0fr;
         grid-template-rows: none;
         transition: grid-template-columns 0.3s ease;
-
         &.open {
           grid-template-columns: 1fr;
           grid-template-rows: none;
@@ -165,23 +151,17 @@
         }
       }
     }
-
-    // Purely a clipping layer: must be able to render at 0 height when
-    // collapsed, so it carries no padding/border of its own (those can't
-    // shrink below their own thickness and would leave a residual sliver).
     .filter-controls-inner {
       min-width: 0;
       min-height: 0;
       overflow: hidden;
     }
-
     .filter-controls-fields {
       display: flex;
       flex-direction: column;
       align-items: stretch;
       gap: 4vw;
       padding: 1vw 5vw 5vw;
-
       @media screen and (aspect-ratio > 1/1) {
         flex-direction: row;
         align-items: center;
@@ -192,7 +172,6 @@
         gap: 2lvh;
       }
     }
-
     select,
     input {
       flex-shrink: 0;
@@ -208,7 +187,6 @@
       transition:
         border-color 0.2s ease,
         box-shadow 0.2s ease;
-
       @media screen and (aspect-ratio > 1/1) {
         border-radius: 0.5vw;
         padding: 0.7vw 1.2vw;
@@ -219,7 +197,6 @@
         padding: 1.4lvh 2.4lvh;
         font-size: 2.6lvh;
       }
-
       &:hover {
         border-color: var(--primary-color);
       }
@@ -230,16 +207,13 @@
           color-mix(in srgb, var(--primary-color) 15%, transparent);
       }
     }
-
     select {
-      // stroke color is --dark-color's hex value; data-URIs can't reference custom properties
       appearance: none;
       -webkit-appearance: none;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='none' stroke='%230f172a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 3vw center;
       padding-right: 8vw;
-
       @media screen and (aspect-ratio > 1/1) {
         background-position: right 0.8vw center;
         padding-right: 2.2vw;
@@ -249,13 +223,11 @@
         padding-right: 4.5lvh;
       }
     }
-
     input[type="number"] {
       width: 26vw;
       padding-left: 2vw;
       padding-right: 2vw;
       cursor: text;
-
       @media screen and (aspect-ratio > 1/1) {
         width: 9.5vw;
         padding-left: 0.6vw;
@@ -266,7 +238,6 @@
         padding-left: 1.2lvh;
         padding-right: 1.2lvh;
       }
-
       &::-webkit-outer-spin-button,
       &::-webkit-inner-spin-button {
         -webkit-appearance: none;
@@ -274,7 +245,6 @@
       }
       -moz-appearance: textfield;
       appearance: textfield;
-
       &::placeholder {
         color: color-mix(in srgb, var(--dark-color) 40%, transparent);
       }

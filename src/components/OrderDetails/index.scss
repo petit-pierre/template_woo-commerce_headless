@@ -7,37 +7,34 @@
   border-radius: 3vw;
   padding: 4vw;
   margin-top: 3vw;
-
-  h3 {
-    font-size: 4.5vw;
-    margin-bottom: 0;
-  }
-
+  // h3 {
+  //   font-size: 4.5vw;
+  //   margin-bottom: 0;
+  // }
   p {
     margin-bottom: 0;
   }
-
   @media screen and (aspect-ratio > 1/1) {
     gap: 1vw;
     border-radius: 0.8vw;
     padding: 1.5vw;
     margin-top: 1vw;
-
-    h3 {
-      font-size: 1.4vw;
-    }
+    // h3 {
+    //   font-size: 1.4vw;
+    // }
   }
 }
-
 .payment-ok,
 .payment-pending {
   border-radius: 2vw;
   padding: 2.5vw 3vw;
   font-family: var(--font-heading);
-
   @media screen and (aspect-ratio > 1/1) {
     border-radius: 0.5vw;
     padding: 0.8vw 1vw;
+  }
+  @media screen and (aspect-ratio > 2.6/1) {
+    padding: 2.09lvh 2.6lvh;
   }
 }
 
@@ -112,6 +109,18 @@
 
     > div {
       gap: 0.2vw;
+    }
+  }
+  @media screen and (aspect-ratio > 2.6/1) {
+    gap: 2.6lvh;
+    padding: 2.6lvh 0;
+    img {
+      width: 10.4lvh;
+      height: 10.4lvh;
+      border-radius: 1.04lvh;
+    }
+    > div {
+      gap: 0.52lvh;
     }
   }
 }

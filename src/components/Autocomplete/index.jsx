@@ -1,11 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilters } from "../../slices/filtersSlice";
-import {
-  fetchProductsThunk,
-  fetchSearchSuggestionsThunk,
-} from "../../thunkActionsCreator/productsThunks";
+import { fetchProductsThunk } from "../../thunkActionsCreator/productsThunks";
 import "./index.css";
 import { decodeHtml } from "../../utils/decodeHtml";
 
@@ -15,7 +12,6 @@ export default function Autocomplete() {
   const navigate = useNavigate();
   const search = useSelector((state) => state.filters.search);
   const [focused, setFocused] = useState(false);
-  const timeoutRef = useRef(null);
   const filters = useSelector((state) => state.filters);
   const { list, loading, error } = useSelector((state) => state.products);
   useEffect(() => {

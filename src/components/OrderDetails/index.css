@@ -8,10 +8,6 @@
   padding: 4vw;
   margin-top: 3vw;
 }
-.order-details h3 {
-  font-size: 4.5vw;
-  margin-bottom: 0;
-}
 .order-details p {
   margin-bottom: 0;
 }
@@ -21,9 +17,6 @@
     border-radius: 0.8vw;
     padding: 1.5vw;
     margin-top: 1vw;
-  }
-  .order-details h3 {
-    font-size: 1.4vw;
   }
 }
 
@@ -38,6 +31,12 @@
   .payment-pending {
     border-radius: 0.5vw;
     padding: 0.8vw 1vw;
+  }
+}
+@media screen and (aspect-ratio > 2.6/1) {
+  .payment-ok,
+  .payment-pending {
+    padding: 2.09lvh 2.6lvh;
   }
 }
 
@@ -107,5 +106,19 @@
   }
   .order-item > div {
     gap: 0.2vw;
+  }
+}
+@media screen and (aspect-ratio > 2.6/1) {
+  .order-item {
+    gap: 2.6lvh;
+    padding: 2.6lvh 0;
+  }
+  .order-item img {
+    width: 10.4lvh;
+    height: 10.4lvh;
+    border-radius: 1.04lvh;
+  }
+  .order-item > div {
+    gap: 0.52lvh;
   }
 }/*# sourceMappingURL=index.css.map */

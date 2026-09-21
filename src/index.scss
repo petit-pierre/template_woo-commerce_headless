@@ -73,7 +73,7 @@ a {
   }
 }
 p {
-  font-size: 3.5vw;
+  font-size: 3.12vw;
   font-family: var(--font-heading);
   color: var(--text-color-muted);
   font-weight: 300;
@@ -81,11 +81,11 @@ p {
     font-size: 1.2vw;
   }
   @media screen and (aspect-ratio > 2.6/1) {
-    font-size: 1.5lvh;
+    font-size: 3.12lvh;
   }
 }
 strong {
-  font-size: 3.5vw;
+  font-size: 3.12vw;
   font-family: var(--font-heading);
   color: var(--text-color-muted);
   font-weight: 900;
@@ -93,7 +93,7 @@ strong {
     font-size: 1.2vw;
   }
   @media screen and (aspect-ratio > 2.6/1) {
-    font-size: 1.5lvh;
+    font-size: 3.12lvh;
   }
 }
 input,
@@ -110,12 +110,12 @@ select {
 
 p,
 ul {
-  margin-bottom: 3vw;
+  margin-bottom: 2.6vw;
   @media screen and (aspect-ratio > 1/1) {
     margin-bottom: 1vw;
   }
   @media screen and (aspect-ratio > 2.6/1) {
-    margin-bottom: 1.5lvh;
+    margin-bottom: 2.6lvh;
   }
 }
 
@@ -164,30 +164,30 @@ h2 {
 }
 
 h3 {
-  font-size: 5vw;
+  font-size: 5.2vw;
   font-family: var(--font-body);
-  margin-bottom: 3vw;
+  margin-bottom: 3.6vw;
   @media screen and (aspect-ratio > 1/1) {
     font-size: 2vw;
     margin-bottom: 1.2vw;
   }
   @media screen and (aspect-ratio > 2.6/1) {
-    font-size: 2.5lvh;
-    margin-bottom: 3lvh;
+    font-size: 5.2lvh;
+    margin-bottom: 3.6lvh;
   }
 }
 
 h4 {
-  font-size: 4.5vw;
+  font-size: 3.64vw;
   font-family: var(--font-body);
-  margin-bottom: 2.5vw;
+  margin-bottom: 2.6vw;
   @media screen and (aspect-ratio > 1/1) {
     font-size: 1.4vw;
     margin-bottom: 1vw;
   }
   @media screen and (aspect-ratio > 2.6/1) {
-    font-size: 2.2lvh;
-    margin-bottom: 2.5lvh;
+    font-size: 3.64lvh;
+    margin-bottom: 2.6lvh;
   }
 }
 
@@ -200,8 +200,8 @@ h5 {
     margin-bottom: 0.8vw;
   }
   @media screen and (aspect-ratio > 2.6/1) {
-    font-size: 2lvh;
-    margin-bottom: 2lvh;
+    font-size: 3.9lvh;
+    margin-bottom: 3.9lvh;
   }
 }
 

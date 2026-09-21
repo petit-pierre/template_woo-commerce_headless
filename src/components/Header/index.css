@@ -260,6 +260,7 @@
   }
   .header .header-panel .header-actions .autocomplete input {
     width: 100%;
+    height: 100%;
   }
   .header .header-panel .header-actions .header-icon {
     flex-shrink: 0;
@@ -279,7 +280,6 @@
   }
   .header .header-panel .header-actions button {
     height: auto;
-    margin: auto;
     margin-right: 0;
   }
   .header .header-close {
