@@ -9,21 +9,35 @@
     align-items: flex-start;
     padding: 4vw 3vw;
     gap: 2vw;
+    @media screen and (aspect-ratio > 2.6/1) {
+      padding: 10.4lvh 7.8lvh;
+      gap: 5.2lvh;
+    }
   }
 
   .footer_col {
     display: flex;
     flex-direction: column;
     gap: 1vw;
+    padding: 4vw 3vw;
+    @media screen and (aspect-ratio > 2.6/1) {
+      padding: 10.4lvh 7.8lvh;
+      gap: 2.6lvh;
+    }
   }
 
   .footer_col--brand {
-    max-width: 25vw;
+    max-width: 25%;
   }
 
   .footer_logo {
-    height: 3vw;
-    min-height: 40px;
+    height: 7.8vw;
+    @media screen and (aspect-ratio > 1/1) {
+      height: 3vw;
+    }
+    @media screen and (aspect-ratio > 2.6/1) {
+      height: 7.8lvh;
+    }
     width: auto;
     object-fit: contain;
   }
@@ -48,6 +62,9 @@
     display: flex;
     flex-direction: column;
     gap: 0.7vw;
+    @media screen and (aspect-ratio > 2.6/1) {
+      gap: 2lvh;
+    }
     margin: 0;
 
     a {
@@ -87,6 +104,9 @@
   .footer_bottom {
     border-top: 1px solid var(--secondary-color);
     padding: 1.5vw 3vw;
+    @media screen and (aspect-ratio > 2.6/1) {
+      padding: 3.2lvh 7.8lvh;
+    }
     text-align: center;
 
     p {
