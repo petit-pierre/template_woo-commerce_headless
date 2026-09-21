@@ -17,7 +17,6 @@
     // margin-top: 5vw;
   }
   @media screen and (aspect-ratio > 2.6/1) {
-    width: 18%;
     height: 72.8lvh;
   }
 
@@ -42,13 +41,13 @@
   .product-link {
     display: flex;
     flex-direction: column;
-    height: 50%;
+    height: 41.6vw;
 
     @media screen and (aspect-ratio > 1/1) {
       height: 16vw;
     }
     @media screen and (aspect-ratio > 2.6/1) {
-      height: 12vw;
+      height: 41.6lvh;
     }
 
     h4 {
@@ -91,11 +90,21 @@
   .description {
     display: flex;
     flex-direction: row;
+    height: 20.8vw;
     margin-left: 1lvh;
     margin-right: 1lvh;
-    margin-top: 1vw;
-    height: 8vw;
-
+    margin-top: 2.6vw;
+    @media screen and (aspect-ratio > 1/1) {
+      margin-left: 1lvh;
+      margin-right: 1lvh;
+      margin-top: 1vw;
+      margin-top: 1vw;
+      height: 8vw;
+    }
+    @media screen and (aspect-ratio > 2.6/1) {
+      height: 20.8lvh;
+      margin-top: 2.6lvh;
+    }
     span {
       width: 50%;
       margin-left: 1px;
@@ -108,7 +117,13 @@
     }
 
     .stock-status {
-      font-size: 1.3vw;
+      font-size: 3.38vw;
+      @media screen and (aspect-ratio > 1/1) {
+        font-size: 1.3vw;
+      }
+      @media screen and (aspect-ratio > 2.6/1) {
+        font-size: 3.38lvh;
+      }
 
       &-available {
         color: var(--success-color);
@@ -128,15 +143,17 @@
     //height: 7lvh;
     width: 90%;
     margin: auto;
-    margin-bottom: 1lvh;
+    // margin-bottom: 1lvh;
+    height: 6.5lvw;
+    margin-bottom: 1.3lvw;
 
     @media screen and (aspect-ratio > 1/1) {
       height: 2.5vw;
       margin-bottom: 0.5vw;
     }
     @media screen and (aspect-ratio > 2.6/1) {
-      height: 2vw;
-      margin-bottom: 0.4vw;
+      height: 6.5lvh;
+      margin-bottom: 1.3lvh;
     }
   }
 
