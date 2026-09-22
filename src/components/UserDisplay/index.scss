@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: column;
   row-gap: 2vw;
+  @media screen and (aspect-ratio > 2.6/1) {
+    row-gap: 5.2lvh;
+  }
   form {
     border: solid 1px black;
     padding: 2vw;
