@@ -1,11 +1,18 @@
 .blog-container {
-  width: 100%;
-  max-width: 1100px;
+  width: 80%;
   padding: 6vw 0;
   margin: 0 auto;
 }
 .blog-container .blog-description {
   margin-bottom: 6vw;
+}
+@media screen and (aspect-ratio > 2.6/1) {
+  .blog-container {
+    padding: 15.6lvh 0;
+  }
+  .blog-container .blog-description {
+    margin-bottom: 15.6lvh;
+  }
 }
 .blog-container .blog-filters {
   display: flex;
@@ -14,11 +21,24 @@
   align-items: center;
   margin-bottom: 6vw;
 }
+@media screen and (aspect-ratio > 2.6/1) {
+  .blog-container .blog-filters {
+    gap: 7.8lvh;
+    margin-bottom: 15.6lvh;
+  }
+}
 .blog-container .blog-filter-select {
   border: 1px solid var(--primary-color);
   background-color: var(--bg-color);
   border-radius: 2vw;
   padding: 2vw 3vw;
+}
+@media screen and (aspect-ratio > 2.6/1) {
+  .blog-container .blog-filter-select {
+    padding: 5.2lvh 7.8lvh;
+  }
+}
+.blog-container .blog-filter-select {
   min-width: 220px;
   -moz-appearance: none;
        appearance: none;
@@ -36,6 +56,11 @@
   grid-template-columns: 1fr;
   gap: 4vw;
 }
+@media screen and (aspect-ratio > 2.6/1) {
+  .blog-container .blog-posts-grid {
+    gap: 10.4lvh;
+  }
+}
 .blog-container .blog-link {
   color: inherit;
 }
@@ -47,6 +72,13 @@
   height: 100%;
   border: 1px solid var(--primary-color);
   padding: 5vw;
+}
+@media screen and (aspect-ratio > 2.6/1) {
+  .blog-container .blog-article {
+    padding: 25.1lvh;
+  }
+}
+.blog-container .blog-article {
   border-radius: 2vw;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }

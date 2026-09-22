@@ -1,11 +1,20 @@
 .blog-container {
-  width: 100%;
-  max-width: 1100px;
+  width: 80%;
+  //max-width: 1100px;
   padding: 6vw 0;
   margin: 0 auto;
-
+  //   @media screen and (aspect-ratio > 1/1) {
+  //   width: 2vw;
+  //   height: 2vw;
+  // }
   .blog-description {
     margin-bottom: 6vw;
+  }
+  @media screen and (aspect-ratio > 2.6/1) {
+    padding: 15.6lvh 0;
+    .blog-description {
+      margin-bottom: 15.6lvh;
+    }
   }
 
   .blog-filters {
@@ -14,6 +23,10 @@
     gap: 3vw;
     align-items: center;
     margin-bottom: 6vw;
+    @media screen and (aspect-ratio > 2.6/1) {
+      gap: 7.8lvh;
+      margin-bottom: 15.6lvh;
+    }
   }
 
   // .blog-filter-label {
@@ -26,6 +39,9 @@
     background-color: var(--bg-color);
     border-radius: 2vw;
     padding: 2vw 3vw;
+    @media screen and (aspect-ratio > 2.6/1) {
+      padding: 5.2lvh 7.8lvh;
+    }
     min-width: 220px;
     appearance: none;
     -webkit-appearance: none;
@@ -42,6 +58,9 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 4vw;
+    @media screen and (aspect-ratio > 2.6/1) {
+      gap: 10.4lvh;
+    }
   }
 
   .blog-link {
@@ -58,6 +77,9 @@
     height: 100%;
     border: 1px solid var(--primary-color);
     padding: 5vw;
+    @media screen and (aspect-ratio > 2.6/1) {
+      padding: 25.1lvh;
+    }
     border-radius: 2vw;
     transition:
       transform 0.3s ease,
