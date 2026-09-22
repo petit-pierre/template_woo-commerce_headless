@@ -17,7 +17,7 @@ export default function Toast() {
 
   return (
     <div className="toast">
-      {<div dangerouslySetInnerHTML={{ __html: message }} />}
+      {<p dangerouslySetInnerHTML={{ __html: message }} />}
     </div>
   );
 }

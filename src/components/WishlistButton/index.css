@@ -1,13 +1,19 @@
 .wishlist-button {
   border: 1px solid var(--dark-color);
   cursor: pointer;
-  width: 2vw;
-  height: 2vw;
+  width: 7.5vw;
+  height: 7.5vw;
+}
+@media screen and (aspect-ratio > 1/1) {
+  .wishlist-button {
+    width: 2vw;
+    height: 2vw;
+  }
 }
 @media screen and (aspect-ratio > 2.6/1) {
   .wishlist-button {
-    width: 5.2lvh;
-    height: 5.2lvh;
+    width: 7.5lvh;
+    height: 7.5lvh;
   }
 }
 .wishlist-button {

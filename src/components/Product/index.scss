@@ -8,9 +8,9 @@
       padding: 1.4vw;
     }
     .addToCart {
-      margin-right: 1vw;
+      margin: 0 1vw;
       @media screen and (aspect-ratio > 2.6/1) {
-        margin-right: 2.6lvh;
+        margin: 0 2.6lvh;
       }
     }
     .product-title {
@@ -94,6 +94,12 @@
     flex-direction: column;
     gap: 0.5rem;
     width: fit-content;
+    @media screen and (aspect-ratio < 1/1) {
+      width: 100%;
+      .wishlist-button {
+        margin-right: 1vw;
+      }
+    }
     .price-text {
       color: var(--primary-color);
       margin: 0;
@@ -101,6 +107,12 @@
     .actions-row {
       display: flex;
       align-items: center;
+      :nth-child(1)label {
+        margin-right: 1vw;
+        @media screen and (aspect-ratio > 2.6/1) {
+          margin-right: 2.6lvh;
+        }
+      }
     }
   }
 }
