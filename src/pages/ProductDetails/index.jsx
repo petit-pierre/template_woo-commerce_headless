@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchProductByIdThunk } from "../../thunkActionsCreator/productsThunks";
+import { fetchCategoriesThunk } from "../../thunkActionsCreator/categoriesThunks";
 import Product from "../../components/Product";
 import SimilarProducts from "../../components/SimilarProducts";
 import Review from "../../components/Review";
@@ -13,27 +14,23 @@ import "./index.css";
 export default function ProductDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const categories = useSelector((state) => state.categories.items || []);
 
   const { list, singleProduct, loadingSingle } = useSelector(
     (state) => state.products,
   );
-  const categories = useSelector((state) => state.categories.items || []);
-
   const productFromList = list?.data?.find(
     (p) => p.id?.toString() === id?.toString(),
   );
-  const productToDisplay = productFromList || singleProduct;
 
   useEffect(() => {
     if (id && !productFromList) {
       dispatch(fetchProductByIdThunk(id));
+      dispatch(fetchCategoriesThunk());
     }
   }, [id, productFromList, dispatch]);
-  const categoryName = productToDisplay?.categories?.[0]?.name;
-  const matchedCategory = categories.find(
-    (cat) => cat.name?.toString() === categoryName?.toString(),
-  );
-  const bg = matchedCategory?.image?.src;
+
+  const productToDisplay = productFromList || singleProduct;
 
   if (loadingSingle && !productToDisplay) {
     return <Loader size="lg" />;
@@ -42,6 +39,12 @@ export default function ProductDetails() {
   if (!productToDisplay) {
     return <p className="not-found-state">Aucun produit trouvé.</p>;
   }
+
+  const categoryName = productToDisplay?.categories?.[0]?.name;
+  const matchedCategory = categories.find(
+    (cat) => cat.name?.toString() === categoryName?.toString(),
+  );
+  const bg = matchedCategory?.image?.src;
 
   return (
     <main>
@@ -52,6 +55,7 @@ export default function ProductDetails() {
           reduxProducts={list?.data}
         />
         <Review productId={productToDisplay.id} />
+
         <div
           className="category-bg"
           style={{ "--cat-bg": bg ? `url(${bg})` : "none" }}
