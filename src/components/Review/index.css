@@ -59,6 +59,8 @@
   align-items: center;
   margin-top: 5lvh;
   margin-bottom: 3lvh;
+  width: 100%;
+  justify-content: center;
 }
 .pagination a {
   display: inline-flex;
@@ -66,9 +68,15 @@
   align-items: center;
   text-decoration: none;
   padding: 1vw 1vw;
-  border-radius: 50vw;
+  border-radius: 0;
   font-weight: 600;
   transition: all 0.3s ease;
+}
+.pagination a.pageChange {
+  padding: 0;
+}
+.pagination a.inactive {
+  opacity: 0;
 }
 .pagination a:hover {
   color: var(--dark-color);

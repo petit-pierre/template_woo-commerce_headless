@@ -327,7 +327,7 @@ const Review = ({ productId }) => {
       </div>
 
       {/* --- LISTE DES AVIS --- */}
-      {loading && <Loader size="lg" />}
+      {/* {loading && <Loader size="lg" />} */}
       {error && <p className="review-error">Erreur : {error}</p>}
       {!loading && !error && reviews.length === 0 && <p>Aucun avis trouvé.</p>}
       <div className="reviews-block">
@@ -355,10 +355,11 @@ const Review = ({ productId }) => {
         ))}
       </div>
       {/* --- BARRE DE PAGINATION --- */}
-      {!loading && totalPages > 1 && (
+      {totalPages > 1 && (
         <div className="pagination">
-          {currentPage > 1 && (
+          {currentPage > 1 ? (
             <a
+              className="pageChange"
               href="#reviews-section"
               onClick={(e) => {
                 e.preventDefault();
@@ -367,6 +368,8 @@ const Review = ({ productId }) => {
             >
               Précédent
             </a>
+          ) : (
+            <a className="pageChange inactive">Précédent</a>
           )}
 
           {getPaginationRange(currentPage, totalPages).map((page, index) => {
@@ -395,8 +398,9 @@ const Review = ({ productId }) => {
             );
           })}
 
-          {currentPage < totalPages && (
+          {currentPage < totalPages ? (
             <a
+              className="pageChange"
               href="#reviews-section"
               onClick={(e) => {
                 e.preventDefault();
@@ -405,6 +409,8 @@ const Review = ({ productId }) => {
             >
               Suivant
             </a>
+          ) : (
+            <a className="pageChange inactive">Suivant</a>
           )}
         </div>
       )}
