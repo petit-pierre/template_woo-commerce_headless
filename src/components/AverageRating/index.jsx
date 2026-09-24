@@ -1,4 +1,6 @@
 import "./index.css";
+import active from "./review-active.svg";
+import inactive from "./review-inactive.svg";
 
 const AverageRating = ({ avgRating = 0, totalReviews = 0 }) => {
   const normalizedRating = Math.max(0, Math.min(Number(avgRating) || 0, 5));
@@ -21,11 +23,7 @@ const AverageRating = ({ avgRating = 0, totalReviews = 0 }) => {
           {[1, 2, 3, 4, 5].map((star) => (
             <img
               key={star}
-              src={
-                star <= fullStars
-                  ? "/review-active.svg"
-                  : "/review-inactive.svg"
-              }
+              src={star <= fullStars ? active : inactive}
               alt="avis"
             />
           ))}
