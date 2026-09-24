@@ -6,8 +6,8 @@
 }
 @media screen and (aspect-ratio > 1/1) {
   .wishlist-button {
-    width: 2vw;
-    height: 2vw;
+    width: 3vw;
+    height: 3vw;
   }
 }
 @media screen and (aspect-ratio > 2.6/1) {

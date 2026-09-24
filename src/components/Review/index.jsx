@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Loader from "../Loader";
 import "./index.css";
+import active from "./review-active.svg";
+import inactive from "./review-inactive.svg";
 
 const Review = ({ productId }) => {
   const userState = useSelector((state) => state.user || {});
@@ -218,7 +220,7 @@ const Review = ({ productId }) => {
       <img
         key={star}
         className="review-star-icon"
-        src={star <= fullStars ? "/review-active.svg" : "/review-inactive.svg"}
+        src={star <= fullStars ? active : inactive}
         alt="avis"
       />
     ));
@@ -287,11 +289,7 @@ const Review = ({ productId }) => {
                     key={star}
                     onClick={() => setRating(star)}
                     aria-label={`Choisir ${star} étoiles`}
-                    src={
-                      star <= rating
-                        ? "/review-active.svg"
-                        : "/review-inactive.svg"
-                    }
+                    src={star <= rating ? active : inactive}
                     alt="avis"
                   />
                 ))}

@@ -107,6 +107,14 @@
     .actions-row {
       display: flex;
       align-items: center;
+      button {
+        margin: 0;
+        margin-right: 1vw;
+
+        @media screen and (aspect-ratio > 2.6/1) {
+          margin-right: 2.6lvh;
+        }
+      }
       :nth-child(1)label {
         margin-right: 1vw;
         @media screen and (aspect-ratio > 2.6/1) {

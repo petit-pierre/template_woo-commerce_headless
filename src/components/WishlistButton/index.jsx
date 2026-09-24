@@ -9,6 +9,8 @@ import {
 } from "../../slices/wishlistSlice";
 import { showToast } from "../../slices/toastSlice";
 import "./index.css";
+import active from "./favorite-active.svg";
+import inactive from "./favorite-inactive.svg";
 
 export default function WishlistButton({ product }) {
   const dispatch = useDispatch();
@@ -58,7 +60,7 @@ export default function WishlistButton({ product }) {
       aria-label={isWishlisted ? "Retirer des favoris" : "Ajouter aux favoris"}
       title={isWishlisted ? "Retirer des favoris" : "Ajouter aux favoris"}
       onClick={toggleWishlist}
-      src={isWishlisted ? "/favorite-active.svg" : "/favorite-inactive.svg"}
+      src={isWishlisted ? active : inactive}
     />
   );
 }
