@@ -152,7 +152,6 @@
 .header .header-overlay {
   display: none;
 }
-.header.header-hidden .margin,
 .header.header-hidden .content {
   height: 0;
 }
