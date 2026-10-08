@@ -74,7 +74,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/cgu" element={<CGU />} />
           <Route path="/cgv" element={<CGV />} />
           <Route path="/panier" element={<Cart />} />
-          <Route path="*" element={<Error404 />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/blog" element={<BlogPage />} />
@@ -82,6 +81,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/success/:orderId" element={<Success />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="*" element={<Error404 />} />
         </Routes>
         <Footer />
         <Toast />
