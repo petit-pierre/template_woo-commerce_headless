@@ -25,9 +25,9 @@ function headless_register_rate_limit_check()
 
 function headless_register_user($request)
 {
-    if (!headless_register_rate_limit_check()) {
-        return new WP_Error('too_many_requests', 'Trion depuis cette adresse. Reessayez plus tard.', ['status' => 429]);
-    }
+    // if (!headless_register_rate_limit_check()) {
+    //     return new WP_Error('too_many_requests', 'Trop de requêtes depuis cette adresse. Reessayez plus tard.', ['status' => 429]);
+    // }
 
     $username = sanitize_user($request->get_param('username'));
     $email    = sanitize_email($request->get_param('email'));
@@ -50,6 +50,17 @@ function headless_register_user($request)
     if (is_wp_error($user_id)) {
         return new WP_Error('registration_failed', $user_id->get_error_message(), ['status' => 500]);
     }
+
+    $mailer = function_exists('WC') ? WC()->mailer() : null;
+    $emails = $mailer ? $mailer->get_emails() : [];
+
+    if (isset($emails['WC_Email_Customer_New_Account'])) {
+        $emails['WC_Email_Customer_New_Account']->trigger($user_id);
+    } else {
+        error_log("L'e-mail WooCommerce « Nouveau compte » est indisponible.");
+    }
+
+    // ==========================================
 
     $token_request = new WP_REST_Request('POST', '/jwt-auth/v1/token');
     $token_request->set_param('username', $username);

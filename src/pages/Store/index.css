@@ -6,6 +6,7 @@
 .store-page .category-bg {
   position: fixed;
   width: 100%;
+  height: 100%;
   max-width: 260lvh;
   margin: auto;
   -o-object-fit: contain;

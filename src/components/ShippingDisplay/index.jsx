@@ -37,7 +37,7 @@ export default function ShippingDisplay() {
               </p>
             ))}
         </div>
-        <button type="submit">Enregistrer informations</button>
+        <button type="submit">Enregistrer les informations</button>
       </form>
     </div>
   );
