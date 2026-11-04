@@ -6,13 +6,17 @@
     flex-direction: column;
   }
   .auth-form__field input {
-    padding: 0.65rem 0.85rem;
-    border: 1.5px solid var(--dark-color);
+    padding: 0.5vw;
+    @media screen and (aspect-ratio > 2.6/1) {
+      padding: 1lvh;
+    }
+    border: 1px solid var(--dark-color);
     border-radius: 8px;
     transition:
       border-color 0.15s,
       box-shadow 0.15s;
     outline: none;
+    margin-bottom: 0;
   }
   .auth-form__field input:focus {
     border-color: var(--primary-color);

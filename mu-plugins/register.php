@@ -25,9 +25,9 @@ function headless_register_rate_limit_check()
 
 function headless_register_user($request)
 {
-    // if (!headless_register_rate_limit_check()) {
-    //     return new WP_Error('too_many_requests', 'Trop de requêtes depuis cette adresse. Reessayez plus tard.', ['status' => 429]);
-    // }
+    if (!headless_register_rate_limit_check()) {
+        return new WP_Error('too_many_requests', 'Trop de requêtes depuis cette adresse. Reessayez plus tard.', ['status' => 429]);
+    }
 
     $username = sanitize_user($request->get_param('username'));
     $email    = sanitize_email($request->get_param('email'));
