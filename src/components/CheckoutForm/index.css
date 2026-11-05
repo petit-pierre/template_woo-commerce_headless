@@ -96,6 +96,19 @@
   margin-bottom: 0;
   accent-color: var(--primary-color);
 }
+.checkout-form__checkbox input[type=checkbox] {
+  width: 1.5vw;
+  height: 1.5vw;
+  /* Optionnel : ajuste l'alignement vertical par rapport au texte */
+  vertical-align: middle;
+  cursor: pointer;
+}
+@media screen and (aspect-ratio > 2.6/1) {
+  .checkout-form__checkbox input[type=checkbox] {
+    height: 4lvh;
+    width: 4lvh;
+  }
+}
 .checkout-form__checkbox span {
   margin-bottom: 0;
 }

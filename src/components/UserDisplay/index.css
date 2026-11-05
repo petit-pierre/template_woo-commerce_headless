@@ -22,6 +22,25 @@
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2vw;
+  margin-bottom: 1vw;
+}
+.form-container form .input-container input,
+.form-container form .input-container p {
+  margin: 0;
+}
+.form-container form .input-container label {
+  width: 100%;
+}
+@media screen and (aspect-ratio > 1/1) {
+  .form-container form .input-container label {
+    width: 30%;
+  }
+}
+.form-container form .input-container label {
+  display: flex;
+  justify-content: space-between;
 }
 .form-container form .input-container p {
   display: flex;
@@ -31,6 +50,5 @@
 @media screen and (aspect-ratio > 1/1) {
   .form-container form .input-container p {
     justify-content: flex-start;
-    width: auto;
   }
 }/*# sourceMappingURL=index.css.map */

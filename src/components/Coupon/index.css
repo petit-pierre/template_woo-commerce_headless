@@ -42,5 +42,7 @@
 }
 .promo > div {
   margin-top: 2vw;
+}
+.promo > div p {
   color: var(--success-color);
 }/*# sourceMappingURL=index.css.map */

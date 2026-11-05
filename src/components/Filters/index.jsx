@@ -2,7 +2,6 @@ import "./index.css";
 import { useEffect, useState } from "react";
 import { fetchCategoriesThunk } from "../../thunkActionsCreator/categoriesThunks";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductsThunk } from "../../thunkActionsCreator/productsThunks";
 import { setFilters } from "../../slices/filtersSlice";
 import PriceRangeSlider from "../PriceRangeSlider";
 export default function Filters() {
@@ -10,7 +9,6 @@ export default function Filters() {
   const { items: categories, loading: categoriesLoading } = useSelector(
     (state) => state.categories,
   );
-  const { list, loading, error } = useSelector((state) => state.products);
   const filters = useSelector((state) => state.filters);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -34,11 +32,6 @@ export default function Filters() {
     const [orderby, order] = e.target.value.split("-");
     dispatch(setFilters({ orderby, order }));
     setIsOpen(false);
-  };
-
-  const handlePriceChange = (e) => {
-    const { name, value } = e.target;
-    dispatch(setFilters({ [name]: value }));
   };
 
   const handleControlsBlur = (e) => {
@@ -71,7 +64,6 @@ export default function Filters() {
           id="filter-controls"
           className={`filter-controls${isOpen ? " open" : ""}`}
           inert={!isOpen ? "" : undefined}
-          // inert={isOpen ? false : true}
           onBlur={handleControlsBlur}
         >
           <div className="filter-controls-inner">

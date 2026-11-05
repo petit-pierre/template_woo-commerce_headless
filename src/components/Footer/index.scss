@@ -9,6 +9,9 @@
     align-items: flex-start;
     padding: 4vw 3vw;
     gap: 2vw;
+    @media screen and (aspect-ratio > 1/1) {
+      justify-content: flex-start;
+    }
     @media screen and (aspect-ratio > 2.6/1) {
       padding: 10.4lvh 7.8lvh;
       gap: 5.2lvh;

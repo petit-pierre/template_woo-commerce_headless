@@ -26,7 +26,7 @@ export default function BillingDisplay() {
         <div className="input-container">
           {customer &&
             Object.entries(billing).map(([key, value]) => (
-              <p key={key}>
+              <label key={key}>
                 {key} :{" "}
                 <input
                   key={key}
@@ -34,7 +34,7 @@ export default function BillingDisplay() {
                   value={billing[key] || ""}
                   onChange={(e) => handleBillingChange(key, e.target.value)}
                 />
-              </p>
+              </label>
             ))}
         </div>
         <button type="submit">Enregistrer les informations</button>

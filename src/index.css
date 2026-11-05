@@ -137,6 +137,10 @@ select {
   }
 }
 
+input {
+  padding: 0 0.2vw 0 0.2vw;
+}
+
 p,
 ul {
   margin-bottom: 2.6vw;

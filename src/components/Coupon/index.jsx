@@ -48,9 +48,12 @@ export default function Coupon() {
 
       {totals && parseInt(totals.total_discount) > 0 && (
         <div>
-          Réduction: -
-          {(parseInt(totals.total_discount) / 100).toFixed(2) +
-            totals.currency_suffix}
+          <p>Réduction:</p>
+          <p>
+            -
+            {(parseInt(totals.total_discount) / 100).toFixed(2) +
+              totals.currency_suffix}
+          </p>
         </div>
       )}
     </div>

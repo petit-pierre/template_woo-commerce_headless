@@ -4,4 +4,22 @@
   * {
     margin: auto;
   }
+  .confirmation-step {
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+    width: 100%;
+    button {
+      width: 100%;
+      background-color: var(--danger-color);
+      color: var(--white-color);
+      border: none;
+      padding: 2.5vw;
+      border-radius: 2vw;
+      @media screen and (aspect-ratio > 1/1) {
+        padding: 0.7vw 0.9vw;
+        border-radius: 0.5vw;
+      }
+    }
+  }
 }

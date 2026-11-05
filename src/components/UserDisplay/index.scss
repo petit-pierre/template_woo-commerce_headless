@@ -16,13 +16,29 @@
       flex-direction: row;
       justify-content: space-between;
       flex-wrap: wrap;
+      align-items: center;
+      gap: 0.2vw;
+      margin-bottom: 1vw;
+      input,
+      p {
+        margin: 0;
+      }
+      label {
+        width: 100%;
+        @media screen and (aspect-ratio > 1/1) {
+          width: 30%;
+        }
+        display: flex;
+        justify-content: space-between;
+      }
       p {
         display: flex;
         justify-content: space-between;
         width: 100%;
+
         @media screen and (aspect-ratio > 1/1) {
           justify-content: flex-start;
-          width: auto;
+          // width: auto;
         }
       }
     }

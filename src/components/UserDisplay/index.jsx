@@ -42,16 +42,21 @@ export function UserDisplay() {
   };
 
   if (loading) return <Loader size="lg" />;
-  if (error) return <p>{error}</p>;
+  // if (error) return <p>{error}</p>;
   if (!profile) return <p>Aucun profil.</p>;
 
   return (
     <div className="form-container">
+      {error && (
+        <p style={{ color: "red", width: "100%", textAlign: "center" }}>
+          {error}
+        </p>
+      )}
       <form onSubmit={handleUpdateProfile} className="update-form">
         <h3>Profil</h3>
         <div className="input-container">
           <p>Nom d'utilisateur : {profile.username}</p>
-          <p>
+          <label>
             Email :{" "}
             <input
               type="email"
@@ -59,8 +64,8 @@ export function UserDisplay() {
               value={newEmail}
               onChange={(e) => setNewEmail(e.target.value)}
             />
-          </p>
-          <p>
+          </label>
+          <label>
             Prénom :{" "}
             <input
               type="text"
@@ -68,8 +73,8 @@ export function UserDisplay() {
               value={newFirstName}
               onChange={(e) => setNewFirstName(e.target.value)}
             />
-          </p>
-          <p>
+          </label>
+          <label>
             Nom :{" "}
             <input
               type="text"
@@ -77,8 +82,8 @@ export function UserDisplay() {
               value={newLastName}
               onChange={(e) => setNewLastName(e.target.value)}
             />
-          </p>
-          <p>
+          </label>
+          <label>
             Mot de passe :{" "}
             <input
               type="password"
@@ -86,7 +91,7 @@ export function UserDisplay() {
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
             />
-          </p>
+          </label>
         </div>
         <button type="submit" disabled={user.loading}>
           {user.loading ? "Mise a jour..." : "Mettre a jour le profil"}

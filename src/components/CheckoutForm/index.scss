@@ -82,6 +82,18 @@
       margin-bottom: 0;
       accent-color: var(--primary-color);
     }
+    input[type="checkbox"] {
+      width: 1.5vw;
+      height: 1.5vw;
+
+      /* Optionnel : ajuste l'alignement vertical par rapport au texte */
+      vertical-align: middle;
+      cursor: pointer;
+      @media screen and (aspect-ratio > 2.6/1) {
+        height: 4lvh;
+        width: 4lvh;
+      }
+    }
     span {
       margin-bottom: 0;
     }

@@ -26,7 +26,7 @@ export default function ShippingDisplay() {
         <div className="input-container">
           {customer &&
             Object.entries(shipping).map(([key, value]) => (
-              <p key={key}>
+              <label key={key}>
                 {key} :{" "}
                 <input
                   key={key}
@@ -34,7 +34,7 @@ export default function ShippingDisplay() {
                   value={shipping[key] || ""}
                   onChange={(e) => handleShippingChange(key, e.target.value)}
                 />
-              </p>
+              </label>
             ))}
         </div>
         <button type="submit">Enregistrer les informations</button>

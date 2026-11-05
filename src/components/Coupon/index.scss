@@ -39,6 +39,8 @@
   }
   > div {
     margin-top: 2vw;
-    color: var(--success-color);
+    p {
+      color: var(--success-color);
+    }
   }
 }
