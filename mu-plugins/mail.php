@@ -82,8 +82,33 @@ add_action('rest_api_init', function () use ($frontend_url) {
     ]);
 });
 
+function headless_reset_rate_limit_check()
+{
+    $ip  = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'unknown';
+    $key = 'reset_pwd_ip_' . md5($ip);
+
+    $attempts = (int) get_transient($key);
+
+    // Limite à 3 demandes maximum par fenêtre de 15 minutes par IP
+    if ($attempts >= 3) {
+        return false;
+    }
+
+    set_transient($key, $attempts + 1, 15 * MINUTE_IN_SECONDS);
+    return true;
+}
+
 function headless_reset_password($request, $frontend_url)
 {
+
+    if (!headless_reset_rate_limit_check()) {
+        return new WP_Error(
+            'too_many_requests',
+            'Trop de demandes de réinitialisation effectuées depuis cette adresse. Veuillez patienter 15 minutes.',
+            ['status' => 429]
+        );
+    }
+
     $email = sanitize_email($request->get_param('email'));
 
     if (empty($email)) {
