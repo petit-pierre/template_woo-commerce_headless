@@ -4,6 +4,7 @@
   .autocomplete-input {
     padding: 0 2%;
     width: 100%;
+    display: block;
   }
   .autocomplete-suggestions {
     position: absolute;
@@ -17,8 +18,13 @@
     background: #fff;
     border: 1px solid #ddd;
     border-top: none;
-    max-height: 320px;
+    max-height: 70lvh;
     overflow-y: auto;
+    width: 100%;
+    img {
+      max-width: 30%;
+      object-fit: cover;
+    }
   }
   .autocomplete-suggestions li a {
     display: flex;
@@ -27,13 +33,9 @@
     padding: 0.5rem 0.8rem;
     text-decoration: none;
     color: inherit;
+    width: 100%;
   }
   .autocomplete-suggestions li a:hover {
     background: var(--primary-color);
-  }
-  .autocomplete-suggestions li img {
-    width: 36px;
-    height: 36px;
-    object-fit: cover;
   }
 }
