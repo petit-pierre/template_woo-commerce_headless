@@ -1,12 +1,11 @@
 <?php
 
+$frontend_url = FRONTEND_URL;
+
 /**
  * Plugin Name: L'Araignee - Headless Bridge & Mail Config
  * Description: Centralise l'identité des e-mails, les redirections front-end et l'API de réinitialisation de mot de passe.
  */
-
-// 1. Définition unique de l'URL de ton application front-end
-$frontend_url = 'https://l-araignee.net/ecom';
 
 // ==========================================
 // 2. REDIRECTIONS DES LIENS WOOCOMMERCE

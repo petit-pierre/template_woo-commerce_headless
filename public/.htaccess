@@ -3,6 +3,10 @@
   # RewriteBase /ecom/
   RewriteBase /
 
+  # Redirige le sitemap de l'e-commerce vers le sitemap produit de WordPress
+  RewriteRule ^sitemap-products\.xml$ https://l-araignee.net/wooc/wp-sitemap-posts-product-1.xml [R=301,L]
+  RewriteRule ^sitemap-blog\.xml$ https://l-araignee.net/wooc/wp-sitemap-posts-post-1.xml [R=301,L]
+
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]

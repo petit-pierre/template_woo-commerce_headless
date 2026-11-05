@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Pages privées ou sensibles à ne pas indexer
+Disallow: /profile
+Disallow: /panier
+Disallow: /wishlist
+
+# Indique l'emplacement de ton sitemap
+Sitemap: https://l-araignee.net/sitemap.xml
