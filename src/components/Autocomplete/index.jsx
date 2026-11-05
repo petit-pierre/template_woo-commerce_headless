@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilters } from "../../slices/filtersSlice";
@@ -6,7 +6,7 @@ import { fetchProductsThunk } from "../../thunkActionsCreator/productsThunks";
 import "./index.css";
 import { decodeHtml } from "../../utils/decodeHtml";
 
-export default function Autocomplete() {
+export default function Autocomplete({ setMenuOpen }) {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -14,6 +14,10 @@ export default function Autocomplete() {
   const [focused, setFocused] = useState(false);
   const filters = useSelector((state) => state.filters);
   const { list, loading, error } = useSelector((state) => state.products);
+
+  // Référence vers l'input pour pouvoir manipuler son focus
+  const inputRef = useRef(null);
+
   useEffect(() => {
     dispatch(fetchProductsThunk({ ...filters, page: 1, per_page: 20 }));
   }, [filters, dispatch]);
@@ -35,11 +39,19 @@ export default function Autocomplete() {
 
   const handleSelect = () => {
     dispatch(setFilters({ search: "" }));
+    setFocused(false); // Passe l'état à false pour masquer immédiatement les suggestions
+    if (inputRef.current) {
+      inputRef.current.blur(); // Retire le focus natif de l'input
+    }
+    setMenuOpen(false);
   };
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       setFocused(false);
+      if (inputRef.current) {
+        inputRef.current.blur();
+      }
       navigate("/catalogue");
     }
   };
@@ -47,6 +59,7 @@ export default function Autocomplete() {
   return (
     <div className="autocomplete">
       <input
+        ref={inputRef} // On associe la référence ici
         type="search"
         className="autocomplete-input"
         placeholder="Rechercher..."
@@ -60,7 +73,7 @@ export default function Autocomplete() {
         aria-label="Rechercher"
       />
 
-      {focused && list.data.length > 0 && (
+      {focused && list?.data?.length > 0 && (
         <ul
           className="autocomplete-suggestions"
           onMouseDown={(e) => e.preventDefault()}

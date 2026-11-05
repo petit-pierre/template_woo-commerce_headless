@@ -100,7 +100,7 @@ export default function Header() {
             </nav>
             <div className="header-actions">
               <div className="header-search">
-                <Autocomplete />
+                <Autocomplete setMenuOpen={setMenuOpen} />
                 <Link
                   to="/catalogue"
                   className="header-icon"

@@ -33,8 +33,6 @@ export function OrderAll() {
 
                   <p>{order.status}</p>
                 </div>
-
-                {/* <button type="button" onClick={() => setOpened(order.id)}> */}
                 <button type="button" onClick={() => handleSubmit(order.id)}>
                   Voir plus
                 </button>

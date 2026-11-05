@@ -30,7 +30,7 @@
   color: inherit;
 }
 .autocomplete .autocomplete-suggestions li a:hover {
-  background: #f5f5f5;
+  background: var(--primary-color);
 }
 .autocomplete .autocomplete-suggestions li img {
   width: 36px;

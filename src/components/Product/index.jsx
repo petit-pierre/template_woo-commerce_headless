@@ -5,7 +5,7 @@ import { addProductToCart } from "../../thunkActionsCreator/cartThunks";
 import { showToast } from "../../slices/toastSlice";
 import AverageRating from "../AverageRating";
 import Seo from "../Seo";
-import WishlistButton from "../WishlistButton"; // TEMP: wishlist testing, remove before commit
+import WishlistButton from "../WishlistButton";
 import { decodeHtml } from "../../utils/decodeHtml.js";
 
 import "./index.css";
@@ -89,7 +89,7 @@ export default function Product({ product }) {
               ? (parseFloat(product.prices.price) / 100).toFixed(2)
               : undefined,
             availability:
-              product.stock_status === "instock"
+              product.is_in_stock === true
                 ? "https://schema.org/InStock"
                 : "https://schema.org/OutOfStock",
           },

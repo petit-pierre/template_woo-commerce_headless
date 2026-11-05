@@ -1,7 +1,7 @@
 import { addProductToCart } from "../../thunkActionsCreator/cartThunks";
 import { showToast } from "../../slices/toastSlice";
 import { useDispatch } from "react-redux";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import WishlistButton from "../WishlistButton";
 import "./index.css";
@@ -54,7 +54,7 @@ export default function ProductCard({ product }) {
     setItemVariation(defaults);
   }, [product]);
 
-  const truncateWords = (str, max = 20) => {
+  const truncateWords = (str, max = 35) => {
     if (!str) return "-";
     if (str.length <= max) return str;
     const sub = str.slice(0, max);
@@ -77,8 +77,8 @@ export default function ProductCard({ product }) {
         />
         <h4
           dangerouslySetInnerHTML={{
-            __html: product.name || "-",
-            /* __html: truncateWords(product.name) || "-", */
+            // __html: product.name || "-",
+            __html: truncateWords(product.name) || "-",
           }}
         />
         <p className="brand-title">{product.brands?.[0]?.name} </p>
